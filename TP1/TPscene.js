@@ -22,7 +22,8 @@ class TPscene extends CGFscene
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis=new CGFaxis(this);
-        this.obj = new MyObject(this);
+        this.obj=new MyTable(this); 
+        this.obj2=new MyFloor(this);
 
 
         // NOTE: OpenGL transformation matrices are transposed
@@ -104,32 +105,9 @@ class TPscene extends CGFscene
 
         
         // ---- BEGIN Geometric transformation section
-        
-        this.deg2rad=Math.PI/180.0;
-        var a_rad = 30.0 * this.deg2rad;
-
-        // Multiplication of the previous transformations
-        //this.multMatrix(this.tra);       // GT = GT * tra
-        //this.multMatrix(this.rot);     // GT = GT * rot
-        //this.multMatrix(this.sca);     // GT = GT * sca
-        
-        this.pushMatrix();
-
-        this.translate(0,5,0);
+        this.translate(4,0,3);
         this.obj.display();
-        
-        this.popMatrix();
-        //this.rotate(a_rad,0,1,0);
-        this.scale(5,2,1);
-        this.translate(5,0,2);
-
-
-        // ---- END Geometric transformation section
-        
-
-        // ---- BEGIN Primitive drawing section
-
-        this.obj.display();
+        this.obj2.display();
         
         // ---- END Primitive drawing section
 
