@@ -33,6 +33,7 @@ class LightingScene extends CGFscene
 		this.table = new MyTable(this);
 		this.wall = new Plane(this);
 		this.floor = new MyQuad(this);
+		this.prism = new MyPrism(this,6,19);
 		
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
@@ -72,20 +73,20 @@ class LightingScene extends CGFscene
 
 	initLights() 
 	{
-		//this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+		this.setGlobalAmbientLight(0.3,0.3,0.3, 1);
 		
 		// Positions for four lights
 		this.lights[0].setPosition(4, 6, 1, 1);
-		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
+		//this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 		
 		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
-		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
+		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
 		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
+		//this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 
 		this.lights[3].setPosition(4, 6, 5, 1);
-		this.lights[3].setVisible(true)
+		//this.lights[3].setVisible(true)
 		
 		//this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
@@ -147,7 +148,7 @@ class LightingScene extends CGFscene
 		this.applyViewMatrix();
 
 		// Update all lights used
-		//this.updateLights();
+		this.updateLights();
 
 		// Draw axis
 		this.axis.display();
@@ -155,6 +156,10 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		// ---- END Background, camera and axis setup
+		this.pushMatrix();
+		//this.rotate(-90*degToRad,1,0,0);
+		this.prism.display();
+		this.popMatrix();
 
 		// ---- BEGIN Scene drawing section
 		/*
