@@ -157,7 +157,7 @@ class LightingScene extends CGFscene
 
 		// ---- END Background, camera and axis setup
 		this.pushMatrix();
-		//this.rotate(-90*degToRad,1,0,0);
+		this.rotate(-90*degToRad,1,0,0);
 		this.prism.display();
 		this.popMatrix();
 
