@@ -19,24 +19,28 @@ class MyPrism extends CGFobject
 	initBuffers() 
 	{
 		var alpha = 2*Math.PI/this.slices;
+		var beta = alpha/2;
 		this.vertices = [];
 		this.normals = [];
 		this.indices = [];
 		var ind = 0;
+		var a, b, z;
 
-
-		for(var i = 0; i < 2*Math.PI; i += alpha)
+		for(var i = 0; i < this.slices; i ++)
 		{
-			for(var j = 0; j <= 1; j+= 1.0/this.stacks)
+			z = 0;
+
+			for(var j = 0; j <= this.stacks; j++)
 			{
-				this.vertices.push(Math.cos(i),Math.sin(i),j);
-				this.normals.push(Math.cos((i + alpha)/2), Math.sin((i + alpha)/2), 0);
-				this.vertices.push(Math.cos(i + alpha),Math.sin(i + alpha),j);
-				this.normals.push(Math.cos((i + alpha)/2), Math.sin((i + alpha)/2), 0);
+				this.vertices.push(Math.cos(i*alpha),Math.sin(i*alpha),z);
+				this.normals.push(Math.cos((i*alpha) + beta), Math.sin((i*alpha) + beta), 0);
+				this.vertices.push(Math.cos((i*alpha) + alpha),Math.sin((i*alpha) + alpha),z);
+				this.normals.push(Math.cos((i*alpha) + beta), Math.sin((i*alpha) + beta), 0);
+				z += 1/this.stacks;
 			}
 			
-			var a = 1;
-			var b = 2;
+			a = 1;
+			b = 2;
 			
 			for(var c = 0; c < this.stacks; c++)
 			{
@@ -48,6 +52,7 @@ class MyPrism extends CGFobject
 		}
 		
 		console.log(this.vertices.length);	
+		console.log(this.indices.length);
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};

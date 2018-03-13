@@ -33,7 +33,7 @@ class LightingScene extends CGFscene
 		this.table = new MyTable(this);
 		this.wall = new Plane(this);
 		this.floor = new MyQuad(this);
-		this.prism = new MyPrism(this,6,19);
+		this.prism = new MyPrism(this,8,20);
 		
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
