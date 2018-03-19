@@ -51,8 +51,8 @@ class MyPrism extends CGFobject
 			ind += 2;
 		}
 		
-		console.log(this.vertices.length);	
-		console.log(this.indices.length);
+		/*console.log(this.vertices.length);	
+		console.log(this.indices.length);*/
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
