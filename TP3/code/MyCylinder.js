@@ -19,32 +19,32 @@ class MyCylinder extends CGFobject
 	initBuffers() 
 	{
 		var alpha = 2*Math.PI/this.slices;
-		var beta = alpha/2;
 		this.vertices = [];
 		this.normals = [];
 		this.indices = [];
-		var ind = 0;
-		var a, b, c, z;
+		
+		var z = 0;
 
-		for(var i = 0; i <= this.stacks; i ++)
+		for(let i = 0; i <= this.stacks; i ++)
 		{
-			z += 1/this.stacks;
-
 			for(var j = 0; j < this.slices; j++)
 			{
-				this.vertices.push(Math.cos(i*alpha),Math.sin(i*alpha),z);
-				this.normals.push(Math.cos(i*alpha), Math.sin(i*alpha), 0);
+				this.vertices.push(Math.cos(j*alpha),Math.sin(j*alpha),z);
+				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), 0);
 			}	
-		}
 
+			z += 1/this.stacks;
+		}
+		
 		var ind = 0;
-		for(var i = 0; i < this.stacks;i++)
+
+		for(let i = 0; i < this.stacks;i++)
 		{
-			for(var j = 0; j < this.slices; j++)
+			for(let j = 0; j < this.slices; j++)
 			{	
 				if(j != this.slices -1 )
 				{
-					this.indices.push(ind, ind +1, ind + this.slices);
+					this.indices.push(ind, ind + 1, ind + this.slices);
 					this.indices.push(ind + this.slices, ind +1, ind + this.slices + 1);
 				}
 				else

@@ -34,7 +34,7 @@ class LightingScene extends CGFscene
 		this.wall = new Plane(this);
 		this.floor = new MyQuad(this);
 		this.prism = new MyPrism(this,8,20);
-		this.cylinder = new MyCylinder(this,4,1);
+		this.cylinder = new MyCylinder(this,8,20);
 
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
@@ -159,8 +159,8 @@ class LightingScene extends CGFscene
 		// ---- END Background, camera and axis setup
 		this.pushMatrix();
 		this.rotate(-90*degToRad,1,0,0);
-		//this.prism.display();
-		//this.translate(3,0,0);
+		this.prism.display();
+		this.translate(3,0,0);
 		this.cylinder.display();
 		this.popMatrix();
 
