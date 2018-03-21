@@ -29,7 +29,7 @@ class MyCylinder extends CGFobject
 		{
 			for(var j = 0; j < this.slices; j++)
 			{
-				this.vertices.push(Math.cos(j*alpha),Math.sin(j*alpha),z);
+				this.vertices.push(Math.cos(j*alpha) ,Math.sin(j*alpha),z);
 				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), 0);
 			}	
 
@@ -56,10 +56,6 @@ class MyCylinder extends CGFobject
 				ind++;
 			}
 		}
-
-		console.log(this.vertices.length);	
-		console.log(this.normals.length);
-		console.log(this.indices.length);
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
