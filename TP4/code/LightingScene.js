@@ -18,7 +18,7 @@ class LightingScene extends CGFscene
 		super.init(application);
 
 		this.initCameras();
-
+		this.enableTextures(true);
 		this.initLights();
 
 		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -31,8 +31,9 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.table = new MyTable(this);
-		this.wall = new Plane(this);
-		this.floor = new MyQuad(this);
+		this.leftwall = new MyQuad(this, -1.0, -1.0, 1.0, 1.0);
+		this.rightwall = new Plane(this);
+		this.floor = new MyQuad(this,0.0,10.0,0.0,12.0);
 		this.prism = new MyPrism(this,8,20);
 		this.cylinder = new MyCylinder(this,8,20);
 		this.lamp = new MyLamp(this, 20, 20);
@@ -66,6 +67,16 @@ class LightingScene extends CGFscene
 		this.materialFloor.setDiffuse(0,0.5,0.5,1);
 		this.materialFloor.setSpecular(0,0,1,1);	
 		this.materialFloor.setShininess(10);
+
+		//Textures
+		this.floorAppearance = new CGFappearance(this);
+		this.floorAppearance.loadTexture("../resources/images/floor.png");
+		this.floorAppearance.setTextureWrap('REPEAT','REPEAT');
+		
+		this.windowAppearance = new CGFappearance(this);
+		this.windowAppearance.loadTexture("../resources/images/window.png")
+		this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+
 	};
 
 	initCameras() 
@@ -174,6 +185,7 @@ class LightingScene extends CGFscene
 			this.rotate(-90 * degToRad, 1, 0, 0);
 			this.scale(15, 15, 0.2);
 			this.materialFloor.apply();
+			this.floorAppearance.apply();
 			this.floor.display();
 		this.popMatrix();
 
@@ -183,14 +195,15 @@ class LightingScene extends CGFscene
 			this.rotate(90 * degToRad, 0, 1, 0);
 			this.scale(15, 8, 0.2);
 			this.materialWall.apply();
-			this.wall.display();
+			this.windowAppearance.apply();
+			this.leftwall.display();
 		this.popMatrix();
 
 		// Plane Wall
 		this.pushMatrix();
 			this.translate(7.5, 4, 0);
 			this.scale(15, 8, 0.2);
-			this.wall.display();
+			this.rightwall.display();
 		this.popMatrix();
 
 		// First Table

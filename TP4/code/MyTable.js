@@ -22,6 +22,13 @@ class MyTable extends CGFobject
 		this.materialMetal.setDiffuse(0.73,0.77,0.8,0.5);
 		this.materialMetal.setSpecular(0.9,0.92,1,1);
 		this.materialMetal.setShininess(120); 
+
+		//Textures
+		this.tableAppearance = new CGFappearance(this.scene);
+		this.tableAppearance.setDiffuse(1,1,1,1);
+		this.tableAppearance.setSpecular(0.2,0.2,0.2,0.2);
+		this.tableAppearance.setShininess(10);
+		this.tableAppearance.loadTexture("../resources/images/table.png");
 	};
 
 	display()
@@ -61,6 +68,7 @@ class MyTable extends CGFobject
         this.scene.scale(5,0.3,3);
         this.scene.translate(0,12,0);
         this.materialWood.apply();
+        this.tableAppearance.apply();
         this.cube.display();
         this.scene.popMatrix();
 
