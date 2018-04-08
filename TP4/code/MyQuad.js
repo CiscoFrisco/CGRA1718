@@ -6,20 +6,16 @@
 
 class MyQuad extends CGFobject
 {
-	constructor(scene, minS, maxS, minT, maxT) 
+	constructor(scene, minS = 0, maxS = 1, minT= 0, maxT=1) 
 	{
 		super(scene);
-		this.initBuffers();
-
-		minS = typeof minS !== 'undefined' ? minS : 0;
-		maxS = typeof maxS !== 'undefined' ? maxS : 1;
-		minT = typeof minT !== 'undefined' ? minT : 0;
-		maxT = typeof maxT !== 'undefined' ? maxT : 1;
 
 		this.minS = minS;
 		this.maxS = maxS;
 		this.minT = minT;
 		this.maxT = maxT;
+
+		this.initBuffers();
 	};
 
 	initBuffers() 
@@ -36,14 +32,13 @@ class MyQuad extends CGFobject
 				3, 2, 1,
 			];
 
-		
+
 		this.texCoords = [
-			0,0,
-			0,1,
-			1,1,
-			1,0
-		];
-		
+			this.maxS, this.maxT,
+			this.minS, this.maxT,
+			this.maxS, this.minT,
+			this.minS, this.minT
+		];		
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;
 

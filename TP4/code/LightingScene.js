@@ -31,7 +31,7 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.table = new MyTable(this);
-		this.leftwall = new MyQuad(this, -1.0, -1.0, 1.0, 1.0);
+		this.leftwall = new MyQuad(this, -1.0, 2.0, -1.0, 2.0);
 		this.rightwall = new Plane(this);
 		this.floor = new MyQuad(this,0.0,10.0,0.0,12.0);
 		this.prism = new MyPrism(this,8,20);
@@ -101,6 +101,8 @@ class LightingScene extends CGFscene
 		this.lights[3].setPosition(4, 6, 5, 1);
 		//this.lights[3].setVisible(true)
 		
+		this.lights[4].setPosition(0.1, 4, 7, 1);
+		//this.lights[4].setVisible(true);
 		//this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 		//this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
@@ -122,6 +124,10 @@ class LightingScene extends CGFscene
 		this.lights[3].setAmbient(0, 0, 0, 1);
 		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[3].setSpecular(1.0,1.0,0.0,1.0);
+		
+		this.lights[4].setAmbient(0, 0, 0, 1);
+		this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[4].setSpecular(1.0,1.0,1.0,1.0);
 
 		//Attenuation
 		this.lights[2].setConstantAttenuation(0);
@@ -132,8 +138,14 @@ class LightingScene extends CGFscene
 		this.lights[3].setLinearAttenuation(0);
 		this.lights[3].setQuadraticAttenuation(1);
 
+		this.lights[4].setConstantAttenuation(0);
+		this.lights[4].setLinearAttenuation(0);
+		this.lights[4].setQuadraticAttenuation(1);
+
 		this.lights[2].enable();
 		this.lights[3].enable();
+		this.lights[4].enable();
+
 
 
 	};
