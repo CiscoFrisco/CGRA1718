@@ -6,12 +6,17 @@
 
 class MyCylinder extends CGFobject
 {
-	constructor(scene, slices, stacks) 
+	constructor(scene, slices, stacks, minS = 0, maxS = 1, minT = 0, maxT = 1) 
 	{
 		super(scene);
 
 		this.slices = slices;
 		this.stacks = stacks;
+
+		this.minS = minS;
+		this.maxS = maxS;
+		this.minT = minT;
+		this.maxT = maxT;
 
 		this.initBuffers();
 	};
@@ -22,8 +27,12 @@ class MyCylinder extends CGFobject
 		this.vertices = [];
 		this.normals = [];
 		this.indices = [];
+		this.texCoords = [];
 		
 		var z = 0;
+		var incS = (this.maxS - this.minS)/this.slices;
+		var incT = (this.maxT - this.minT)/this.stacks;
+
 
 		for(let i = 0; i <= this.stacks; i ++)
 		{
@@ -31,6 +40,7 @@ class MyCylinder extends CGFobject
 			{
 				this.vertices.push(Math.cos(j*alpha) ,Math.sin(j*alpha),z);
 				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), 0);
+				this.texCoords.push(this.minS + incS*j,this.minT + incT*i);
 			}	
 
 			z += 1/this.stacks;
@@ -56,6 +66,8 @@ class MyCylinder extends CGFobject
 				ind++;
 			}
 		}
+
+
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};

@@ -31,14 +31,14 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.table = new MyTable(this);
-		this.leftwall = new MyQuad(this, -1.0, 2.0, -1.0, 2.0);
+		this.leftwall = new MyQuad(this, -1.0, 2.0, -0.5, 1.5);
 		this.rightwall = new Plane(this);
 		this.floor = new MyQuad(this,0.0,10.0,0.0,12.0);
 		this.prism = new MyPrism(this,8,20);
-		this.cylinder = new MyCylinder(this,8,20);
+		this.cylinder = new MyCylinder(this,4,4);
 		this.lamp = new MyLamp(this, 20, 20);
 
-		this.boardA = new Plane(this, BOARD_A_DIVISIONS);
+		this.boardA = new Plane(this, BOARD_A_DIVISIONS, -0.25, 1.25);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 
 		// Materials
@@ -76,7 +76,26 @@ class LightingScene extends CGFscene
 		this.windowAppearance = new CGFappearance(this);
 		this.windowAppearance.loadTexture("../resources/images/window.png")
 		this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+		
+		this.slidesAppearance = new CGFappearance(this);
+		this.slidesAppearance.loadTexture("../resources/images/slides.png");
+		this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+		this.slidesAppearance.setDiffuse(1,1,1,1);
+		this.slidesAppearance.setSpecular(0,0,0,0.1);
+		this.slidesAppearance.setShininess(0,0,0,0.1);
 
+		this.boardAppearance = new CGFappearance(this);
+		this.boardAppearance.loadTexture("../resources/images/board.png");
+		this.boardAppearance.setDiffuse(1,1,1,0.4);
+		this.boardAppearance.setSpecular(0,0,0,0.5);
+		this.boardAppearance.setShininess(0,0,0,1);
+
+		this.columnAppearance = new CGFappearance(this);
+		this.columnAppearance.loadTexture("../resources/images/board.png");
+		this.columnAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+		this.columnAppearance.setDiffuse(1,1,1,0.4);
+		this.columnAppearance.setSpecular(0,0,0,0.5);
+		this.columnAppearance.setShininess(0,0,0,1);
 	};
 
 	initCameras() 
@@ -103,6 +122,7 @@ class LightingScene extends CGFscene
 		
 		this.lights[4].setPosition(0.1, 4, 7, 1);
 		//this.lights[4].setVisible(true);
+		
 		//this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 		//this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
@@ -125,7 +145,7 @@ class LightingScene extends CGFscene
 		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[3].setSpecular(1.0,1.0,0.0,1.0);
 		
-		this.lights[4].setAmbient(0, 0, 0, 1);
+		this.lights[4].setAmbient(1.0, 1.0, 1.0, 1.0);
 		this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[4].setSpecular(1.0,1.0,1.0,1.0);
 
@@ -138,15 +158,11 @@ class LightingScene extends CGFscene
 		this.lights[3].setLinearAttenuation(0);
 		this.lights[3].setQuadraticAttenuation(1);
 
-		this.lights[4].setConstantAttenuation(0);
-		this.lights[4].setLinearAttenuation(0);
-		this.lights[4].setQuadraticAttenuation(1);
-
 		this.lights[2].enable();
 		this.lights[3].enable();
 		this.lights[4].enable();
 
-
+		console.log(this.lights.length);
 
 	};
 
@@ -184,10 +200,17 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 		this.translate(8,8,8);
 		this.rotate(90*degToRad,1,0,0);		
-				this.lamp.display();
-		//this.prism.display();
-		//this.cylinder.display();
+		this.lamp.display();
 		this.popMatrix();
+
+		this.pushMatrix();
+			this.scale(1,8,1);
+			this.translate(8,1,14);
+			this.rotate(90*degToRad,1,0,0);
+			this.columnAppearance.apply();
+			this.cylinder.display();
+		this.popMatrix();
+
 
 		// ---- BEGIN Scene drawing section
 		
@@ -215,6 +238,7 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 			this.translate(7.5, 4, 0);
 			this.scale(15, 8, 0.2);
+			this.materialWall.apply();
 			this.rightwall.display();
 		this.popMatrix();
 
@@ -235,6 +259,7 @@ class LightingScene extends CGFscene
 			this.translate(4, 4.5, 0.2);
 			this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 			this.materialA.apply();
+			this.slidesAppearance.apply();
 			this.boardA.display();
 		this.popMatrix();
 
@@ -242,8 +267,8 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 			this.translate(10.5, 4.5, 0.2);
 			this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-			
 			this.materialB.apply();
+			this.boardAppearance.apply();
 			this.boardB.display();
 		this.popMatrix();
 
