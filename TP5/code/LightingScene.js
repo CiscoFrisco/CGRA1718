@@ -41,6 +41,7 @@ class LightingScene extends CGFscene
 
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS, -0.25, 1.25);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
+		this.airplane = new MyPaperAirplane(this);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -283,6 +284,13 @@ class LightingScene extends CGFscene
 		this.pushMatrix()
 			this.translate(7.25 ,7.25,0.1);
 			this.clock.display();
+		this.popMatrix();
+
+	//Airplane
+		this.pushMatrix()
+			this.translate(14,3.8,8);
+			this.rotate(-Math.PI/2.0,0,1,0)
+			this.airplane.display();
 		this.popMatrix();
 	
 		// ---- END Scene drawing section	
