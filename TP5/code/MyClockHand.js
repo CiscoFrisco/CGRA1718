@@ -25,7 +25,6 @@ class MyClockHand extends CGFobject
         this.scene.rotate(-Math.PI/2,1,0,0);
         this.hand.display();     	
         this.scene.popMatrix();
-        console.log(this.angle);
 	};
 
 	setAngle(angle)
