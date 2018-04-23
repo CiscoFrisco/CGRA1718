@@ -19,16 +19,18 @@ class MyPaperAirplane extends CGFobject
 		this.Z = initZ;
 
 
-		this.v0 = 15;
-		this.gravity = 9.8;
+		this.v0 = 5;
+		this.gravity = 1.8;
 		this.angle = Math.PI/6;
 		this.rotAngle = -Math.PI/6;
 		this.otherAngle = this.rotAngle;
 		this.v0x = this.v0*Math.cos(this.angle);
 		this.v0y = this.v0*Math.sin(this.angle);
-		this.dt = 0.01;
+		this.dt = 0.1;
 		this.t = 0;
 
+		this.rotDown = 0.005;
+		this.rotPlane = 0.007;
 		this.initBuffers();
 	};
 
@@ -69,25 +71,24 @@ class MyPaperAirplane extends CGFobject
 		this.initGLBuffers();
 	};
 
-	fly()
+	fly(deltaTime)
 	{	
 		if(this.Y >= 0)
 		{
 			if(this.X<=0.2)
 			{
-				this.setPos(this.X, this.Y-0.05*this.t, this.Z);
-				this.rotAngle-=this.dt;
+				this.setPos(this.X, this.Y-0.01*deltaTime, this.Z);
+				this.rotAngle-=deltaTime*this.rotDown;
 
 			}
 			else
 			{
-				this.setPos(this.initX - this.v0x*this.t,
-				this.initY + this.v0y*this.t - 0.5*this.gravity*this.t*this.t,
+				this.setPos(this.initX - this.v0x*deltaTime,
+				this.initY + this.v0y*deltaTime - 0.5*this.gravity*deltaTime*deltaTime,
 				this.Z);
-				this.rotAngle+=this.dt;
+				this.rotAngle+=deltaTime*this.rotPlane;
 
 			}
-			this.t += this.dt;
 		}
 	};
 

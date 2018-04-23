@@ -97,8 +97,10 @@ class LightingScene extends CGFscene
 		this.columnAppearance.setDiffuse(1,1,1,0.4);
 		this.columnAppearance.setSpecular(0,0,0,0.5);
 		this.columnAppearance.setShininess(0,0,0,1);
-
-		this.setUpdatePeriod(20);
+		
+		this.fps = 60;
+		this.setUpdatePeriod(1000/this.fps);
+		this.time = 0;
 	};
 
 	initCameras() 
@@ -297,11 +299,14 @@ class LightingScene extends CGFscene
 
 	update(currTime)
 	{	
+	if(this.time == 0)
+		this.time = currTime;
+
 		this.lastTime=this.lastTime || 0;
 		this.deltaTime=currTime-this.lastTime;
+
 		this.lastTime = currTime;
 		this.clock.update(this.deltaTime);
-		
-		this.airplane.fly();
+		this.airplane.fly((currTime-this.time)*0.001);
 	};
 };
