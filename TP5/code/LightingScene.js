@@ -288,7 +288,7 @@ class LightingScene extends CGFscene
 	//Airplane
 		this.pushMatrix()
 			this.translate(this.airplane.X,this.airplane.Y,this.airplane.Z);
-			this.rotate(this.airplane.rotAngle,0, 0, 1);
+			//this.rotate(this.airplane.rotAngle,0, 0, 1);
 			this.airplane.display();
 		this.popMatrix();
 	
