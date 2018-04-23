@@ -41,8 +41,7 @@ class LightingScene extends CGFscene
 
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS, -0.25, 1.25);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
-		this.airplane = new MyPaperAirplane(this);
-		this.airplane.setPos(14,3.8,8);
+		this.airplane = new MyPaperAirplane(this, 14, 3.8, 8);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 		
@@ -289,7 +288,7 @@ class LightingScene extends CGFscene
 	//Airplane
 		this.pushMatrix()
 			this.translate(this.airplane.X,this.airplane.Y,this.airplane.Z);
-			//this.rotate(this.airplane.angle,this.airplane.rotX, this.airplane.rotY, this.airplane.rotZ);
+			this.rotate(this.airplane.rotAngle,0, 0, 1);
 			this.airplane.display();
 		this.popMatrix();
 	
@@ -302,7 +301,7 @@ class LightingScene extends CGFscene
 		this.deltaTime=currTime-this.lastTime;
 		this.lastTime = currTime;
 		this.clock.update(this.deltaTime);
-
+		
 		this.airplane.fly();
 	};
 };

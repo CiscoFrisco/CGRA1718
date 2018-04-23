@@ -6,27 +6,28 @@
 
 class MyPaperAirplane extends CGFobject
 {
-	constructor(scene) 
+	constructor(scene, initX, initY, initZ) 
 	{
 		super(scene);
 
-		this.X = 14;
-		this.Y = 3.8;
-		this.Z = 8;
+		this.initX = initX;
+		this.initY = initY;
+		this.initZ = initZ;
 
-		this.mass = 0.01;
-		this.gravity = 0.8;
-		this.F = this.mass*this.gravity;
+		this.X = initX;
+		this.Y = initY;
+		this.Z = initZ;
+
+
+		this.v0 = 15;
+		this.gravity = 9.8;
+		this.angle = Math.PI/6;
+		this.rotAngle = -Math.PI/6;
+		this.otherAngle = this.rotAngle;
+		this.v0x = this.v0*Math.cos(this.angle);
+		this.v0y = this.v0*Math.sin(this.angle);
 		this.dt = 0.01;
 		this.t = 0;
-
-		this.initVelX = -0.1;
-		this.initVelY = -0.1;
-
-		this.angle = 0;
-
-		this.velX = -Math.cos(this.angle)*this.initVelX;
-		this.velY = Math.sin(this.angle)*this.initVelY;
 
 		this.initBuffers();
 	};
@@ -69,26 +70,38 @@ class MyPaperAirplane extends CGFobject
 	};
 
 	fly()
-	{
+	{	
 		if(this.Y >= 0)
 		{
-			this.setVel(this.velX - (this.F/this.mass)*this.dt,
-						this.velY + (this.F/this.mass)*this.dt,
-						0);
-			
-			this.setPos(this.X + this.velX*this.dt/this.mass, 
-						this.Y + this.velY*this.dt/this.mass, 
-						this.Z);
+			if(this.X<=0.2)
+			{
+				this.setPos(this.X, this.Y-0.1*this.t, this.Z);
+			}
+			else
+			{
+				this.setPos(this.initX - this.v0x*this.t,
+				this.initY + this.v0y*this.t - 0.5*this.gravity*this.t*this.t,
+				this.Z);
 
-			//this.angle += 0.01;
+			}
 			this.t += this.dt;
+			this.rotAngle+=0.01;
+			this.otherAngle = this.rotAngle;
 
-			//if(this.X <= 0)
-			//{
-			//	this.setVel(0,this.Y + this.velY*this.dt/this.mass,0);
-			//}
 		}
 	};
+
+	display()
+	{
+		super.display();
+		if(this.X <=0.2 && this.Y>=0.2)
+		{
+			this.otherAngle -= 0.01;
+			this.scene.rotate(this.otherAngle,0,0,1)
+		}
+		else
+			this.scene.rotate(this.rotAngle,0, 0, 1);
+	}
 
 	setPos(x,y,z)
 	{
@@ -97,13 +110,4 @@ class MyPaperAirplane extends CGFobject
 		this.Z = z;
 
 	};
-
-	setVel(x,y,z)
-	{
-		this.velX = x;
-		this.velY = y;
-		this.velZ = z;	
-	};
-
-
 };
