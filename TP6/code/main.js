@@ -11,13 +11,15 @@ serialInclude([
 	'MyPrism.js', 
 	'MyCylinder.js', 
 	'MyLamp.js',
-	'MyClock.js',
 	'MyPoligon.js',
+	'MyInterface.js',
+	'MyTrapeze.js',
+	'My3DTrapeze.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);
 		var myScene = new LightingScene();
-		var myInterface = new CGFinterface();
+		var myInterface = new MyInterface();
 
 		app.init();
 
