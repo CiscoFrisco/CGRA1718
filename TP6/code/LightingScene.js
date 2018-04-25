@@ -28,8 +28,9 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		
-		this.trapeze = new My3DTrapeze(this);
-
+		//this.trapeze = new My3DTrapeze(this);
+		//this.cylinder = new MyCylinderRound(this, 20, 20);
+		this.wheel = new MyWheel(this,20,20, 60);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 		
@@ -93,8 +94,10 @@ class LightingScene extends CGFscene
 		// ---- BEGIN Scene drawing section
 
 		this.pushMatrix();
-		this.scale(2,1,1);
-		this.trapeze.display();
+		//this.scale(2,1,1);
+		//this.trapeze.display();
+		//this.cylinder.display();
+		this.wheel.display();
 		this.popMatrix();
 
 

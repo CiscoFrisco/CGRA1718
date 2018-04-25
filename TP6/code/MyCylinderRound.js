@@ -1,10 +1,10 @@
 /**
- * MyCylinder
+ * MyCylinderRound
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
-class MyCylinder extends CGFobject
+class MyCylinderRound extends CGFobject
 {
 	constructor(scene, slices, stacks, minS = 0, maxS = 1, minT = 0, maxT = 1) 
 	{
@@ -33,18 +33,38 @@ class MyCylinder extends CGFobject
 		var incS = (this.maxS - this.minS)/this.slices;
 		var incT = (this.maxT - this.minT)/this.stacks;
 
+		var raio = 1;
+		var zi = 0;
 
 		for(let i = 0; i <= this.stacks; i ++)
 		{
-			for(var j = 0; j < this.slices; j++)
+			if(i > (this.stacks - 10))
+			{	
+				for(let j = 0; j < this.slices; j++)
+				{
+					zi += 1/this.stacks;
+					raio = Math.cos(Math.asin(z - 0.5));
+					this.vertices.push(Math.cos(j*alpha) *raio,Math.sin(j*alpha) * raio,z);
+					this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), raio);
+
+					this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
+				}
+					
+			}
+			else
 			{
-				this.vertices.push(Math.cos(j*alpha) ,Math.sin(j*alpha),z);
-				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), 0);
-				this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
-			}	
+				for(let j = 0; j < this.slices; j++)
+				{
+					this.vertices.push(Math.cos(j*alpha) ,Math.sin(j*alpha),z);
+					this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), 0);
+					this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
+				}
+			}
 
 			z += 1/this.stacks;
 		}
+		this.vertices.push(0,0,1);
+		this.normals.push(0, 0, 1);
 		
 		var ind = 0;
 
@@ -65,6 +85,22 @@ class MyCylinder extends CGFobject
 
 				ind++;
 			}
+		}
+
+		var vert_ind = ind+this.slices;
+		var first_ind = ind;
+
+		for(let i = 0; i < this.slices; i++)
+		{	
+		if(i == this.slices -1)
+		{
+			this.indices.push(ind,first_ind, vert_ind);
+		}
+		else
+		{
+			this.indices.push(ind,ind+1, vert_ind);
+		}
+			ind++;
 		}
 
 
