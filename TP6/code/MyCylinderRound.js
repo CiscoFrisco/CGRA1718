@@ -63,8 +63,6 @@ class MyCylinderRound extends CGFobject
 
 			z += 1/this.stacks;
 		}
-		this.vertices.push(0,0,1);
-		this.normals.push(0, 0, 1);
 		
 		var ind = 0;
 
@@ -86,23 +84,6 @@ class MyCylinderRound extends CGFobject
 				ind++;
 			}
 		}
-
-		var vert_ind = ind+this.slices;
-		var first_ind = ind;
-
-		for(let i = 0; i < this.slices; i++)
-		{	
-		if(i == this.slices -1)
-		{
-			this.indices.push(ind,first_ind, vert_ind);
-		}
-		else
-		{
-			this.indices.push(ind,ind+1, vert_ind);
-		}
-			ind++;
-		}
-
 
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

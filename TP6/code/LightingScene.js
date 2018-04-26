@@ -30,7 +30,7 @@ class LightingScene extends CGFscene
 		
 		//this.trapeze = new My3DTrapeze(this);
 		//this.cylinder = new MyCylinderRound(this, 20, 20);
-		this.wheel = new MyWheel(this,20,20, 60);
+		this.wheel = new MyWheel(this,20,20, 20);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 		
@@ -92,6 +92,13 @@ class LightingScene extends CGFscene
 		// ---- END Background, camera and axis setup
 		
 		// ---- BEGIN Scene drawing section
+		
+		if(this.angle >= 2*Math.PI)
+			this.angle = 0;
+		else
+			this.angle += 0.05;
+
+		this.y += 0.1;
 
 		this.pushMatrix();
 		//this.scale(2,1,1);

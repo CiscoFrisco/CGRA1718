@@ -10,11 +10,16 @@ class MyHalfWheel extends CGFobject
 	{
 		super(scene);
 
-        this.cylinder = new MyCylinderRound(scene, slices,stacks);
+        this.mainCylinder = new MyCylinderRound(scene, slices,stacks);
+        this.innerCylinder = new MyCylinder(scene, slices, stacks, false);
+        this.bump = new MyLamp(scene, slices,stacks, true);
         this.num_bumps = num_bumps;
         this.size_of_bump = 2/this.num_bumps;
+        this.length_of_bump = (2/stacks);
         this.angle = 0;
         this.inc = 2*Math.PI/this.num_bumps;
+        this.stacks = stacks;
+
 	};
 
 	initBuffers() 
@@ -26,18 +31,40 @@ class MyHalfWheel extends CGFobject
 	display()
 	{
 		this.scene.pushMatrix();
-			this.cylinder.display();
+			this.mainCylinder.display();
 		this.scene.popMatrix();
 
-        for(let i = 0; i < this.num_bumps; i++)
-        {
-            this.scene.pushMatrix();
-                this.scene.translate(Math.cos(this.angle), Math.sin(this.angle), 0);
-                this.scene.scale(/*0.05*/this.size_of_bump,/*0.05 */this.size_of_bump, 1);
-                this.cylinder.display();
-            this.scene.popMatrix();
+		this.scene.pushMatrix();
+			this.scene.scale(0.89,0.89,0.95);
+			this.innerCylinder.display();
+		this.scene.popMatrix();
+        
+		var z = 0;
+		var initAngle = 0;
 
-            this.angle += this.inc;
+        for(let i = 0; i < 1/this.size_of_bump; i++)
+        {	
+        	this.angle = initAngle;
+        	
+        	for(let j = 0; j < this.num_bumps; j++)
+        	{
+            	this.scene.pushMatrix();
+					if(i > (1/this.size_of_bump)/2)                	
+						this.scene.translate(Math.cos(this.angle)*0.9, Math.sin(this.angle)*0.9, z + this.size_of_bump);
+                	else
+                		this.scene.translate(Math.cos(this.angle), Math.sin(this.angle), z + this.size_of_bump);
+
+                	this.scene.rotate(this.angle, 0, 0, 1);
+                	this.scene.rotate(Math.PI/2, 0, 1, 0);
+                	this.scene.scale(this.size_of_bump,this.size_of_bump, this.size_of_bump);
+                	this.bump.display();
+            	this.scene.popMatrix();
+
+            	this.angle+= this.inc;
+        	}
+			
+			z+=this.size_of_bump;
+			initAngle += this.inc/2;
         }
 		
 	};

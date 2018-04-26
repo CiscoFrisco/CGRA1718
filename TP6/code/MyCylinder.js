@@ -6,7 +6,7 @@
 
 class MyCylinder extends CGFobject
 {
-	constructor(scene, slices, stacks, minS = 0, maxS = 1, minT = 0, maxT = 1) 
+	constructor(scene, slices, stacks, outside, face, minS = 0, maxS = 1, minT = 0, maxT = 1) 
 	{
 		super(scene);
 
@@ -17,6 +17,8 @@ class MyCylinder extends CGFobject
 		this.maxS = maxS;
 		this.minT = minT;
 		this.maxT = maxT;
+		this.side = outside || true;
+		this.face = face || false;
 
 		this.initBuffers();
 	};
@@ -39,11 +41,22 @@ class MyCylinder extends CGFobject
 			for(var j = 0; j < this.slices; j++)
 			{
 				this.vertices.push(Math.cos(j*alpha) ,Math.sin(j*alpha),z);
-				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), 0);
+
+				if(this.outside == true)
+					this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), 0);
+				else
+					this.normals.push(-Math.cos(j*alpha), -Math.sin(j*alpha), 0);
+
 				this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
 			}	
 
 			z += 1/this.stacks;
+		}
+
+		if(this.face == true)
+		{
+		 	this.vertices.push(0,0,1);
+			this.normals.push(0,0, 1);
 		}
 		
 		var ind = 0;
@@ -54,15 +67,52 @@ class MyCylinder extends CGFobject
 			{	
 				if(j != this.slices -1 )
 				{
-					this.indices.push(ind, ind + 1, ind + this.slices);
-					this.indices.push(ind + this.slices, ind +1, ind + this.slices + 1);
+					if(this.outside == true)
+					{
+						this.indices.push(ind, ind + 1, ind + this.slices);
+						this.indices.push(ind + this.slices, ind +1, ind + this.slices + 1);
+					}
+					else
+					{
+						this.indices.push(ind, ind + this.slices, ind + 1);
+						this.indices.push(ind + this.slices,ind + this.slices + 1, ind +1);
+					}
 				}
 				else
 				{
-					this.indices.push(ind, i*this.slices, ind + this.slices);
-					this.indices.push(ind + this.slices, i*this.slices, (i+1)*this.slices);
+					if(this.outside == true)
+					{
+						this.indices.push(ind, i*this.slices, ind + this.slices);
+						this.indices.push(ind + this.slices, i*this.slices, (i+1)*this.slices);
+					}
+					else
+					{
+						this.indices.push(ind, ind + this.slices, i*this.slices);
+						this.indices.push(ind + this.slices, (i+1)*this.slices, i*this.slices);
+					}
 				}
 
+				ind++;
+			}
+		}
+
+
+		if(this.face == true)
+		{
+			var vert_ind = ind+this.slices;
+			var first_ind = ind;
+
+			for(let i = 0; i < this.slices; i++)
+			{	
+				if(i == this.slices -1)
+				{
+					this.indices.push(ind,first_ind, vert_ind);
+				}
+				else
+				{
+					this.indices.push(ind,ind+1, vert_ind);
+				}
+				
 				ind++;
 			}
 		}
