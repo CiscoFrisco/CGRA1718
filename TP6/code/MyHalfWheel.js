@@ -31,6 +31,7 @@ class MyHalfWheel extends CGFobject
 	display()
 	{
 		this.scene.pushMatrix();
+			this.scene.defaultTexture.apply();
 			this.mainCylinder.display();
 		this.scene.popMatrix();
 
@@ -49,6 +50,7 @@ class MyHalfWheel extends CGFobject
         	for(let j = 0; j < this.num_bumps; j++)
         	{
             	this.scene.pushMatrix();
+            		this.scene.tireTexture.apply();
 					if(i > (1/this.size_of_bump)/2)                	
 						this.scene.translate(Math.cos(this.angle)*0.9, Math.sin(this.angle)*0.9, z + this.size_of_bump);
                 	else
@@ -66,6 +68,8 @@ class MyHalfWheel extends CGFobject
 			z+=this.size_of_bump;
 			initAngle += this.inc/2;
         }
+
+        this.scene.defaultTexture.apply();
 		
 	};
 };

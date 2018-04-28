@@ -6,13 +6,21 @@
 
 class MyLamp extends CGFobject
 {
-	constructor(scene, slices, stacks) 
+	constructor(scene, slices, stacks, minS = 0, maxS = 1, minT = 0, maxT = 1) 
 	{
 		super(scene);
 
 		this.slices = slices;
 		this.stacks = stacks;
 
+		this.maxS =maxS;
+		this.minS =minS;
+		this.minT =minT;
+		this.maxT =maxT;
+
+
+		
+		
 		this.initBuffers();
 	};
 
@@ -23,11 +31,15 @@ class MyLamp extends CGFobject
 		this.vertices = [];
 		this.normals = [];
 		this.indices = [];
+		this.texCoords =[];
 		
 		var z = 0;
 		var raio = 1;
 
-		for(let i = 0; i < this.stacks; i ++)
+	    var incS = (this.maxS - this.minS)/this.slices;
+		var incT = (this.maxT - this.minT)/this.stacks;
+		
+		for(var i = 0; i < this.stacks; i ++)
 		{
 			if(i > 0)
 				raio = Math.cos(Math.asin(z));
@@ -36,6 +48,7 @@ class MyLamp extends CGFobject
 			{
 				this.vertices.push(Math.cos(j*alpha)*raio, Math.sin(j*alpha)* raio,z);
 				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), raio);
+				this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
 			}	
 
 			z += 1/this.stacks;
@@ -43,6 +56,8 @@ class MyLamp extends CGFobject
 		}
 		this.vertices.push(0,0,1);
 		this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), raio);
+		this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
+
 				
 		var ind = 0;
 

@@ -5,6 +5,8 @@ class LightingScene extends CGFscene
 	constructor()
 	{
 		super();
+		this.angle = 0;
+		this.y = 0;
 	};
 
 	init(application) 
@@ -35,6 +37,16 @@ class LightingScene extends CGFscene
 		this.materialDefault = new CGFappearance(this);
 		
 		//Textures
+		this.enableTextures(true);
+
+		this.tireTexture = new CGFappearance(this);
+		this.tireTexture.loadTexture("../resources/images/tire.png");
+
+		this.defaultTexture = new CGFappearance(this);
+		this.defaultTexture.setAmbient(0.2,0.2,0.2,1.0);
+		this.defaultTexture.setDiffuse(0.2,0.2,0.2,1.0);
+
+
 
 		
 		this.fps = 60;
@@ -99,11 +111,13 @@ class LightingScene extends CGFscene
 			this.angle += 0.05;
 
 		this.y += 0.1;
-
 		this.pushMatrix();
 		//this.scale(2,1,1);
 		//this.trapeze.display();
 		//this.cylinder.display();
+		this.rotate(this.angle,0,1,0);
+		this.translate(0,0,2);
+		this.rotate(-this.angle, 0,0,1);
 		this.wheel.display();
 		this.popMatrix();
 
