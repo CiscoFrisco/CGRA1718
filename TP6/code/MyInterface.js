@@ -1,73 +1,79 @@
- 
-class MyInterface extends CGFinterface {
+ class MyInterface extends CGFinterface {
 
 
-	/**
-	 * MyInterface
-	 * @constructor
-	 */
- 	constructor () {
+ 	/**
+ 	 * MyInterface
+ 	 * @constructor
+ 	 */
+ 	constructor() {
  		super();
  	}
-	
-	/**
-	 * init
-	 * @param {CGFapplication} application
-	 */
-	init(application) {
-		// call CGFinterface init
-		super.init(application);
 
-		// init GUI. For more information on the methods, check:
-		//  http://workshop.chromeexperiments.com/examples/gui
+    createLights(number)
+ 	{
+        var group = this.gui.addFolder("Options");
+ 		group.open();
 
-		this.gui = new dat.GUI();
+ 	  for(let i = 1; i<= number; i++)
+ 	    group.add(this.scene, 'light' + i);
+ 	};
 
-		// add a button:
-		// the first parameter is the object that is being controlled (in this case the scene)
-		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
+ 	/**
+ 	 * init
+ 	 * @param {CGFapplication} application
+ 	 */
+ 	init(application) {
+ 		// call CGFinterface init
+ 		super.init(application);
 
-		this.gui.add(this.scene, 'doSomething');	
+ 		// init GUI. For more information on the methods, check:
+ 		//  http://workshop.chromeexperiments.com/examples/gui
 
-		// add a group of controls (and open/expand by defult)
+ 		this.gui = new dat.GUI();
 
-		var group=this.gui.addFolder("Options");
-		group.open();
+ 		// add a button:
+ 		// the first parameter is the object that is being controlled (in this case the scene)
+ 		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
+ 		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
 
-		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-		// e.g. this.option1=true; this.option2=false;
+ 		this.gui.add(this.scene, 'doSomething');
+        
+        this.gui.add(this.scene, 'drawAxis');
+ 		// add a group of controls (and open/expand by defult)
 
-		group.add(this.scene, 'option1');
-		group.add(this.scene, 'option2');
 
-		// add a slider
-		// must be a numeric variable of the scene, initialized in scene.init e.g.
-		// this.speed=3;
-		// min and max values can be specified as parameters
 
-		this.gui.add(this.scene, 'speed', -5, 5);
+ 		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+ 		// e.g. this.option1=true; this.option2=false;
 
-		return true;
-	};
+ 		this.createLights(1);
 
-	/**
-	 * processKeyboard
-	 * @param event {Event}
-	 */
-	processKeyboard(event) {
-		// call CGFinterface default code (omit if you want to override)
-		super.processKeyboard(event);
+ 		// add a slider
+ 		// must be a numeric variable of the scene, initialized in scene.init e.g.
+ 		// this.speed=3;
+ 		// min and max values can be specified as parameters
 
-		// Check key codes e.g. here: http://www.asciitable.com/
-		// or use String.fromCharCode(event.keyCode) to compare chars
+ 		this.gui.add(this.scene, 'speed', -5, 5);
 
-		// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
-		switch (event.keyCode)
-		{
-			case (65):	// only works for capital 'A', as it is
-				console.log("Key 'A' pressed");
-		};
-	};
-};
+ 		return true;
+ 	};
 
+
+ 	/**
+ 	 * processKeyboard
+ 	 * @param event {Event}
+ 	 */
+ 	processKeyboard(event) {
+ 		// call CGFinterface default code (omit if you want to override)
+ 		super.processKeyboard(event);
+
+ 		// Check key codes e.g. here: http://www.asciitable.com/
+ 		// or use String.fromCharCode(event.keyCode) to compare chars
+
+ 		// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+ 		switch (event.keyCode) {
+ 			case (65): // only works for capital 'A', as it is
+ 				console.log("Key 'A' pressed");
+ 		};
+ 	};
+ };

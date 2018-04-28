@@ -1,16 +1,13 @@
 var degToRad = Math.PI / 180.0;
 
-class LightingScene extends CGFscene 
-{
-	constructor()
-	{
+class LightingScene extends CGFscene {
+	constructor() {
 		super();
 		this.angle = 0;
 		this.y = 0;
 	};
 
-	init(application) 
-	{
+	init(application) {
 		super.init(application);
 
 		this.initCameras();
@@ -24,18 +21,20 @@ class LightingScene extends CGFscene
 		this.gl.depthFunc(this.gl.LEQUAL);
 
 		this.axis = new CGFaxis(this);
-		
-		this.option1=true; this.option2=false; this.speed=3;
+
+		this.option1 = true;
+		this.option2 = false;
+		this.speed = 3;
 
 
 		// Scene elements
-		
+
 		//this.trapeze = new My3DTrapeze(this);
 		//this.cylinder = new MyCylinderRound(this, 20, 20);
-		this.wheel = new MyWheel(this,20,20, 20);
+		this.wheel = new MyWheel(this, 20, 20, 20);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
-		
+
 		//Textures
 		this.enableTextures(true);
 
@@ -43,43 +42,46 @@ class LightingScene extends CGFscene
 		this.tireTexture.loadTexture("../resources/images/tire.png");
 
 		this.defaultTexture = new CGFappearance(this);
-		this.defaultTexture.setAmbient(0.2,0.2,0.2,1.0);
-		this.defaultTexture.setDiffuse(0.2,0.2,0.2,1.0);
+		this.defaultTexture.setAmbient(0.2, 0.2, 0.2, 1.0);
+		this.defaultTexture.setDiffuse(0.2, 0.2, 0.2, 1.0);
 
 
+		this.drawAxis = true;
 
-		
 		this.fps = 60;
-		this.setUpdatePeriod(1000/this.fps);
+		this.setUpdatePeriod(1000 / this.fps);
 		this.time = 0;
 	};
 
-	initCameras() 
-	{
+	initCameras() {
 		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 	};
 
-	initLights() 
-	{
-		this.setGlobalAmbientLight(0.3,0.3,0.3, 1);
-		
+	initLights() {
+		this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1);
 
-        this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
-        this.lights[0].enable();
-        this.lights[0].update();
+
+		this.lights[0].setPosition(15, 2, 5, 1);
+		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[0].enable();
+		this.lights[0].update();
+		this.light1 = true;
 
 	};
 
-	updateLights() 
-	{
+	updateLights() {
+
+		if(this.light1)
+			this.lights[0].enable();
+		else 
+			this.lights[0].disable();
+
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
 	}
 
 
-	display() 
-	{
+	display() {
 		// ---- BEGIN Background, camera and axis setup
 
 		// Clear image and depth buffer everytime we update the scene
@@ -97,15 +99,16 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		this.axis.display();
+		if(this.drawAxis)
+			this.axis.display();
 
 		this.materialDefault.apply();
 
 		// ---- END Background, camera and axis setup
-		
+
 		// ---- BEGIN Scene drawing section
-		
-		if(this.angle >= 2*Math.PI)
+
+		if (this.angle >= 2 * Math.PI)
 			this.angle = 0;
 		else
 			this.angle += 0.05;
@@ -115,24 +118,24 @@ class LightingScene extends CGFscene
 		//this.scale(2,1,1);
 		//this.trapeze.display();
 		//this.cylinder.display();
-		this.rotate(this.angle,0,1,0);
-		this.translate(0,0,2);
-		this.rotate(-this.angle, 0,0,1);
+		this.rotate(this.angle, 0, 1, 0);
+		this.translate(0, 0, 2);
+		this.rotate(-this.angle, 0, 0, 1);
 		this.wheel.display();
 		this.popMatrix();
 
 
 		// ---- BEGIN Scene drawing section
-		
 
 
-	
+
+
 		// ---- END Scene drawing section	
 	};
 
-	doSomething()
-	{ 
-		console.log("Doing something..."); 
+	doSomething() {
+		console.log("Doing something...");
+		console.log(this.option1);
 	};
 
 };
