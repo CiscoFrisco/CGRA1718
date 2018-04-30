@@ -27,8 +27,12 @@ class LightingScene extends CGFscene {
 
 		// Scene elements
 
+		this.terrainTexture = new CGFappearance(this);
+		this.terrainTexture.loadTexture("../resources/images/terrain.jpg")
+
 		this.trapeze = new My3DTrapeze(this, 0.5, 1, 2, 2, 1);
 		this.wheel = new MyWheel(this, 20, 20, 20);
+		this.terrain = new MyTerrain(this, this.terrainTexture, 8, 50.0, 50.0, 0, 1, 0, 1);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -41,7 +45,7 @@ class LightingScene extends CGFscene {
 		this.rimTexture = new CGFappearance(this);
 		//this.rimTexture.loadTexture("../resources/images/rims.png");
 		this.rimTexture.setAmbient(0.5, 0.5, 0.5, 1.0);
-		this.rimTexture.setDiffuse(192.0/255, 192.0/255, 192.0/255, 1.0);
+		this.rimTexture.setDiffuse(192.0 / 255, 192.0 / 255, 192.0 / 255, 1.0);
 
 		this.defaultTexture = new CGFappearance(this);
 		this.defaultTexture.setAmbient(0.2, 0.2, 0.2, 1.0);
@@ -53,6 +57,10 @@ class LightingScene extends CGFscene {
 		this.fps = 60;
 		this.setUpdatePeriod(1000 / this.fps);
 		this.time = 0;
+
+		this.vehicleAppearances = [];
+		this.vehicleAppearanceList = [];
+		this.currVehicleAppearance = 0;
 	};
 
 	initCameras() {
@@ -73,9 +81,9 @@ class LightingScene extends CGFscene {
 
 	updateLights() {
 
-		if(this.light1)
+		if (this.light1)
 			this.lights[0].enable();
-		else 
+		else
 			this.lights[0].disable();
 
 		for (var i = 0; i < this.lights.length; i++)
@@ -101,7 +109,7 @@ class LightingScene extends CGFscene {
 		this.updateLights();
 
 		// Draw axis
-		if(this.drawAxis)
+		if (this.drawAxis)
 			this.axis.display();
 
 		this.materialDefault.apply();
@@ -110,13 +118,13 @@ class LightingScene extends CGFscene {
 
 		// ---- BEGIN Scene drawing section
 
-		
+
 		this.pushMatrix();
-		this.rotate(-Math.PI/2,0,1,0);
+		this.rotate(-Math.PI / 2, 0, 1, 0);
 		this.trapeze.display();
 		this.popMatrix();
 
-
+		//this.terrain.display();
 		// ---- BEGIN Scene drawing section
 
 
@@ -129,5 +137,24 @@ class LightingScene extends CGFscene {
 		console.log("Doing something...");
 		console.log(this.option1);
 	};
+
+	checkKeys() {
+		var text = "Keys pressed: ";
+		var keysPressed = false;
+		if (this.gui.isKeyPressed("KeyW")) {
+			text += " W ";
+			keysPressed = true;
+		}
+		if (this.gui.isKeyPressed("KeyS")) {
+			text += " S ";
+			keysPressed = true;
+		}
+		if (keysPressed)
+			console.log(text);
+	};
+
+	update(currTime) {
+		this.checkKeys();
+	}
 
 };

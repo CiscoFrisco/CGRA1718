@@ -2,15 +2,15 @@
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 class Plane extends CGFobject{
 
-	constructor(scene, nrDivs,minS = 0, maxS= 1, minT=0, maxT=1) 
+	constructor(scene, nrDivs = 1, length = 1.0, width = 1.0, minS = 0, maxS= 1, minT=0, maxT=1) 
 	{
 		super(scene);
-
-		// nrDivs = 1 if not provided
-		nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
  
 		this.nrDivs = nrDivs;
-		this.patchLength = 1.0 / nrDivs;
+		this.length = length;
+		this.width = width;
+		this.patchLength = this.length / nrDivs;
+		this.patchWidth = this.width / nrDivs;
 		this.minS = minS;
 		this.minT = minT;
 		this.maxS = maxS;
@@ -44,13 +44,13 @@ class Plane extends CGFobject{
 		// Uncomment below to init texCoords
 		this.texCoords = [];
 
-		var yCoord = 0.5;
+		var yCoord = 0.5*this.width;
 		var incS = (this.maxS - this.minS)/this.nrDivs;
 		var incT = (this.maxT - this.minT)/this.nrDivs;
  
 		for (var j = 0; j <= this.nrDivs; j++) 
 		{
-			var xCoord = -0.5;
+			var xCoord = -0.5*this.length;
 			for (var i = 0; i <= this.nrDivs; i++) 
 			{
 				this.vertices.push(xCoord, yCoord, 0);
@@ -65,7 +65,7 @@ class Plane extends CGFobject{
 
 				xCoord += this.patchLength;
 			}
-			yCoord -= this.patchLength;
+			yCoord -= this.patchWidth;
 		}
 		
 		// Generating indices
@@ -122,5 +122,4 @@ class Plane extends CGFobject{
 
 		this.initGLBuffers();
 	};
-
 };

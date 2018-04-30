@@ -11,7 +11,7 @@
 
     createLights(number)
  	{
-        var group = this.gui.addFolder("Options");
+        var group = this.gui.addFolder("Luzes");
  		group.open();
 
  	  for(let i = 1; i<= number; i++)
@@ -54,26 +54,30 @@
  		// min and max values can be specified as parameters
 
  		this.gui.add(this.scene, 'speed', -5, 5);
+ 		
+ 		this.gui.add(this.scene, 'currVehicleAppearance', this.scene.vehicleAppearanceList)
+
+        this.initKeys();
 
  		return true;
  	};
 
 
- 	/**
- 	 * processKeyboard
- 	 * @param event {Event}
- 	 */
- 	processKeyboard(event) {
- 		// call CGFinterface default code (omit if you want to override)
- 		super.processKeyboard(event);
+    initKeys() {
+      this.scene.gui=this;
+      this.processKeyboard=function(){};
+      this.activeKeys={};
+    }
 
- 		// Check key codes e.g. here: http://www.asciitable.com/
- 		// or use String.fromCharCode(event.keyCode) to compare chars
+    processKeyDown(event) {
+      this.activeKeys[event.code]=true;
+    };
 
- 		// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
- 		switch (event.keyCode) {
- 			case (65): // only works for capital 'A', as it is
- 				console.log("Key 'A' pressed");
- 		};
- 	};
+    processKeyUp(event) {
+      this.activeKeys[event.code]=false;
+    };
+
+    isKeyPressed(keyCode) {
+      return this.activeKeys[keyCode] || false;
+    }
  };
