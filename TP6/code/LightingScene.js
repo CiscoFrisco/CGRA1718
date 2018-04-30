@@ -70,7 +70,6 @@ class LightingScene extends CGFscene {
 	initLights() {
 		this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1);
 
-
 		this.lights[0].setPosition(15, 2, 5, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();

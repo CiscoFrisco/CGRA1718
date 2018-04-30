@@ -9,13 +9,12 @@
  		super();
  	}
 
-    createLights(number)
- 	{
-        var group = this.gui.addFolder("Luzes");
+ 	createLights(number) {
+ 		var group = this.gui.addFolder("Luzes");
  		group.open();
 
- 	  for(let i = 1; i<= number; i++)
- 	    group.add(this.scene, 'light' + i);
+ 		for (let i = 1; i <= number; i++)
+ 			group.add(this.scene, 'light' + i);
  	};
 
  	/**
@@ -37,8 +36,8 @@
  		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
 
  		this.gui.add(this.scene, 'doSomething');
-        
-        this.gui.add(this.scene, 'drawAxis');
+
+ 		this.gui.add(this.scene, 'drawAxis');
  		// add a group of controls (and open/expand by defult)
 
 
@@ -54,30 +53,30 @@
  		// min and max values can be specified as parameters
 
  		this.gui.add(this.scene, 'speed', -5, 5);
- 		
+
  		this.gui.add(this.scene, 'currVehicleAppearance', this.scene.vehicleAppearanceList)
 
-        this.initKeys();
+ 		this.initKeys();
 
  		return true;
  	};
 
 
-    initKeys() {
-      this.scene.gui=this;
-      this.processKeyboard=function(){};
-      this.activeKeys={};
-    }
+ 	initKeys() {
+ 		this.scene.gui = this;
+ 		this.processKeyboard = function () {};
+ 		this.activeKeys = {};
+ 	}
 
-    processKeyDown(event) {
-      this.activeKeys[event.code]=true;
-    };
+ 	processKeyDown(event) {
+ 		this.activeKeys[event.code] = true;
+ 	};
 
-    processKeyUp(event) {
-      this.activeKeys[event.code]=false;
-    };
+ 	processKeyUp(event) {
+ 		this.activeKeys[event.code] = false;
+ 	};
 
-    isKeyPressed(keyCode) {
-      return this.activeKeys[keyCode] || false;
-    }
+ 	isKeyPressed(keyCode) {
+ 		return this.activeKeys[keyCode] || false;
+ 	}
  };
