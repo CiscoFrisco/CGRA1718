@@ -6,7 +6,7 @@
 
 class MyTrapeze extends CGFobject
 {
-	constructor(scene, minS = 0, maxS = 1, minT= 0, maxT=1) 
+	constructor(scene, bigBase =  1, smallBase = 0.5, height = 1, offset = 0, minS = 0, maxS = 1, minT= 0, maxT=1) 
 	{
 		super(scene);
 
@@ -14,6 +14,11 @@ class MyTrapeze extends CGFobject
 		this.maxS = maxS;
 		this.minT = minT;
 		this.maxT = maxT;
+		this.bigBase = bigBase;
+		this.smallBase = smallBase;
+		this.height = height;
+		this.offset = offset;
+
 
 		this.initBuffers();
 	};
@@ -21,10 +26,10 @@ class MyTrapeze extends CGFobject
 	initBuffers() 
 	{
 		this.vertices = [
-				-0.5, -0.5, 0,
-				0.5, -0.5, 0,
-				-0.25, 0.5, 0,
-				0.25, 0.5, 0,
+				-(this.bigBase)/2.0, -(this.height)/2.0, 0,
+				(this.bigBase)/2.0, -(this.height)/2.0, 0,
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, 0,
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, 0,
 				];
 
 		this.indices = [
@@ -34,10 +39,14 @@ class MyTrapeze extends CGFobject
 
 
 		this.texCoords = [
-			this.maxS, this.maxT,
+			0,1,
+			1,1,
+			0,0,
+			1,0,
+			/*this.maxS , this.maxT,
 			this.minS, this.maxT,
 			this.maxS, this.minT,
-			this.minS, this.minT
+			this.minS, this.minT*/
 		];		
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;
