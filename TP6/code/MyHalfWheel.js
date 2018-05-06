@@ -8,6 +8,7 @@ class MyHalfWheel extends CGFobject {
 	constructor(scene, slices, stacks, num_bumps, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
+<<<<<<< HEAD
 		this.mainCylinder = new MyCylinderRound(scene, slices, stacks);
 		this.innerCylinder = new MyCylinder(scene, slices, stacks, false);
 		this.bump = new MyLamp(scene, slices, stacks, true);
@@ -24,6 +25,25 @@ class MyHalfWheel extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
+=======
+        this.mainCylinder = new MyCylinderRound(scene, slices,stacks);
+        this.innerCylinder = new MyCylinder(scene, slices, stacks, false);
+        this.bump = new MyLamp(scene, slices,stacks, true);
+        this.rim = new MyTrapeze(scene, 0.5, 0.5, 2, 1);
+        this.num_bumps = num_bumps;
+        this.size_of_bump = 3/this.num_bumps;
+        this.length_of_bump = (2/stacks);
+        this.angle = 0;
+        this.inc = 2*Math.PI/this.num_bumps;
+        this.stacks = stacks;
+
+        this.mainCylinder.initBuffers();
+        this.innerCylinder.initBuffers();
+        this.bump.initBuffers();
+        this.rim.initBuffers();
+	};
+
+>>>>>>> carro
 
 	display() {
 		this.scene.pushMatrix();
@@ -63,10 +83,20 @@ class MyHalfWheel extends CGFobject {
 			initAngle += this.inc / 2;
 		}
 
+<<<<<<< HEAD
 		this.scene.rimTexture.apply();
 		this.angle = 0;
 
 		for (; this.angle < 2 * Math.PI; this.angle += this.inc * 2) {
+=======
+        this.angle = 0;
+
+        this.scene.rimTexture.apply();
+
+		
+		for(; this.angle < 2*Math.PI; this.angle += this.inc*2)
+		{
+>>>>>>> carro
 			this.scene.pushMatrix();
 			this.scene.translate(0, 0, 1);
 			this.scene.rotate(this.angle, 0, 0, 1);

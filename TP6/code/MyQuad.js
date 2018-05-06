@@ -28,10 +28,25 @@ class MyQuad extends CGFobject {
 		];
 
 		this.texCoords = [
+<<<<<<< HEAD
 			this.maxS, this.maxT,
 			this.minS, this.maxT,
 			this.maxS, this.minT,
 			this.minS, this.minT
+=======
+			0,1,
+			1,1,
+			0,0,
+			1,0,
+		];		
+			
+		this.primitiveType=this.scene.gl.TRIANGLES;
+
+		this.normals = [0,0,1,
+						0,0,1,
+						0,0,1,
+						0,0,1,
+>>>>>>> carro
 		];
 
 		this.primitiveType = this.scene.gl.TRIANGLES;

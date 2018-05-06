@@ -49,6 +49,16 @@ serialInclude([
 	'MyCylinderRound.js',
 	'MyWheel.js',
 	'MyHalfWheel.js',
+<<<<<<< HEAD
+=======
+	'MyChassi.js',
+	'MyBumper.js',
+	'MyWheelBumper.js',
+	'MyCar.js',
+	'MyBreather.js',
+	'MySpoiler.js',
+	'MyCrane.js',
+>>>>>>> carro
 	'MyTerrain.js',
 
 	main = function () {

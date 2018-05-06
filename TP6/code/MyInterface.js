@@ -45,7 +45,7 @@
  		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
  		// e.g. this.option1=true; this.option2=false;
 
- 		this.createLights(1);
+ 		this.createLights(5);
 
  		// add a slider
  		// must be a numeric variable of the scene, initialized in scene.init e.g.

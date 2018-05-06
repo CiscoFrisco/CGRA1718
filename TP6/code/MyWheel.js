@@ -8,6 +8,7 @@ class MyWheel extends CGFobject {
 	constructor(scene, slices, stacks, num_bumps, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
+<<<<<<< HEAD
 		this.halfWheel = new MyHalfWheel(scene, slices, stacks, num_bumps);
 		this.rot = Math.PI / num_bumps;
 	};
@@ -15,6 +16,12 @@ class MyWheel extends CGFobject {
 	initBuffers() {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
+=======
+        this.halfWheel = new MyHalfWheel(scene, slices,stacks, num_bumps);
+        this.rot = Math.PI/num_bumps;
+
+        this.halfWheel.initBuffers();
+>>>>>>> carro
 	};
 
 	display() {
