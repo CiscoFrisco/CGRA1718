@@ -1,11 +1,7 @@
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 class Plane extends CGFobject {
 
-<<<<<<< HEAD
-	constructor(scene, nrDivs = 1, length = 1.0, width = 1.0, minS = 0, maxS = 1, minT = 0, maxT = 1) {
-=======
 	constructor(scene, nrDivs = 1, length = 1.0, width = 1.0, minS = 0, maxS = 1, minT = 0, maxT = 1, altimetry) {
->>>>>>> carro
 		super(scene);
 
 		this.nrDivs = nrDivs;
@@ -26,8 +22,6 @@ class Plane extends CGFobject {
 		this.initBuffers();
 	};
 
-<<<<<<< HEAD
-=======
 
 	setDefaultAltimetry()
     {
@@ -45,7 +39,6 @@ class Plane extends CGFobject {
                 
     };
 
->>>>>>> carro
 	initBuffers() {
 		/* example for nrDivs = 3 :
 		(numbers represent index of point in vertices array)
@@ -77,11 +70,7 @@ class Plane extends CGFobject {
 		for (var j = 0; j <= this.nrDivs; j++) {
 			var xCoord = -0.5 * this.length;
 			for (var i = 0; i <= this.nrDivs; i++) {
-<<<<<<< HEAD
-				this.vertices.push(xCoord, yCoord, 0);
-=======
 				this.vertices.push(xCoord, yCoord, this.altimetry[i][j]);
->>>>>>> carro
 
 				// As this plane is being drawn on the xy plane, the normal to the plane will be along the positive z axis.
 				// So all the vertices will have the same normal, (0, 0, 1).

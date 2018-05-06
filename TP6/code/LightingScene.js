@@ -40,16 +40,10 @@ class LightingScene extends CGFscene {
 		this.terrainTexture = new CGFappearance(this);
 		this.terrainTexture.loadTexture("../resources/images/terrain.jpg")
 
-<<<<<<< HEAD
-		this.trapeze = new My3DTrapeze(this, 0.5, 1, 2, 2, 1);
-		this.wheel = new MyWheel(this, 20, 20, 20);
-		this.terrain = new MyTerrain(this, this.terrainTexture, 8, 50.0, 50.0, 0, 1, 0, 1);
-=======
 		// Scene elements
 		this.car = new MyCar(this);
 		this.crane = new MyCrane(this);
 		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 1, 0, 1, this.altimetry, this.terrainTexture);
->>>>>>> carro
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -75,14 +69,8 @@ class LightingScene extends CGFscene {
 		this.breatherColor.setDiffuse(10/255, 20/255, 30/255, 1.0);
 		
 		this.rimTexture = new CGFappearance(this);
-<<<<<<< HEAD
-		//this.rimTexture.loadTexture("../resources/images/rims.png");
-		this.rimTexture.setAmbient(0.5, 0.5, 0.5, 1.0);
-		this.rimTexture.setDiffuse(192.0 / 255, 192.0 / 255, 192.0 / 255, 1.0);
-=======
 		this.rimTexture.setAmbient(250/255, 255/255, 210/255, 1.0);
 		this.rimTexture.setDiffuse(250/255, 255/255, 210/255, 1.0);
->>>>>>> carro
 
 		this.defaultTexture = new CGFappearance(this);
 		this.defaultTexture.setAmbient(0.2, 0.2, 0.2, 1.0);
@@ -171,14 +159,7 @@ class LightingScene extends CGFscene {
 
 	updateLights() {
 
-<<<<<<< HEAD
-		if (this.light1)
-			this.lights[0].enable();
-		else
-			this.lights[0].disable();
-=======
 		this.checkLights();
->>>>>>> carro
 
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
@@ -231,7 +212,7 @@ class LightingScene extends CGFscene {
 		this.updateLights();
 
 		// Draw axis
-		if (this.drawAxis)
+		if(this.drawAxis)
 			this.axis.display();
 
 		this.materialDefault.apply();
@@ -240,19 +221,14 @@ class LightingScene extends CGFscene {
 
 		// ---- BEGIN Scene drawing section
 
-
+		
 		this.pushMatrix();
-<<<<<<< HEAD
-		this.rotate(-Math.PI / 2, 0, 1, 0);
-		this.trapeze.display();
-=======
 		this.car.display();
 		//this.terrain.display();
 		//this.crane.display();
->>>>>>> carro
 		this.popMatrix();
 
-		//this.terrain.display();
+
 		// ---- BEGIN Scene drawing section
 
 
