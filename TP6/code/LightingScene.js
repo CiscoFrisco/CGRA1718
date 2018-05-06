@@ -86,6 +86,12 @@ class LightingScene extends CGFscene {
 		this.vehicleAppearances = [];
 		this.vehicleAppearanceList = [];
 		this.currVehicleAppearance = 0;
+
+		this.keyWPressed = false;
+		this.keySPressed = false;
+		this.keyAPressed = false;
+		this.keyDPressed = false;
+
 	};
 
 	initCameras() {
@@ -245,20 +251,81 @@ class LightingScene extends CGFscene {
 	checkKeys() {
 		var text = "Keys pressed: ";
 		var keysPressed = false;
+
 		if (this.gui.isKeyPressed("KeyW")) {
 			text += " W ";
 			keysPressed = true;
+			this.keyWPressed = true;
 		}
+		else
+			this.keyWPressed = false;
+
 		if (this.gui.isKeyPressed("KeyS")) {
 			text += " S ";
 			keysPressed = true;
+			this.keySPressed = true;
 		}
+		else
+			this.keySPressed = false;
+
+		if (this.gui.isKeyPressed("KeyA")) {
+			text += " A ";
+			keysPressed = true;
+			this.keyAPressed = true;
+		}
+		else
+			this.keyAPressed = false;
+
+		if (this.gui.isKeyPressed("KeyD")) {
+			text += " D ";
+			keysPressed = true;
+			this.keyDPressed = true;
+		}
+		else
+			this.keyDPressed = false;
+
 		if (keysPressed)
 			console.log(text);
 	};
 
 	update(currTime) {
 		this.checkKeys();
+
+		this.lastTime=this.lastTime || 0;
+		this.deltaTime=currTime-this.lastTime;
+
+		this.lastTime = currTime;
+		var dir = 0;
+		var incX = 0;
+		var incY = 0;
+		if(this.keyWPressed)
+		{
+			if(this.keyAPressed)
+			{
+				dir = 1;
+			}
+			else if(this.keyDPressed)
+			{
+				dir = -1;
+			}
+
+			this.car.update(this.deltaTime, 0.1, 0, dir);
+		}
+		else if(this.keySPressed)
+		{
+			if(this.keyAPressed)
+			{
+				dir = 1;
+			}
+			else if(this.keyDPressed)
+			{
+				dir = -1;
+			}
+			
+			this.car.update(this.deltaTime, -0.1, 0, dir);
+		}
+		else
+			this.car.update(this.deltaTime);
 	}
 
 };
