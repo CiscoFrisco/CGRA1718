@@ -21,13 +21,12 @@ class MyHalfWheel extends CGFobject
         this.inc = 2*Math.PI/this.num_bumps;
         this.stacks = stacks;
 
+        this.mainCylinder.initBuffers();
+        this.innerCylinder.initBuffers();
+        this.bump.initBuffers();
+        this.rim.initBuffers();
 	};
 
-	initBuffers() 
-	{
-		this.primitiveType=this.scene.gl.TRIANGLES;
-		this.initGLBuffers();
-	};
 
 	display()
 	{
@@ -70,8 +69,10 @@ class MyHalfWheel extends CGFobject
 			initAngle += this.inc/2;
         }
 
-		this.scene.rimTexture.apply();
         this.angle = 0;
+
+        this.scene.rimTexture.apply();
+
 		
 		for(; this.angle < 2*Math.PI; this.angle += this.inc*2)
 		{

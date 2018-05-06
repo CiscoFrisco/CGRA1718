@@ -26,9 +26,7 @@ class LightingScene extends CGFscene {
 
 
 		// Scene elements
-
-		this.trapeze = new My3DTrapeze(this, 0.5, 1, 2, 2, 1);
-		this.wheel = new MyWheel(this, 20, 20, 20);
+		this.car = new MyCar(this);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -38,10 +36,24 @@ class LightingScene extends CGFscene {
 		this.tireTexture = new CGFappearance(this);
 		this.tireTexture.loadTexture("../resources/images/tire.png");
 
+		this.carTexture = new CGFappearance(this);
+		//this.carTexture.loadTexture("../resources/images/guitar.png");
+		this.carTexture.setAmbient(200/255, 0/255, 0/255, 1.0);
+		this.carTexture.setDiffuse(200/255, 0/255, 0/255, 1.0);
+
+		this.eyesTexture = new CGFappearance(this);
+		this.eyesTexture.loadTexture("../resources/images/cars_eyes.png");
+
+		this.mouthTexture = new CGFappearance(this);
+		this.mouthTexture.loadTexture("../resources/images/cars_mouth.png");
+		
+		this.breatherColor = new CGFappearance(this);
+		this.breatherColor.setAmbient(10/255, 20/255, 30/255, 1.0);
+		this.breatherColor.setDiffuse(10/255, 20/255, 30/255, 1.0);
+		
 		this.rimTexture = new CGFappearance(this);
-		//this.rimTexture.loadTexture("../resources/images/rims.png");
-		this.rimTexture.setAmbient(0.5, 0.5, 0.5, 1.0);
-		this.rimTexture.setDiffuse(192.0/255, 192.0/255, 192.0/255, 1.0);
+		this.rimTexture.setAmbient(250/255, 255/255, 210/255, 1.0);
+		this.rimTexture.setDiffuse(250/255, 255/255, 210/255, 1.0);
 
 		this.defaultTexture = new CGFappearance(this);
 		this.defaultTexture.setAmbient(0.2, 0.2, 0.2, 1.0);
@@ -112,8 +124,7 @@ class LightingScene extends CGFscene {
 
 		
 		this.pushMatrix();
-		this.rotate(-Math.PI/2,0,1,0);
-		this.trapeze.display();
+		this.car.display();
 		this.popMatrix();
 
 

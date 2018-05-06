@@ -18,6 +18,12 @@ serialInclude([
 	'MyCylinderRound.js',
 	'MyWheel.js',
 	'MyHalfWheel.js',
+	'MyChassi.js',
+	'MyBumper.js',
+	'MyWheelBumper.js',
+	'MyCar.js',
+	'MyBreather.js',
+	'MySpoiler.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);
