@@ -9,13 +9,12 @@
  		super();
  	}
 
-    createLights(number)
- 	{
-        var group = this.gui.addFolder("Options");
+ 	createLights(number) {
+ 		var group = this.gui.addFolder("Luzes");
  		group.open();
 
- 	  for(let i = 1; i<= number; i++)
- 	    group.add(this.scene, 'light' + i);
+ 		for (let i = 1; i <= number; i++)
+ 			group.add(this.scene, 'light' + i);
  	};
 
  	/**
@@ -37,8 +36,8 @@
  		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
 
  		this.gui.add(this.scene, 'doSomething');
-        
-        this.gui.add(this.scene, 'drawAxis');
+
+ 		this.gui.add(this.scene, 'drawAxis');
  		// add a group of controls (and open/expand by defult)
 
 
@@ -46,7 +45,7 @@
  		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
  		// e.g. this.option1=true; this.option2=false;
 
- 		this.createLights(1);
+ 		this.createLights(5);
 
  		// add a slider
  		// must be a numeric variable of the scene, initialized in scene.init e.g.
@@ -55,25 +54,29 @@
 
  		this.gui.add(this.scene, 'speed', -5, 5);
 
+ 		this.gui.add(this.scene, 'currVehicleAppearance', this.scene.vehicleAppearanceList)
+
+ 		this.initKeys();
+
  		return true;
  	};
 
 
- 	/**
- 	 * processKeyboard
- 	 * @param event {Event}
- 	 */
- 	processKeyboard(event) {
- 		// call CGFinterface default code (omit if you want to override)
- 		super.processKeyboard(event);
+ 	initKeys() {
+ 		this.scene.gui = this;
+ 		this.processKeyboard = function () {};
+ 		this.activeKeys = {};
+ 	}
 
- 		// Check key codes e.g. here: http://www.asciitable.com/
- 		// or use String.fromCharCode(event.keyCode) to compare chars
-
- 		// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
- 		switch (event.keyCode) {
- 			case (65): // only works for capital 'A', as it is
- 				console.log("Key 'A' pressed");
- 		};
+ 	processKeyDown(event) {
+ 		this.activeKeys[event.code] = true;
  	};
+
+ 	processKeyUp(event) {
+ 		this.activeKeys[event.code] = false;
+ 	};
+
+ 	isKeyPressed(keyCode) {
+ 		return this.activeKeys[keyCode] || false;
+ 	}
  };

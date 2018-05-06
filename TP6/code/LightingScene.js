@@ -12,7 +12,7 @@ class LightingScene extends CGFscene {
 		this.enableTextures(true);
 		this.initLights();
 
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		this.gl.clearColor(126.0/255, 192.0/255, 238.0/255, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -24,9 +24,26 @@ class LightingScene extends CGFscene {
 		this.option2 = false;
 		this.speed = 3;
 
+		this.altimetry = [
+		[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 1.3],
+		[2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 1.3],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 1.3]
+		];
+
+
+		this.terrainTexture = new CGFappearance(this);
+		this.terrainTexture.loadTexture("../resources/images/terrain.jpg")
 
 		// Scene elements
 		this.car = new MyCar(this);
+		this.crane = new MyCrane(this);
+		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 1, 0, 1, this.altimetry, this.terrainTexture);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -65,6 +82,10 @@ class LightingScene extends CGFscene {
 		this.fps = 60;
 		this.setUpdatePeriod(1000 / this.fps);
 		this.time = 0;
+
+		this.vehicleAppearances = [];
+		this.vehicleAppearanceList = [];
+		this.currVehicleAppearance = 0;
 	};
 
 	initCameras() {
@@ -74,24 +95,102 @@ class LightingScene extends CGFscene {
 	initLights() {
 		this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1);
 
-
 		this.lights[0].setPosition(15, 2, 5, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
 		this.lights[0].update();
 		this.light1 = true;
+		
+		// Positions for four lights
+		//this.lights[0].setVisible(true); // show marker on light position (different from enabled)
+		
+		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
+		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
+
+		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
+		//this.lights[2].setVisible(true); // show marker on light position (different from enabled)
+
+		this.lights[3].setPosition(4, 6, 5, 1);
+		//this.lights[3].setVisible(true)
+		
+		this.lights[4].setPosition(0.1, 4, 7, 1);
+		//this.lights[4].setVisible(true);
+		
+		//this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
+		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
+		//this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
+		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
+
+		this.lights[1].setAmbient(0, 0, 0, 1);
+		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[1].enable();
+
+		this.lights[2].setAmbient(0, 0, 0, 1);
+		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[2].setSpecular(1.0,1.0,1.0,1.0);
+
+		this.lights[3].setAmbient(0, 0, 0, 1);
+		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[3].setSpecular(1.0,1.0,0.0,1.0);
+		
+		this.lights[4].setAmbient(1.0, 1.0, 1.0, 1.0);
+		this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[4].setSpecular(1.0,1.0,1.0,1.0);
+
+		//Attenuation
+		this.lights[2].setConstantAttenuation(0);
+		this.lights[2].setLinearAttenuation(1);
+		this.lights[2].setQuadraticAttenuation(0);
+
+		this.lights[3].setConstantAttenuation(0);
+		this.lights[3].setLinearAttenuation(0);
+		this.lights[3].setQuadraticAttenuation(1);
+
+		this.lights[2].enable();
+		this.lights[3].enable();
+		this.lights[4].enable();
+
+		this.light2 = true;
+		this.light3 = true;
+		this.light4 = true;
+		this.light5 = true;
 
 	};
 
 	updateLights() {
 
-		if(this.light1)
-			this.lights[0].enable();
-		else 
-			this.lights[0].disable();
+		this.checkLights();
 
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
+	}
+
+	checkLights()
+	{
+		if (this.light1)
+			this.lights[0].enable();
+		else
+			this.lights[0].disable();
+
+		if (this.light2)
+			this.lights[1].enable();
+		else
+			this.lights[1].disable();
+
+		if (this.light3)
+			this.lights[2].enable();
+		else
+			this.lights[2].disable();
+
+		if (this.light4)
+			this.lights[3].enable();
+		else
+			this.lights[3].disable();
+
+		if (this.light5)
+			this.lights[4].enable();
+		else
+			this.lights[4].disable();
 	}
 
 
@@ -125,6 +224,8 @@ class LightingScene extends CGFscene {
 		
 		this.pushMatrix();
 		this.car.display();
+		//this.terrain.display();
+		//this.crane.display();
 		this.popMatrix();
 
 
@@ -140,5 +241,24 @@ class LightingScene extends CGFscene {
 		console.log("Doing something...");
 		console.log(this.option1);
 	};
+
+	checkKeys() {
+		var text = "Keys pressed: ";
+		var keysPressed = false;
+		if (this.gui.isKeyPressed("KeyW")) {
+			text += " W ";
+			keysPressed = true;
+		}
+		if (this.gui.isKeyPressed("KeyS")) {
+			text += " S ";
+			keysPressed = true;
+		}
+		if (keysPressed)
+			console.log(text);
+	};
+
+	update(currTime) {
+		this.checkKeys();
+	}
 
 };
