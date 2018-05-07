@@ -230,13 +230,14 @@ class LightingScene extends CGFscene {
 		
 		this.pushMatrix();
 		this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
+		this.translate(3,0.5,0.5)
 		this.rotate(this.car.turn,0,1,0);
-
+		this.scale(0.4,0.4,0.4);
 		this.car.display();
-		//this.terrain.display();
-		//this.crane.display();
 		this.popMatrix();
-
+		
+		this.terrain.display();
+		//this.crane.display();
 
 		// ---- BEGIN Scene drawing section
 
@@ -302,36 +303,39 @@ class LightingScene extends CGFscene {
 		var incX = 0;
 		var incY = 0;
 		var dirAngle = 0;
+		var wheelRot = 1;
 		
 		if(this.keyWPressed)
 		{
+			wheelRot = -1;
 			if(this.keyAPressed)
 			{
 				dir = 1;
-				dirAngle = 0.05;
+				dirAngle = 0.025;
 			}
 			else if(this.keyDPressed)
 			{
 				dir = -1;
-				dirAngle = -0.05;
+				dirAngle = -0.025;
 			}
 
-			this.car.update(this.deltaTime, Math.cos(this.car.turn)*0.05, Math.sin(this.car.turn + Math.PI)*0.05, dir, dirAngle);
+			this.car.update(this.deltaTime, Math.cos(this.car.turn)*0.05, Math.sin(this.car.turn + Math.PI)*0.05, dir, dirAngle, wheelRot);
 		}
 		else if(this.keySPressed)
 		{
+			wheelRot = 1;
 			if(this.keyAPressed)
 			{
 				dir = 1;				
-				dirAngle = 0.05;
+				dirAngle = -0.025;
 			}
 			else if(this.keyDPressed)
 			{
 				dir = -1;
-				dirAngle = -0.05;
+				dirAngle = 0.025;
 			}
 			
-			this.car.update(this.deltaTime, Math.cos(this.car.turn+Math.PI)*0.05, Math.sin(this.car.turn)*0.05, dir, dirAngle);
+			this.car.update(this.deltaTime, Math.cos(this.car.turn+Math.PI)*0.05, Math.sin(this.car.turn)*0.05, dir, dirAngle, wheelRot);
 		}
 		else
 			this.car.update(this.deltaTime);
