@@ -229,6 +229,9 @@ class LightingScene extends CGFscene {
 
 		
 		this.pushMatrix();
+		this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
+		this.rotate(this.car.turn,0,1,0);
+
 		this.car.display();
 		//this.terrain.display();
 		//this.crane.display();
@@ -298,31 +301,37 @@ class LightingScene extends CGFscene {
 		var dir = 0;
 		var incX = 0;
 		var incY = 0;
+		var dirAngle = 0;
+		
 		if(this.keyWPressed)
 		{
 			if(this.keyAPressed)
 			{
 				dir = 1;
+				dirAngle = 0.05;
 			}
 			else if(this.keyDPressed)
 			{
 				dir = -1;
+				dirAngle = -0.05;
 			}
 
-			this.car.update(this.deltaTime, 0.1, 0, dir);
+			this.car.update(this.deltaTime, Math.cos(this.car.turn)*0.05, Math.sin(this.car.turn + Math.PI)*0.05, dir, dirAngle);
 		}
 		else if(this.keySPressed)
 		{
 			if(this.keyAPressed)
 			{
-				dir = 1;
+				dir = 1;				
+				dirAngle = 0.05;
 			}
 			else if(this.keyDPressed)
 			{
 				dir = -1;
+				dirAngle = -0.05;
 			}
 			
-			this.car.update(this.deltaTime, -0.1, 0, dir);
+			this.car.update(this.deltaTime, Math.cos(this.car.turn+Math.PI)*0.05, Math.sin(this.car.turn)*0.05, dir, dirAngle);
 		}
 		else
 			this.car.update(this.deltaTime);
