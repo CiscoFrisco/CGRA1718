@@ -21,6 +21,14 @@ class MyHalfWheel extends CGFobject
         this.inc = 2*Math.PI/this.num_bumps;
         this.stacks = stacks;
 
+
+this.tireTexture = new CGFappearance(this.scene);
+		this.tireTexture.loadTexture("../resources/images/tire.png");
+
+		this.rimTexture = new CGFappearance(this.scene);
+		this.rimTexture.setAmbient(250/255, 255/255, 210/255, 1.0);
+		this.rimTexture.setDiffuse(250/255, 255/255, 210/255, 1.0);
+
         this.mainCylinder.initBuffers();
         this.innerCylinder.initBuffers();
         this.bump.initBuffers();
@@ -50,7 +58,7 @@ class MyHalfWheel extends CGFobject
         	for(let j = 0; j < this.num_bumps; j++)
         	{
             	this.scene.pushMatrix();
-            		this.scene.tireTexture.apply();
+            		this.tireTexture.apply();
 					if(i > (1/this.size_of_bump)/2)                	
 						this.scene.translate(Math.cos(this.angle)*0.9, Math.sin(this.angle)*0.9, z + this.size_of_bump);
                 	else
@@ -71,7 +79,7 @@ class MyHalfWheel extends CGFobject
 
         this.angle = 0;
 
-        this.scene.rimTexture.apply();
+        this.rimTexture.apply();
 
 		
 		for(; this.angle < 2*Math.PI; this.angle += this.inc*2)

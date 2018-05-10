@@ -19,8 +19,6 @@ class MySpoiler extends CGFobject
 
 	display()
 	{
-		this.scene.carTexture.apply();
-
 		this.scene.pushMatrix();
 		    this.scene.translate(0.3,0,2);
 		    this.scene.rotate(Math.PI,0,1,0);

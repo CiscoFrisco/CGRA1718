@@ -25,8 +25,8 @@ class MyChassi extends CGFobject
 		var size = -6.5;
 
 		this.scene.pushMatrix();
-			this.scene.translate(size + 5.9,0.75,0);
-			this.scene.scale(9.2,0.5,this.width);
+			this.scene.translate(size + 5.65,0.75,0);
+			this.scene.scale(9.7,0.5,this.width);
             this.cube.display();
 	    this.scene.popMatrix();
 
@@ -77,7 +77,7 @@ class MyChassi extends CGFobject
             this.cube.display();
             size += 1;
 	    this.scene.popMatrix();
-
+		
 	     this.scene.pushMatrix();
 			this.scene.translate(-3,1.5,0);
 			this.scene.scale(5,1,1);

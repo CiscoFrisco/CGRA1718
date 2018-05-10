@@ -48,7 +48,7 @@ class MyLamp extends CGFobject
 			{
 				this.vertices.push(Math.cos(j*alpha)*raio, Math.sin(j*alpha)* raio,z);
 				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), raio);
-				this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
+		  	    this.texCoords.push(0.5 + (Math.cos(j*alpha)/2) - incS*i, 0.5 - (Math.sin(j*alpha)/2) + incT*i)
 			}	
 
 			z += 1/this.stacks;

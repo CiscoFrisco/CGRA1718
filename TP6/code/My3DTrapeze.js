@@ -36,6 +36,26 @@ class My3DTrapeze extends CGFobject
 				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2,
 				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
 				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
+
+				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
+				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
+
+				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2,
+				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2,
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
+
+				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
+				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
+
+				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2,
+				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2,
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
 				];
 
 		this.indices = [
@@ -44,28 +64,46 @@ class My3DTrapeze extends CGFobject
 				0, 1, 2, 
 				3, 2, 1,
 
+				//8,9,10,
+				//11,10,9,
+
 				//back
 				4,6,5,
 				7,5,6,
+
+				//12,14,13,
+				//15,13,14,
 				
 				//side
 				1,5,3,
 				7,3,5,
+
+				//9,13,11,
+				//15,11,13,
 
 				//other side
 
 				0,2,4,
 				6,4,2,
 
+				//8,10,12,
+				//14,12,10,
+
 				//up
 
 				3,7,2,
 				6,2,7,
+				
+				//11,15,10,
+				//14,10,15,
 
 				//bottom
 
 				1,0,5,
 				4,5,0,
+
+				//9,8,13,
+				//12,13,8,
 
 
 			];
@@ -81,6 +119,30 @@ class My3DTrapeze extends CGFobject
 			1,1,
 			0,0,
 			1,0,
+
+			0,0,
+			1,0,
+			1,0,
+			0,0,
+
+			1,1,
+			0,1,
+			1,0,
+			1,0,
+
+
+			1,1,
+			0,1,
+			0,0,
+			1,0,
+
+			1,1,
+			0,1,
+			1,1,
+			0,0,
+
+
+
 
 			
 		];		

@@ -13,6 +13,8 @@ class MyWheel extends CGFobject
         this.halfWheel = new MyHalfWheel(scene, slices,stacks, num_bumps);
         this.rot = Math.PI/num_bumps;
 
+		
+
         this.halfWheel.initBuffers();
 	};
 

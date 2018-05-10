@@ -37,11 +37,11 @@ class MyBumper extends CGFobject
 	   {
 			this.vertices.push(Math.cos(j*alpha),Math.sin(j*alpha),0);
         	this.normals.push(0,0,1);
-			this.texCoords.push(Math.cos(alpha) ,1);
+			this.texCoords.push(0.5 + (Math.cos(j*alpha)/2) ,1);
 			
 			this.vertices.push(Math.cos(j*alpha),1,0);
         	this.normals.push(0,0,1);
-        	this.texCoords.push(Math.cos(alpha) ,0);
+        	this.texCoords.push(0.5 + (Math.cos(j*alpha)/2) ,0);
 		}
 		
 		var ind = 0;

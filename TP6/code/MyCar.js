@@ -12,6 +12,12 @@ class MyCar extends CGFobject
 
         this.chassi = new MyChassi(scene);
         this.wheel = new MyWheel(scene, 20,20,20);
+        this.lamp = new MyLamp(scene,20,20);
+        this.leftmirror = new MyMirror(scene,20,20);
+        this.rightmirror = new MyMirror(scene,20,20, true); 
+        this.rightwindooh = new MyTrapeze(scene, 1, 0.7,1,0.05);
+		this.leftwindooh = new MyTrapeze(scene, 1, 0.7,1,-0.05);
+
         this.turn = 0;
 
         this.rectangle = new MyQuad(scene);
@@ -28,15 +34,67 @@ class MyCar extends CGFobject
         this.centerZ = 0;
         this.angle = 0;
         this.direction = 0;
+
+		this.carTexture = new CGFappearance(this.scene);	
+
+		this.eyesTexture = new CGFappearance(this.scene);
+		this.eyesTexture.loadTexture("../resources/images/cars_eyes.png");
+
+		this.mouthTexture = new CGFappearance(this.scene);
+		this.mouthTexture.loadTexture("../resources/images/cars_mouth.png");
+
+		this.windoohTexture = new CGFappearance(this.scene);
+		this.windoohTexture.loadTexture("../resources/images/windooh.png");
+
+		this.lightTexture = new CGFappearance(this.scene);
+		this.lightTexture.loadTexture("../resources/images/car_light.png");
+		
 	};
 
+	setTexture(texture)
+	{
+		this.carTexture = texture;
+	}
 
 	display()
 	{			
-		this.scene.carTexture.apply(),
+		this.carTexture.apply();
 		
 		this.scene.pushMatrix();
 		this.chassi.display();
+		this.scene.popMatrix();
+
+		//spoiler
+		
+		this.scene.pushMatrix();
+			this.scene.translate( -6,1.5,0);
+			this.spoiler.display();
+		this.scene.popMatrix();
+
+				//breather
+		this.scene.pushMatrix();
+			this.scene.translate(2.5,1.1,0);
+			this.scene.scale(1.5,0.3,1.5);
+			this.scene.rotate(Math.PI/2,0,1,0);
+			this.breather.display();
+		this.scene.popMatrix();		
+
+		//mirrors
+
+		this.carTexture.apply();
+
+		this.scene.pushMatrix();
+			this.scene.translate(-1,1.5,2.6);
+			this.scene.scale(0.3,0.5,0.3);
+			this.rightmirror.display();
+		this.scene.popMatrix();
+
+		this.carTexture.apply();
+
+		this.scene.pushMatrix();
+			this.scene.translate(-1,1.5,-2.6);
+			this.scene.scale(0.3,0.5,0.3);
+			this.leftmirror.display();
 		this.scene.popMatrix();
 
 		//draw wheels
@@ -77,7 +135,6 @@ class MyCar extends CGFobject
 		this.scene.popMatrix();
 
 		//barrels
-
 		this.scene.pushMatrix();
 		    this.scene.translate(2,-0.5,-2);
 			this.scene.scale(0.1,0.1,4);
@@ -92,7 +149,7 @@ class MyCar extends CGFobject
 
 
 		//eyes
-		this.scene.eyesTexture.apply();
+		this.eyesTexture.apply();
 
 		this.scene.pushMatrix();
 			this.scene.translate(-0.75,1.5,0);
@@ -103,7 +160,7 @@ class MyCar extends CGFobject
 		this.scene.popMatrix();
 
 		//mouth
-		this.scene.mouthTexture.apply();
+		this.mouthTexture.apply();
 
 		this.scene.pushMatrix();
 			this.scene.translate(5.05,0,0);
@@ -112,20 +169,47 @@ class MyCar extends CGFobject
 			this.rectangle.display();
 		this.scene.popMatrix();
 		
-		//breather
-		this.scene.pushMatrix();
-			this.scene.translate(2.5,1.1,0);
-			this.scene.scale(1.5,0.3,1.5);
-			this.scene.rotate(Math.PI/2,0,1,0);
-			this.breather.display();
-		this.scene.popMatrix();		
 
-		//spoiler
+		this.lightTexture.apply();
 		
+		//lamps
 		this.scene.pushMatrix();
-			this.scene.translate( -6,1.5,0);
-			this.spoiler.display();
-		this.scene.popMatrix();	
+			this.scene.translate(5,0,1.7);
+			this.scene.scale(0.3,0.5,0.3);
+			this.scene.rotate(Math.PI/2,0,1,0);
+			this.lamp.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(5,0,-1.7);
+			this.scene.scale(0.3,0.5,0.3);
+			this.scene.rotate(Math.PI/2,0,1,0);
+			this.lamp.display();
+		this.scene.popMatrix();
+
+		//windoohs!!!!
+		this.windoohTexture.apply();
+		this.scene.pushMatrix();
+			this.scene.translate(-3,1.4,2.21);
+			this.scene.scale(4.5,0.8,1);
+			this.rightwindooh.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(-3,1.4,-2.21);
+			this.scene.rotate(Math.PI,0,1,0);
+			this.scene.scale(4.5,0.8,1);
+			this.leftwindooh.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(-5.1,1.5,0);
+			this.scene.rotate(-Math.PI/4,0,0,1);
+			this.scene.scale(1,1,4);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.rectangle.display();
+		this.scene.popMatrix();
+
 	};
 
 	update(currTime, incX = 0, incZ = 0, dir=0, angle = 0, wheelRot = 0)
