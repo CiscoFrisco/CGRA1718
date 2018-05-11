@@ -36,14 +36,30 @@ class LightingScene extends CGFscene {
 		[2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 1.3]
 		];
 
+		this.myAltimetry = [
+		[6.0, 6.0, 4.0, 1.0, 1.5, 1.4, 1.3, 1.3, 1.3],
+		[5.0, 5.0, 2.0, 4.0, 3.5, 3.4, 4.3, 1.3, 1.3],
+		[3.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.2, 0.0, 1.5, 2.1, 0.0, 0.0, 0.0],
+		[2.0, 2.0, 0.2, 0.0, 1.5, 2.1, 0.0, 0.0, 0.0],
+		[3.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[5.0, 5.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[6.0, 6.0, 3.0, 1.0, 2.5, 2.4, 2.3, 1.3, 1.3]
+		];
+
 
 		this.terrainTexture = new CGFappearance(this);
 		this.terrainTexture.loadTexture("../resources/images/terrain.jpg")
-
+		this.terrainTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 		// Scene elements
 		this.car = new MyCar(this);
 		this.crane = new MyCrane(this);
-		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 1, 0, 1, this.altimetry, this.terrainTexture);
+		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 1, 0, 1, this.myAltimetry, this.terrainTexture);
+		
+		this.lamp = new MyLamp(this, 20, 20);
+
+		//this.terrain = new Plane(this, 8, 50.0, 50.0, 0, 10, 0, 10);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -217,17 +233,21 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 		
-		this.pushMatrix();
+		/*this.pushMatrix();
 			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
 			this.translate(3,0.5,0.5);
 			this.rotate(this.car.turn,0,1,0);
 			this.scale(0.4,0.4,0.4);
 			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
 		this.car.display();	
-		this.popMatrix();
-	
+		this.popMatrix();*/
+		
+		//this.terrainTexture.apply();
 		//this.terrain.display();
 		//this.crane.display();
+		
+		this.vehicleAppearances[this.currVehicleAppearance].apply();
+		this.lamp.display();
 
 		// ---- BEGIN Scene drawing section
 

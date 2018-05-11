@@ -17,9 +17,6 @@ class MyLamp extends CGFobject
 		this.minS =minS;
 		this.minT =minT;
 		this.maxT =maxT;
-
-
-		
 		
 		this.initBuffers();
 	};
@@ -40,15 +37,27 @@ class MyLamp extends CGFobject
 		var incT = (this.maxT - this.minT)/this.stacks;
 		
 		for(var i = 0; i < this.stacks; i ++)
-		{
+		{	
 			if(i > 0)
 				raio = Math.cos(Math.asin(z));
 
-			for(var j = 0; j < this.slices; j++)
+			for(var j = 0; j <= this.slices; j++)
 			{
 				this.vertices.push(Math.cos(j*alpha)*raio, Math.sin(j*alpha)* raio,z);
 				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), raio);
-		  	    this.texCoords.push(0.5 + (Math.cos(j*alpha)/2) - incS*i, 0.5 - (Math.sin(j*alpha)/2) + incT*i)
+				if((j*alpha) >= Math.PI/2 && (j*alpha) <= 3*Math.PI/2)
+					if((j*alpha) >= Math.PI/2 && (j*alpha) <= Math.PI)
+		  	    		this.texCoords.push(0.5 + (Math.cos(j*alpha)/2), 0.5 - (Math.sin(j*alpha)/2) + incT*i);
+		  	    	else
+		  	    		this.texCoords.push(0.5 + (Math.cos(j*alpha)/2), 0.5 + (Math.sin(j*alpha)/2) + incT*i);
+				else
+				{
+					if((j*alpha) >= 3*Math.PI/2 && (j*alpha) <= 2*Math.PI)
+						this.texCoords.push(0.5 + (Math.cos(j*alpha)/2), 0.5 + (Math.sin(j*alpha)/2) + incT*i);
+					else
+						this.texCoords.push(0.5 + (Math.cos(j*alpha)/2), 0.5 - (Math.sin(j*alpha)/2) + incT*i);
+				}
+
 			}	
 
 			z += 1/this.stacks;
@@ -56,36 +65,36 @@ class MyLamp extends CGFobject
 		}
 		this.vertices.push(0,0,1);
 		this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), raio);
-		this.texCoords.push(this.maxS - incS*j,this.minT + incT*i);
+		this.texCoords.push(0.5,0.5);
 
 				
 		var ind = 0;
 
 		for(let i = 0; i < this.stacks - 1;i++)
 		{
-			for(let j = 0; j < this.slices; j++)
+			for(let j = 0; j <= this.slices; j++)
 			{	
-				if(j != this.slices -1 )
+				if(j != this.slices)
 				{
-					this.indices.push(ind, ind + 1, ind + this.slices);
-					this.indices.push(ind + this.slices, ind +1, ind + this.slices + 1);
+					this.indices.push(ind, ind + 1, ind + this.slices + 1);
+					this.indices.push(ind + this.slices + 1, ind +1, ind + this.slices + 2);
 				}
 				else
 				{
-					this.indices.push(ind, i*this.slices, ind + this.slices);
-					this.indices.push(ind + this.slices, i*this.slices, (i+1)*this.slices);
+					//this.indices.push(ind, ind - 1, i*this.slices);
+					//this.indices.push(ind - 1, i*this.slices + this.slices - 1, i*this.slices);
 				}
 
 				ind++;
 			}
 		}
 
-		var vert_ind = ind+this.slices;
+		var vert_ind = ind+this.slices + 1;
 		var first_ind = ind;
 
-		for(let i = 0; i < this.slices; i++)
+		for(let i = 0; i <= this.slices; i++)
 		{	
-		if(i == this.slices -1)
+		if(i == this.slices)
 		{
 			this.indices.push(ind,first_ind, vert_ind);
 		}
