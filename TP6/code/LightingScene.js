@@ -217,17 +217,17 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 		
-		/*this.pushMatrix();
+		this.pushMatrix();
 			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
 			this.translate(3,0.5,0.5);
 			this.rotate(this.car.turn,0,1,0);
-			//this.scale(0.4,0.4,0.4);
+			this.scale(0.4,0.4,0.4);
 			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
-			this.car.display();	
-		this.popMatrix();*/
+		this.car.display();	
+		this.popMatrix();
 	
 		//this.terrain.display();
-		this.crane.display();
+		//this.crane.display();
 
 		// ---- BEGIN Scene drawing section
 

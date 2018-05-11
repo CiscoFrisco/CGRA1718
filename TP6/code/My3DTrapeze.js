@@ -21,91 +21,98 @@ class My3DTrapeze extends CGFobject
 		this.minT = minT;
 		this.maxT = maxT;
 
+		this.angle_R = 0;
+		this.angle_L = 0;
+		
+		if(smallBase+offset > bigBase)
+		{
+			this.angle_R = -Math.atan((smallBase+offset - bigBase)/height);
+		}
+		else
+		{			
+			this.angle_R = Math.atan((bigBase-(smallBase+offset))/height);
+		}
+
+		if(offset > 0)
+		{			
+			this.angle_L = Math.atan(height/offset) + Math.PI/2.0;
+		}
+		else
+		{			
+			this.angle_L = Math.atan(-offset/height) + Math.PI;
+		}
+		
+		this.xRight = Math.cos(this.angle_R);
+		this.yRight = Math.sin(this.angle_R);
+		this.xLeft = Math.cos(this.angle_L);
+		this.yLeft = Math.sin(this.angle_L);
+
 		this.initBuffers();
 	};
 
 	initBuffers() 
 	{
 		this.vertices = [
-				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
-				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
-				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
-				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
+				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2, //front
+				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2, //side
+				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2, //bottom
 
-				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2,
-				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2,
-				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
-				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
+				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2, //front
+				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2, //other side
+				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2, //bottom
 
-				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
-				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
-				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
-				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2, //front
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2, //side
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2, //top
 
-				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2,
-				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2,
-				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
-				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2, //front
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2, //other side
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2, //top
 
-				-(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
-				(this.bigBase)/2.0, -(this.height)/2.0, this.depth/2,
-				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
-				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, this.depth/2,
+				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2, //back
+				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2, //side
+				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2, //bottom
 
-				-(this.bigBase)/2.0, -(this.height)/2.0,-this.depth/2,
-				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2,
-				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
-				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2,
+				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2, //back
+				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2, //other side
+				(this.bigBase)/2.0, -(this.height)/2.0, -this.depth/2, //bottom
+
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2, //back
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2, //side
+				-(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2, //top
+
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2, //back
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2, //other side
+				(this.smallBase)/2.0 + this.offset, (this.height)/2.0, -this.depth/2, //top
+
+
 				];
 
 		this.indices = [
 				
 				//front
-				0, 1, 2, 
-				3, 2, 1,
-
-				//8,9,10,
-				//11,10,9,
+				0, 3, 6, 
+				9, 6, 3,
 
 				//back
-				4,6,5,
-				7,5,6,
-
-				//12,14,13,
-				//15,13,14,
-				
+				12,18,15,
+				21,15,18,
+	
 				//side
-				1,5,3,
-				7,3,5,
-
-				//9,13,11,
-				//15,11,13,
+				13,1,7,
+				19,13,7,			
 
 				//other side
-
-				0,2,4,
-				6,4,2,
-
-				//8,10,12,
-				//14,12,10,
-
-				//up
-
-				3,7,2,
-				6,2,7,
+				4,16,10,
+				22,10,16,
 				
-				//11,15,10,
-				//14,10,15,
-
+				//top
+				8,11,20,
+				23,20,11,
+				
 				//bottom
-
-				1,0,5,
-				4,5,0,
-
-				//9,8,13,
-				//12,13,8,
-
-
+	     		2,14,5,
+				17,5,14,
 			];
 
 
@@ -113,52 +120,69 @@ class My3DTrapeze extends CGFobject
 			0,1,
 			1,1,
 			0,0,
-			1,0,
-
-			0,1,
-			1,1,
-			0,0,
-			1,0,
-
-			0,0,
-			1,0,
-			1,0,
-			0,0,
 
 			1,1,
 			0,1,
 			1,0,
-			1,0,
 
+			0,0,
+			1,0,
+			0,1,
+
+			1,0,
+			0,0,
+			1,1,
 
 			1,1,
 			0,1,
-			0,0,
-			1,0,
+			0,1,
 
-			1,1,
 			0,1,
 			1,1,
+			1,1,	
+
+			1,0,
+			0,0,
 			0,0,
 
-
-
-
-			
+			0,0,
+			1,0,
+			1,0,	
 		];		
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;
 
 		this.normals = [0,0,1,
+						-1,0,0,
+						0,-1,0,
+
 						0,0,1,
+						1,0,0,
+						0,-1,0,
+
 						0,0,1,
+						-1,0,0,
+						0,1,0,
+
 						0,0,1,
+						1,0,0,
+						0,1,0,
 
 						0,0,-1,
-						0,0,-1,
-						0,0,-1,
-						0,0,-1,
+						-1,0,0,
+						0,-1,0,
 
+						0,0,-1,
+						1,0,0,
+						0,-1,0,
+
+						0,0,-1,
+						-1,0,0,
+						0,1,0,
+
+						0,0,-1,
+						1,0,0,
+						0,1,0,
 
 		];
 		this.initGLBuffers();
