@@ -36,6 +36,8 @@ class MyCar extends CGFobject
         this.direction = 0;
         this.vel = 0;
 
+        this.controlOn = true;
+
 		this.carTexture = new CGFappearance(this.scene);	
 
 		this.eyesTexture = new CGFappearance(this.scene);
