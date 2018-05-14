@@ -49,16 +49,25 @@ class LightingScene extends CGFscene {
 		];
 
 
+	var vidalTexture = new CGFappearance(this);
+		vidalTexture.loadTexture("../resources/images/raul_vidal.png");
+
+		var maregaTexture = new CGFappearance(this);
+		maregaTexture.loadTexture("../resources/images/marega.png");
+
 		this.terrainTexture = new CGFappearance(this);
-		this.terrainTexture.loadTexture("../resources/images/terrain.jpg")
-		this.terrainTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+		this.terrainTexture.loadTexture("../resources/images/chrome_256x256.png")
 		// Scene elements
 		this.car = new MyCar(this);
-		this.crane = new MyCrane(this);
-		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 1, 0, 1, this.myAltimetry, this.terrainTexture);
+		this.crane = new MyCrane(this, -0.4);
+		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, this.myAltimetry, this.terrainTexture);
 		
-		this.lamp = new MyLamp(this, 20, 20);
+		this.lamp = new MyLamp(this, 4, 1);
+		this.cylinder = new MyCylinder(this, 20, 20);
+		this.trapeze = new My3DTrapeze(this);
 
+		this.showSolids = false;
+		
 		//this.terrain = new Plane(this, 8, 50.0, 50.0, 0, 10, 0, 10);
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -79,16 +88,12 @@ class LightingScene extends CGFscene {
 		this.setUpdatePeriod(1000 / this.fps);
 		this.time = 0;
 
-		var vidalTexture = new CGFappearance(this);
-		vidalTexture.loadTexture("../resources/images/raul_vidal.png");
+	
 
-		var maregaTexture = new CGFappearance(this);
-		maregaTexture.loadTexture("../resources/images/marega.png");
-
-		this.vehicleAppearances = [vidalTexture, maregaTexture];
+		this.vehicleAppearances = [maregaTexture, vidalTexture];
 		this.vehicleAppearanceList = {};
-		this.vehicleAppearanceList["vidal"] = 0;
-		this.vehicleAppearanceList["marega"] = 1;
+		this.vehicleAppearanceList["vidal"] = 1;
+		this.vehicleAppearanceList["marega"] = 0;
 
 		this.currVehicleAppearance = 0;
 
@@ -233,21 +238,45 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 		
-		this.pushMatrix();
+		/*this.pushMatrix();
 			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
 			this.translate(3,0.5,0.5);
 			this.rotate(this.car.angleCar,0,1,0);
-			this.scale(0.4,0.4,0.4);
 			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
 		this.car.display();	
-		this.popMatrix();
+		this.popMatrix();*/
 		
 		//this.terrainTexture.apply();
-		this.terrain.display();
-		//this.crane.display();
+		//this.terrain.display();
+		this.crane.display();
 		
 		this.vehicleAppearances[this.currVehicleAppearance].apply();
 		//this.lamp.display();
+
+		if(this.showSolids)
+		{
+			this.pushMatrix();
+			this.translate(8, 5, -10);
+			this.rotate(-Math.PI/2, 1, 0, 0);
+			this.scale(1,2,2);
+			this.lamp.display();
+			this.popMatrix();
+
+			this.pushMatrix();
+			this.translate(10, 10, -10);
+			this.rotate(Math.PI/2,1,0,0);
+			this.scale(1,1,5);
+			this.cylinder.display();
+			this.popMatrix();
+
+			this.pushMatrix();
+			this.translate(12, 5, -10);
+			this.scale(2,2,2);
+			this.trapeze.display();
+			this.popMatrix();
+
+			this.defaultTexture.apply();
+		}
 
 		// ---- BEGIN Scene drawing section
 
@@ -318,7 +347,7 @@ class LightingScene extends CGFscene {
 		var speed_inc = 0.0001;
 		var reverting_speed_inc = 0.0005;
 
-		this.crane.update();
+		//this.crane.update(currTime, 'UP');
 		
 		if(this.keyWPressed)
 		{
@@ -327,7 +356,7 @@ class LightingScene extends CGFscene {
 			if(this.car.vel < 0)
 				this.car.vel += reverting_speed_inc; 
 			
-			else if(this.car.vel < 0.1)
+			else if(this.car.vel < 0.05)
 				this.car.vel += speed_inc;
 
 			if(this.keyAPressed)
@@ -350,7 +379,7 @@ class LightingScene extends CGFscene {
 			if(this.car.vel > 0)
 				this.car.vel -= reverting_speed_inc; 
 			
-			else if(this.car.vel > -0.1)
+			else if(this.car.vel > -0.05)
 				this.car.vel -= speed_inc;
 
 			if(this.keyAPressed)

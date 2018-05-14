@@ -37,6 +37,8 @@
 
  		this.gui.add(this.scene, 'doSomething');
 
+ 		this.gui.add(this.scene, 'showSolids');
+
  		this.gui.add(this.scene, 'drawAxis');
  		// add a group of controls (and open/expand by defult)
 
