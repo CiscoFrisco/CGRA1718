@@ -18,7 +18,7 @@ class MyCar extends CGFobject
         this.rightwindooh = new MyTrapeze(scene, 1, 0.7,1,0.05);
 		this.leftwindooh = new MyTrapeze(scene, 1, 0.7,1,-0.05);
 
-        this.turn = 0;
+        this.angleCar = 0;
 
         this.rectangle = new MyQuad(scene);
         this.breather = new MyBreather(scene);
@@ -34,6 +34,7 @@ class MyCar extends CGFobject
         this.centerZ = 0;
         this.angle = 0;
         this.direction = 0;
+        this.vel = 0;
 
 		this.carTexture = new CGFappearance(this.scene);	
 
@@ -212,14 +213,14 @@ class MyCar extends CGFobject
 
 	};
 
-	update(currTime, incX = 0, incZ = 0, dir=0, angle = 0, wheelRot = 0)
-	{
-		var vel = 0.1;
-		this.centerX+=currTime*vel*incX;
-		this.centerZ+=currTime*vel*incZ;
+	update(currTime, dir=0, angle = 0)
+	{			
+		this.centerX+=currTime*this.vel*Math.cos(this.angleCar);
+		this.centerZ-=currTime*this.vel*Math.sin(this.angleCar);
 
-		this.angle += currTime*vel*wheelRot*0.03;
-		this.turn += angle;
+		this.angle -= currTime*this.vel;
+		
+		this.angleCar += angle;
 		
 		this.direction = dir*10;
 	};

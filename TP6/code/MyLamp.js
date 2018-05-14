@@ -47,9 +47,9 @@ class MyLamp extends CGFobject
 				this.normals.push(Math.cos(j*alpha), Math.sin(j*alpha), raio);
 				if((j*alpha) >= Math.PI/2 && (j*alpha) <= 3*Math.PI/2)
 					if((j*alpha) >= Math.PI/2 && (j*alpha) <= Math.PI)
-		  	    		this.texCoords.push(0.5 + (Math.cos(j*alpha)/2), 0.5 - (Math.sin(j*alpha)/2) + incT*i);
+		  	    		this.texCoords.push(0.5 + (Math.cos(j*alpha)/2) + incS*i, 0.5 - (Math.sin(j*alpha)/2) + incT*i);
 		  	    	else
-		  	    		this.texCoords.push(0.5 + (Math.cos(j*alpha)/2), 0.5 + (Math.sin(j*alpha)/2) + incT*i);
+		  	    		this.texCoords.push(0.5 + (Math.cos(j*alpha)/2) + incS*i, 0.5 + (Math.sin(j*alpha)/2) + incT*i);
 				else
 				{
 					if((j*alpha) >= 3*Math.PI/2 && (j*alpha) <= 2*Math.PI)

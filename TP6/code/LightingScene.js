@@ -233,21 +233,21 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 		
-		/*this.pushMatrix();
+		this.pushMatrix();
 			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
 			this.translate(3,0.5,0.5);
-			this.rotate(this.car.turn,0,1,0);
+			this.rotate(this.car.angleCar,0,1,0);
 			this.scale(0.4,0.4,0.4);
 			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
 		this.car.display();	
-		this.popMatrix();*/
+		this.popMatrix();
 		
 		//this.terrainTexture.apply();
-		//this.terrain.display();
+		this.terrain.display();
 		//this.crane.display();
 		
 		this.vehicleAppearances[this.currVehicleAppearance].apply();
-		this.lamp.display();
+		//this.lamp.display();
 
 		// ---- BEGIN Scene drawing section
 
@@ -315,43 +315,70 @@ class LightingScene extends CGFscene {
 		var incY = 0;
 		var dirAngle = 0;
 		var wheelRot = 1;
+		var speed_inc = 0.0001;
+		var reverting_speed_inc = 0.0005;
 
 		this.crane.update();
 		
 		if(this.keyWPressed)
 		{
 			wheelRot = -1;
+
+			if(this.car.vel < 0)
+				this.car.vel += reverting_speed_inc; 
+			
+			else if(this.car.vel < 0.1)
+				this.car.vel += speed_inc;
+
 			if(this.keyAPressed)
 			{
 				dir = 1;
-				dirAngle = 0.025;
+				dirAngle = 0.05;
 			}
 			else if(this.keyDPressed)
 			{
 				dir = -1;
-				dirAngle = -0.025;
+				dirAngle = -0.05;
 			}
-
-			this.car.update(this.deltaTime, Math.cos(this.car.turn)*0.05, Math.sin(this.car.turn + Math.PI)*0.05, dir, dirAngle, wheelRot);
+			
+			this.car.update(this.deltaTime,dir, dirAngle);
 		}
 		else if(this.keySPressed)
 		{
 			wheelRot = 1;
+
+			if(this.car.vel > 0)
+				this.car.vel -= reverting_speed_inc; 
+			
+			else if(this.car.vel > -0.1)
+				this.car.vel -= speed_inc;
+
 			if(this.keyAPressed)
 			{
 				dir = 1;				
-				dirAngle = -0.025;
+				dirAngle = -0.05;
 			}
 			else if(this.keyDPressed)
 			{
 				dir = -1;
-				dirAngle = 0.025;
+				dirAngle = 0.05;
 			}
 			
-			this.car.update(this.deltaTime, Math.cos(this.car.turn+Math.PI)*0.05, Math.sin(this.car.turn)*0.05, dir, dirAngle, wheelRot);
+			this.car.update(this.deltaTime, dir, dirAngle);
+
 		}
 		else
-			this.car.update(this.deltaTime);
-	}
+		{
+			if(this.car.vel < 0.0001 && this.car.vel > -0.0001)
+				this.car.vel = 0;
+			else if(this.car.vel > 0)
+				this.car.vel -= speed_inc;
+			else if(this.car.vel < 0)
+				this.car.vel += speed_inc;
+
+			
+			this.car.update(this.deltaTime,this.direction);
+		}
+	}	
 
 };
