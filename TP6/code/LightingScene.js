@@ -65,7 +65,7 @@ class LightingScene extends CGFscene {
 		this.planeD = new Plane(this, 8, 10, 7);
 		this.planeR = new Plane(this, 8, 7, 5);
 
-		this.lamp = new MyLamp(this, 4, 1);
+		this.lamp = new MyLamp(this, 20, 20);
 		this.cylinder = new MyCylinder(this, 20, 20);
 		this.trapeze = new My3DTrapeze(this);
 
