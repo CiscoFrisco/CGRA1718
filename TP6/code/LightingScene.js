@@ -376,7 +376,7 @@ class LightingScene extends CGFscene {
 		this.crane.update(this.deltaTime);
 		
 		if(Math.abs(this.car.centerX)<=2 &&
-		Math.abs(this.car.centerZ-17)<=2 && this.crane.state == 'DEF')
+		Math.abs(this.car.centerZ-17)<=2 && this.crane.state == 'DEF' && Math.abs(this.car.vel) <=0.0001)
 		{
 			this.car.controlOn = false;
 			this.crane.state = 'GRAB';
