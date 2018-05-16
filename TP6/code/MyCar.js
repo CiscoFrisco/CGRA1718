@@ -6,9 +6,11 @@
 
 class MyCar extends CGFobject
 {
-	constructor(scene) 
+	constructor(scene, centerX = 0, centerY = 0, centerZ = 0) 
 	{
 		super(scene);
+
+		this.attached = false;
 
         this.chassi = new MyChassi(scene);
         this.wheel = new MyWheel(scene, 20,20,20);
@@ -29,9 +31,9 @@ class MyCar extends CGFobject
         this.wheel.initBuffers();
         this.chassi.initBuffers();
 
-        this.centerX = 0;
-        this.centerY = 0;
-        this.centerZ = 0;
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.centerZ = centerZ;
         this.angle = 0;
         this.direction = 0;
         this.vel = 0;
@@ -212,6 +214,8 @@ class MyCar extends CGFobject
 			this.scene.rotate(-Math.PI/2,0,1,0);
 			this.rectangle.display();
 		this.scene.popMatrix();
+
+		this.scene.defaultTexture.apply();
 
 	};
 

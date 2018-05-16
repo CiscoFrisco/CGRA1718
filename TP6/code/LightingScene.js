@@ -37,15 +37,15 @@ class LightingScene extends CGFscene {
 		];
 
 		this.myAltimetry = [
-		[6.0, 6.0, 4.0, 1.0, 1.5, 1.4, 1.3, 1.3, 1.3],
-		[5.0, 5.0, 2.0, 4.0, 3.5, 3.4, 4.3, 1.3, 1.3],
-		[3.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.2, 0.0, 1.5, 2.1, 0.0, 0.0, 0.0],
-		[2.0, 2.0, 0.2, 0.0, 1.5, 2.1, 0.0, 0.0, 0.0],
-		[3.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[5.0, 5.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[6.0, 6.0, 3.0, 1.0, 2.5, 2.4, 2.3, 1.3, 1.3]
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 2.0, 2.0, 2.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 		];
 
 
@@ -56,9 +56,9 @@ class LightingScene extends CGFscene {
 		maregaTexture.loadTexture("../resources/images/marega.png");
 
 		this.terrainTexture = new CGFappearance(this);
-		this.terrainTexture.loadTexture("../resources/images/chrome_256x256.png")
+		this.terrainTexture.loadTexture("../resources/images/desert.png")
 		// Scene elements
-		this.car = new MyCar(this);
+		this.car = new MyCar(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
 		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, this.myAltimetry, this.terrainTexture);
 		
@@ -240,27 +240,37 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 		
-		this.pushMatrix();
-			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
-			this.translate(3,0.5,0.5);
-			this.rotate(this.car.angleCar,0,1,0);
-			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
-		this.car.display();	
-		this.popMatrix();
+			if(!this.car.attached)
+			{		
+				this.pushMatrix();
+				this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
+				this.rotate(this.car.angleCar,0,1,0);
+				//this.scale(0.4,0.4,0.4);
+				this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
+				this.car.display();	
+				this.popMatrix();
+			}
+		
 		
 		//this.terrainTexture.apply();
-		//this.terrain.display();
+		this.terrain.display();
+
+		this.defaultTexture.apply();
+		this.pushMatrix()
+		this.translate(0,2,0);
 		this.crane.display();
+		this.popMatrix();
+
 
 		
 		this.pushMatrix();
-		this.translate(2, 0, -5);
+		this.translate(0.75, 0.1, -17);
 		this.rotate(-Math.PI/2,1,0,0);
 		this.planeD.display();
 		this.popMatrix();
 
 		this.pushMatrix();
-		this.translate(0, 0, 9);
+		this.translate(0, 0.1, 17);
 		this.rotate(-Math.PI/2,1,0,0);
 		this.planeR.display();
 		this.popMatrix();
@@ -311,7 +321,7 @@ class LightingScene extends CGFscene {
 		var text = "Keys pressed: ";
 		var keysPressed = false;
 
-		if (this.gui.isKeyPressed("KeyE")) {
+		if (this.gui.isKeyPressed("KeyW")) {
 			text += " W ";
 			keysPressed = true;
 			this.keyWPressed = true;
@@ -363,10 +373,10 @@ class LightingScene extends CGFscene {
 		var speed_inc = 0.0001;
 		var reverting_speed_inc = 0.0005;
 
-		this.crane.update(currTime);
+		this.crane.update(this.deltaTime);
 		
-		if(Math.abs(this.car.centerX)<=0.7 &&
-		Math.abs(this.car.centerZ-9)<=0.7)
+		if(Math.abs(this.car.centerX)<=2 &&
+		Math.abs(this.car.centerZ-17)<=2 && this.crane.state == 'DEF')
 		{
 			this.car.controlOn = false;
 			this.crane.state = 'GRAB';
