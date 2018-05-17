@@ -49,7 +49,7 @@ class LightingScene extends CGFscene {
 		];
 
 
-	var vidalTexture = new CGFappearance(this);
+		var vidalTexture = new CGFappearance(this);
 		vidalTexture.loadTexture("../resources/images/raul_vidal.png");
 
 		var maregaTexture = new CGFappearance(this);
@@ -57,16 +57,30 @@ class LightingScene extends CGFscene {
 
 		this.terrainTexture = new CGFappearance(this);
 		this.terrainTexture.loadTexture("../resources/images/desert.png")
+
+
+		var desert = new CGFappearance(this);
+		desert.loadTexture("../resources/images/desert.png")
+
+		var grass = new CGFappearance(this);
+		grass.loadTexture("../resources/images/grass.png");
+
+		var chrome = new CGFappearance(this);
+		chrome.loadTexture("../resources/images/chrome_256x256.png");
+
+		this.platTex = new CGFappearance(this);
+		this.platTex.loadTexture("../resources/images/plat.png");
+
 		// Scene elements
 		this.car = new MyCar(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
 		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, this.myAltimetry, this.terrainTexture);
 		
 		this.planeD = new Plane(this, 8, 10, 7);
-		this.planeR = new Plane(this, 8, 7, 5);
+		this.planeR = new Plane(this, 8, 10, 7);
 
 		this.lamp = new MyLamp(this, 20, 20);
-		this.cylinder = new MyCylinder(this, 20, 20);
+		this.cylinder = new MyCylinder(this, 4, 2);
 		this.trapeze = new My3DTrapeze(this);
 
 		this.showSolids = false;
@@ -96,8 +110,15 @@ class LightingScene extends CGFscene {
 		this.vehicleAppearanceList = {};
 		this.vehicleAppearanceList["vidal"] = 1;
 		this.vehicleAppearanceList["marega"] = 0;
-
 		this.currVehicleAppearance = 0;
+
+		this.terrainAppearances = [grass, desert, chrome];
+		this.terrainAppearanceList = {};
+		this.terrainAppearanceList["chrome"] = 2;
+		this.terrainAppearanceList["desert"] = 1;
+		this.terrainAppearanceList["grass"] = 0;
+		this.currTerrainAppearance = 0;
+
 
 		this.keyWPressed = false;
 		this.keySPressed = false;
@@ -240,19 +261,19 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 		
-			if(!this.car.attached)
-			{		
-				this.pushMatrix();
-				this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
-				this.rotate(this.car.angleCar,0,1,0);
-				//this.scale(0.4,0.4,0.4);
-				this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
-				this.car.display();	
-				this.popMatrix();
-			}
+		/*if(!this.car.attached)
+		{		
+			this.pushMatrix();
+			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
+			this.rotate(this.car.angleCar,0,1,0);
+			//this.scale(0.4,0.4,0.4);
+			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
+			this.car.display();	
+			this.popMatrix();
+		}
 		
 		
-		//this.terrainTexture.apply();
+		this.terrain.setTexture(this.terrainAppearances[this.currTerrainAppearance]);
 		this.terrain.display();
 
 		this.defaultTexture.apply();
@@ -266,43 +287,46 @@ class LightingScene extends CGFscene {
 		this.pushMatrix();
 		this.translate(0.75, 0.1, -17);
 		this.rotate(-Math.PI/2,1,0,0);
+		this.platTex.apply();
 		this.planeD.display();
 		this.popMatrix();
 
 		this.pushMatrix();
-		this.translate(0, 0.1, 17);
+		this.translate(0.75, 0.1, 17);
 		this.rotate(-Math.PI/2,1,0,0);
 		this.planeR.display();
 		this.popMatrix();
-
+		
+		this.defaultTexture.apply();*/
 		
 		this.vehicleAppearances[this.currVehicleAppearance].apply();
-		//this.lamp.display();
 
-		if(this.showSolids)
+		/*if(this.showSolids)
 		{
 			this.pushMatrix();
-			this.translate(8, 5, -10);
+			this.translate(-8, 5, -10);
 			this.rotate(-Math.PI/2, 1, 0, 0);
 			this.scale(1,2,2);
 			this.lamp.display();
 			this.popMatrix();
 
 			this.pushMatrix();
-			this.translate(10, 10, -10);
+			this.translate(-11, 10, -10);
 			this.rotate(Math.PI/2,1,0,0);
 			this.scale(1,1,5);
 			this.cylinder.display();
 			this.popMatrix();
 
 			this.pushMatrix();
-			this.translate(12, 5, -10);
+			this.translate(-14, 5, -10);
 			this.scale(2,2,2);
 			this.trapeze.display();
 			this.popMatrix();
 
 			this.defaultTexture.apply();
-		}
+		}*/
+
+		this.cylinder.display();
 
 		// ---- BEGIN Scene drawing section
 

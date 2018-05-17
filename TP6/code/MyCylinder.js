@@ -6,7 +6,7 @@
 
 class MyCylinder extends CGFobject
 {
-	constructor(scene, slices, stacks, outside = true, face = false, half = false,minS = 0, maxS = 1, minT = 0, maxT = 1) 
+	constructor(scene, slices, stacks, outside = true, half = false, minS = 0, maxS = 1, minT = 0, maxT = 1) 
 	{
 		super(scene);
 
@@ -18,9 +18,8 @@ class MyCylinder extends CGFobject
 		this.minT = minT;
 		this.maxT = maxT;
 		this.outside = outside;
-		this.face = face;
 		this.half = half;
-
+	
 		this.initBuffers();
 	};
 
@@ -55,23 +54,21 @@ class MyCylinder extends CGFobject
 
 			z += 1/this.stacks;
 		}
-
-		if(this.face == true)
-		{
-		 	this.vertices.push(0,0,1);
-			this.normals.push(0,0, 1);
-		}
 		
 		var ind = 0;
 
+		console.log(this.vertices.length);
+
 		for(let i = 0; i < this.stacks;i++)
-		{
-			for(let j = 0; j <= this.slices; j++)
-			{		
-				if(j != this.slices)
-				{
+		{			
+			if(j != this.slices - 1)
+			{
+
+				for(let j = 0; j < this.slices; j++)
+				{		
+
 					if(this.outside == true)
-					{
+					{	
 						this.indices.push(ind, ind + 1, ind + this.slices + 1);
 						this.indices.push(ind + this.slices + 1, ind +1, ind + this.slices + 2);
 					}
@@ -80,46 +77,11 @@ class MyCylinder extends CGFobject
 						this.indices.push(ind, ind + this.slices + 1, ind + 1);
 						this.indices.push(ind + this.slices + 1,ind + this.slices + 2, ind + 1);
 					}
-				}
-				/*else if(this.half == false)
-				{
-					if(this.outside == true)
-					{
-						this.indices.push(ind , i*this.slices, ind + this.slices + 1);
-						this.indices.push(ind + this.slices + 1, i*this.slices, (i+1)*this.slices + 1);
-					}
-					else
-					{
-						this.indices.push(ind, ind + this.slices + 1, i*this.slices);
-						this.indices.push(ind + this.slices + 1, (i+1)*this.slices + 1, i*this.slices);
-					}
-				}*/
+					ind++;
 
-				ind++;
+				}
 			}
 		}
-
-
-		if(this.face == true)
-		{
-			var vert_ind = ind+this.slices;
-			var first_ind = ind;
-
-			for(let i = 0; i <= this.slices; i++)
-			{	
-				if(i == this.slices)
-				{
-					this.indices.push(ind,first_ind, vert_ind);
-				}
-				else
-				{
-					this.indices.push(ind,ind+1, vert_ind);
-				}
-				
-				ind++;
-			}
-		}
-
 
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

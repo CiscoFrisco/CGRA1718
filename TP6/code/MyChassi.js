@@ -59,6 +59,7 @@ class MyChassi extends CGFobject
 	    this.scene.pushMatrix();
 			this.scene.translate(size,0, 0);
 			this.scene.scale(5,1,this.width);
+			this.scene.rotate(Math.PI,0,0,1);
 			this.scene.rotate(Math.PI,1,0,0);
             this.cube.display();
             size += 3.5;

@@ -57,6 +57,8 @@
  		this.gui.add(this.scene, 'speed', -5, 5);
 
  		this.gui.add(this.scene, 'currVehicleAppearance', this.scene.vehicleAppearanceList)
+        this.gui.add(this.scene, 'currTerrainAppearance', this.scene.terrainAppearanceList)
+
  		this.initKeys();
 
  		return true;
