@@ -132,10 +132,29 @@
                    else if(this.angleY<=this.DAngle)
                        this.angleY+=currTime*this.vel;
                    else
-                      this.state = 'DROP';
+                      {
+
+                    this.state = 'DROP';
+                    this.scene.car.attached = false;
+                    this.scene.car.centerX = 0.1;
+                    this.scene.car.centerY = 14.3;
+                    this.scene.car.centerZ = -17;
+                    this.scene.car.angleCar += this.angleY;
+                    //this.scene.car.controlOn = true; 
+                    this.scene.car.vel = 0;
+                      }
+
                    break;
                 case 'DROP':
-                 if(this.angleX<=this.maxDownAngle)
+                if(this.scene.car.centerY>=1.3)
+                        this.scene.car.centerY-=currTime*0.01;
+                else
+                {
+                        this.state = 'DEF';
+                        this.scene.car.controlOn = true;
+                }
+
+                /* if(this.angleX<=this.maxDownAngle)
                        this.angleX+=currTime*this.vel;
                  else
                 {     
@@ -147,7 +166,7 @@
                     this.scene.car.angleCar += this.angleY;
                     this.scene.car.controlOn = true; 
                     this.scene.car.vel = 0;
-                }
+                }*/
 
                 default:
                         break;
