@@ -22,7 +22,7 @@ class LightingScene extends CGFscene {
 
 		this.option1 = true;
 		this.option2 = false;
-		this.speed = 3;
+		this.maxSpeed = 3;
 
 		this.altimetry = [
 		[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 1.3],
@@ -37,15 +37,15 @@ class LightingScene extends CGFscene {
 		];
 
 		this.myAltimetry = [
+		[2.0, 1.0, 4.0, 3.0, 5.0, 3.0, 4.0, 1.0, 2.0],
+		[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
 		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 3.0, 2.0, 3.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
 		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 2.0, 2.0, 2.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+		[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+		[-2.0, 0.0, -2.0, -1.0, -2.0, -1.0, -2.0, 0.0, -2.0]
 		];
 
 
@@ -261,7 +261,7 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 		
-		/*if(!this.car.attached)
+		if(!this.car.attached)
 		{		
 			this.pushMatrix();
 			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
@@ -297,7 +297,7 @@ class LightingScene extends CGFscene {
 		this.planeR.display();
 		this.popMatrix();
 		
-		this.defaultTexture.apply();*/
+		this.defaultTexture.apply();
 		
 		this.vehicleAppearances[this.currVehicleAppearance].apply();
 
@@ -326,7 +326,7 @@ class LightingScene extends CGFscene {
 			this.defaultTexture.apply();
 		}*/
 
-		this.cylinder.display();
+		//this.cylinder.display();
 
 		// ---- BEGIN Scene drawing section
 
@@ -415,7 +415,7 @@ class LightingScene extends CGFscene {
 				if(this.car.vel < 0)
 					this.car.vel += reverting_speed_inc; 
 
-				else if(this.car.vel < 0.05)
+				else if(this.car.vel < this.maxSpeed*0.01 )
 					this.car.vel += speed_inc;
 
 				if(this.keyAPressed)
@@ -438,7 +438,7 @@ class LightingScene extends CGFscene {
 				if(this.car.vel > 0)
 					this.car.vel -= reverting_speed_inc; 
 
-				else if(this.car.vel > -0.05)
+				else if(this.car.vel > -this.maxSpeed*0.01)
 					this.car.vel -= speed_inc;
 
 				if(this.keyAPressed)

@@ -76,7 +76,7 @@ class MyCar extends CGFobject
 			this.spoiler.display();
 		this.scene.popMatrix();
 
-				//breather
+		//breather
 		this.scene.pushMatrix();
 			this.scene.translate(2.5,1.1,0);
 			this.scene.scale(1.5,0.3,1.5);

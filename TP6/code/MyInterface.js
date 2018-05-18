@@ -54,7 +54,7 @@
  		// this.speed=3;
  		// min and max values can be specified as parameters
 
- 		this.gui.add(this.scene, 'speed', -5, 5);
+ 		this.gui.add(this.scene, 'maxSpeed', 1, 5);
 
  		this.gui.add(this.scene, 'currVehicleAppearance', this.scene.vehicleAppearanceList)
         this.gui.add(this.scene, 'currTerrainAppearance', this.scene.terrainAppearanceList)
