@@ -97,7 +97,7 @@
         
         this.scene.popMatrix();
 
-        this.scene.defaultTexture.apply();
+        this.scene.materialDefault.apply();
      }
 
      update(currTime)

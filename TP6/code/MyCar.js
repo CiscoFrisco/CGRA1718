@@ -215,7 +215,7 @@ class MyCar extends CGFobject
 			this.rectangle.display();
 		this.scene.popMatrix();
 
-		this.scene.defaultTexture.apply();
+		this.scene.materialDefault.apply();
 
 	};
 

@@ -39,7 +39,7 @@ this.tireTexture = new CGFappearance(this.scene);
 	display()
 	{
 		this.scene.pushMatrix();
-			this.scene.defaultTexture.apply();
+			this.scene.materialDefault.apply();
 			this.mainCylinder.display();
 		this.scene.popMatrix();
 
@@ -92,6 +92,6 @@ this.tireTexture = new CGFappearance(this.scene);
 			this.scene.popMatrix();
 		}	
 
-		this.scene.defaultTexture.apply();
+		this.scene.materialDefault.apply();
 	};
 };

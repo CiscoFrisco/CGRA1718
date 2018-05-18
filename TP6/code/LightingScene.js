@@ -5,26 +5,55 @@ class LightingScene extends CGFscene {
 		super();
 	};
 
-	init(application) {
-		super.init(application);
-
-		this.initCameras();
+	initTextures()
+	{
 		this.enableTextures(true);
-		this.initLights();
 
-		this.gl.clearColor(126.0/255, 192.0/255, 238.0/255, 1.0);
-		this.gl.clearDepth(100.0);
-		this.gl.enable(this.gl.DEPTH_TEST);
-		this.gl.enable(this.gl.CULL_FACE);
-		this.gl.depthFunc(this.gl.LEQUAL);
+		var vidalTexture = new CGFappearance(this);
+		vidalTexture.loadTexture("../resources/images/raul_vidal.png");
 
-		this.axis = new CGFaxis(this);
+		var maregaTexture = new CGFappearance(this);
+		maregaTexture.loadTexture("../resources/images/marega.png");
 
-		this.option1 = true;
-		this.option2 = false;
-		this.maxSpeed = 3;
+		var desert = new CGFappearance(this);
+		desert.loadTexture("../resources/images/desert.png")
 
-		this.altimetry = [
+		var grass = new CGFappearance(this);
+		grass.loadTexture("../resources/images/grass.png");
+
+		var chrome = new CGFappearance(this);
+		chrome.loadTexture("../resources/images/chrome_256x256.png");
+
+		var def = new CGFappearance(this);
+		def.setAmbient(1.0,0.0,0.0,1.0);
+		def.setDiffuse(1.0,0.0,0.0,1.0);
+
+		this.platTex = new CGFappearance(this);
+		this.platTex.loadTexture("../resources/images/plat.png");
+
+		this.materialDefault = new CGFappearance(this);
+		this.materialDefault.setAmbient(0.2, 0.2, 0.2, 1.0);
+		this.materialDefault.setDiffuse(0.2, 0.2, 0.2, 1.0);
+
+		this.vehicleAppearances = [def, maregaTexture, vidalTexture];
+		this.vehicleAppearanceList = {};
+		this.vehicleAppearanceList["vidal"] = 2;
+		this.vehicleAppearanceList["marega"] = 1;
+		this.vehicleAppearanceList["def"] = 0;
+		this.currVehicleAppearance = 0;
+
+		this.terrainAppearances = [grass, desert, chrome];
+		this.terrainAppearanceList = {};
+		this.terrainAppearanceList["chrome"] = 2;
+		this.terrainAppearanceList["desert"] = 1;
+		this.terrainAppearanceList["grass"] = 0;
+		this.currTerrainAppearance = 0;
+	}
+
+	initElements()
+	{
+
+		var altimetry = [
 		[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 1.3],
 		[2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 1.3],
 		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -36,7 +65,7 @@ class LightingScene extends CGFscene {
 		[2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 1.3]
 		];
 
-		this.myAltimetry = [
+		var myAltimetry = [
 		[2.0, 1.0, 4.0, 3.0, 5.0, 3.0, 4.0, 1.0, 2.0],
 		[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
 		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -48,33 +77,9 @@ class LightingScene extends CGFscene {
 		[-2.0, 0.0, -2.0, -1.0, -2.0, -1.0, -2.0, 0.0, -2.0]
 		];
 
-
-		var vidalTexture = new CGFappearance(this);
-		vidalTexture.loadTexture("../resources/images/raul_vidal.png");
-
-		var maregaTexture = new CGFappearance(this);
-		maregaTexture.loadTexture("../resources/images/marega.png");
-
-		this.terrainTexture = new CGFappearance(this);
-		this.terrainTexture.loadTexture("../resources/images/desert.png")
-
-
-		var desert = new CGFappearance(this);
-		desert.loadTexture("../resources/images/desert.png")
-
-		var grass = new CGFappearance(this);
-		grass.loadTexture("../resources/images/grass.png");
-
-		var chrome = new CGFappearance(this);
-		chrome.loadTexture("../resources/images/chrome_256x256.png");
-
-		this.platTex = new CGFappearance(this);
-		this.platTex.loadTexture("../resources/images/plat.png");
-
-		// Scene elements
 		this.car = new MyCar(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
-		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, this.myAltimetry, this.terrainTexture);
+		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, myAltimetry, this.terrainAppearances[this.currTerrainAppearance]);
 		
 		this.planeD = new Plane(this, 8, 10, 7);
 		this.planeR = new Plane(this, 8, 10, 7);
@@ -82,43 +87,38 @@ class LightingScene extends CGFscene {
 		this.lamp = new MyLamp(this, 20, 20);
 		this.cylinder = new MyCylinder(this, 4, 2);
 		this.trapeze = new My3DTrapeze(this);
+	}
+
+	init(application) {
+		super.init(application);
+
+		this.initCameras();
+		this.initLights();
+
+		this.gl.clearColor(126.0/255, 192.0/255, 238.0/255, 1.0);
+		this.gl.clearDepth(100.0);
+		this.gl.enable(this.gl.DEPTH_TEST);
+		this.gl.enable(this.gl.CULL_FACE);
+		this.gl.depthFunc(this.gl.LEQUAL);
+
+		this.axis = new CGFaxis(this);
+
+		this.maxSpeed = 3;
+
+		//Textures	
+		this.initTextures();
+
+
+		// Scene elements
+		this.initElements();
 
 		this.showSolids = false;
-		
-		// Materials
-		this.materialDefault = new CGFappearance(this);
-
-		//Textures
-		this.enableTextures(true);
-	
-		
-
-		this.defaultTexture = new CGFappearance(this);
-		this.defaultTexture.setAmbient(0.2, 0.2, 0.2, 1.0);
-		this.defaultTexture.setDiffuse(0.2, 0.2, 0.2, 1.0);
-
 
 		this.drawAxis = true;
 
 		this.fps = 60;
 		this.setUpdatePeriod(1000 / this.fps);
 		this.time = 0;
-
-	
-
-		this.vehicleAppearances = [maregaTexture, vidalTexture];
-		this.vehicleAppearanceList = {};
-		this.vehicleAppearanceList["vidal"] = 1;
-		this.vehicleAppearanceList["marega"] = 0;
-		this.currVehicleAppearance = 0;
-
-		this.terrainAppearances = [grass, desert, chrome];
-		this.terrainAppearanceList = {};
-		this.terrainAppearanceList["chrome"] = 2;
-		this.terrainAppearanceList["desert"] = 1;
-		this.terrainAppearanceList["grass"] = 0;
-		this.currTerrainAppearance = 0;
-
 
 		this.keyWPressed = false;
 		this.keySPressed = false;
@@ -138,28 +138,17 @@ class LightingScene extends CGFscene {
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
 		this.lights[0].update();
-		this.light1 = true;
 		
 		// Positions for four lights
-		//this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 		
 		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
-		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
 		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-		//this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 
 		this.lights[3].setPosition(4, 6, 5, 1);
-		//this.lights[3].setVisible(true)
 		
 		this.lights[4].setPosition(0.1, 4, 7, 1);
-		//this.lights[4].setVisible(true);
 		
-		//this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-		//this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
-		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[1].enable();
@@ -189,6 +178,7 @@ class LightingScene extends CGFscene {
 		this.lights[3].enable();
 		this.lights[4].enable();
 
+		this.light1 = true;
 		this.light2 = true;
 		this.light3 = true;
 		this.light4 = true;
@@ -262,28 +252,41 @@ class LightingScene extends CGFscene {
 
 		
 		if(!this.car.attached)
-		{		
-			this.pushMatrix();
-			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
-			this.rotate(this.car.angleCar,0,1,0);
-			//this.scale(0.4,0.4,0.4);
-			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
-			this.car.display();	
-			this.popMatrix();
-		}
-		
+			this.displayCar();
 		
 		this.terrain.setTexture(this.terrainAppearances[this.currTerrainAppearance]);
 		this.terrain.display();
 
-		this.defaultTexture.apply();
+		this.displayCrane();
+
+		this.displayPlanes();
+
+		this.vehicleAppearances[this.currVehicleAppearance].apply();
+
+		if(this.showSolids)
+			this.displaySolids();
+
+		//this.cylinder.display();
+
+		// ---- BEGIN Scene drawing section
+
+
+
+
+		// ---- END Scene drawing section	
+	};
+
+	displayCrane()
+	{
+		this.materialDefault.apply();
 		this.pushMatrix()
 		this.translate(0,2,0);
 		this.crane.display();
 		this.popMatrix();
+	}
 
-
-		
+	displayPlanes()
+	{
 		this.pushMatrix();
 		this.translate(0.75, 0.1, -17);
 		this.rotate(-Math.PI/2,1,0,0);
@@ -297,12 +300,22 @@ class LightingScene extends CGFscene {
 		this.planeR.display();
 		this.popMatrix();
 		
-		this.defaultTexture.apply();
-		
-		this.vehicleAppearances[this.currVehicleAppearance].apply();
+		this.materialDefault.apply();
+	}
 
-		/*if(this.showSolids)
-		{
+	displayCar()
+	{
+			this.pushMatrix();
+			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
+			this.rotate(this.car.angleCar,0,1,0);
+			//this.scale(0.4,0.4,0.4);
+			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
+			this.car.display();	
+			this.popMatrix();
+	}
+
+	displaySolids()
+	{
 			this.pushMatrix();
 			this.translate(-8, 5, -10);
 			this.rotate(-Math.PI/2, 1, 0, 0);
@@ -323,18 +336,8 @@ class LightingScene extends CGFscene {
 			this.trapeze.display();
 			this.popMatrix();
 
-			this.defaultTexture.apply();
-		}*/
-
-		//this.cylinder.display();
-
-		// ---- BEGIN Scene drawing section
-
-
-
-
-		// ---- END Scene drawing section	
-	};
+			this.materialDefault.apply();
+	}
 
 	doSomething() {
 		console.log("Doing something...");

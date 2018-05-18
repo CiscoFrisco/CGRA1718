@@ -70,7 +70,7 @@ class MyMirror extends CGFobject
 			this.frame.display();
 		this.scene.popMatrix();	 
 	
-	   this.scene.defaultTexture.apply();
+	   this.scene.materialDefault.apply();
 
 		this.scene.pushMatrix();
             if(!this.inverse)
