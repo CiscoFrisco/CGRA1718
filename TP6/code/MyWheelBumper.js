@@ -11,7 +11,7 @@ class MyWheelBumper extends CGFobject
 		super(scene);
 
 		this.bumper = new MyBumper(scene, slices);
-		this.cylinder = new MyCylinder(scene, slices, stacks, false, false, true);
+		this.cylinder = new MyCylinder(scene, slices, stacks, false, true);
 		this.quad = new MyQuad(scene);
 
 		this.bumper.initBuffers();

@@ -57,16 +57,12 @@ class MyCylinder extends CGFobject
 		
 		var ind = 0;
 
-		console.log(this.vertices.length);
-
 		for(let i = 0; i < this.stacks;i++)
 		{			
-			if(j != this.slices - 1)
-			{
-
-				for(let j = 0; j < this.slices; j++)
-				{		
-
+			for(let j = 0; j <= this.slices; j++)
+			{		
+				if(j != this.slices)
+				{
 					if(this.outside == true)
 					{	
 						this.indices.push(ind, ind + 1, ind + this.slices + 1);
@@ -77,9 +73,8 @@ class MyCylinder extends CGFobject
 						this.indices.push(ind, ind + this.slices + 1, ind + 1);
 						this.indices.push(ind + this.slices + 1,ind + this.slices + 2, ind + 1);
 					}
-					ind++;
-
 				}
+				ind++;
 			}
 		}
 

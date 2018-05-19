@@ -16,8 +16,6 @@ class MyChassi extends CGFobject
         this.trapeze2 = new My3DTrapeze(scene, 1, 0.7 , this.width,1,0.05);
         this.cube = new MyUnitCubeQuad(scene);
         this.bumper = new MyWheelBumper(scene, 20,1);
-        this.cylinder = new MyCylinder(scene, 20, 1, true, true, true);
-
 	};
 
 	display()

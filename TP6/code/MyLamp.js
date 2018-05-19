@@ -66,11 +66,6 @@ class MyLamp extends CGFobject
 					this.indices.push(ind, ind + 1, ind + this.slices + 1);
 					this.indices.push(ind + this.slices + 1, ind +1, ind + this.slices + 2);
 				}
-				else
-				{
-					//this.indices.push(ind, ind - 1, i*this.slices);
-					//this.indices.push(ind - 1, i*this.slices + this.slices - 1, i*this.slices);
-				}
 
 				ind++;
 			}

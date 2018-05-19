@@ -10,8 +10,7 @@ class MyCar extends CGFobject
 	{
 		super(scene);
 
-		this.attached = false;
-
+		//car elements
         this.chassi = new MyChassi(scene);
         this.wheel = new MyWheel(scene, 20,20,20);
         this.lamp = new MyLamp(scene,20,20);
@@ -38,8 +37,19 @@ class MyCar extends CGFobject
         this.direction = 0;
         this.vel = 0;
 
-        this.controlOn = true;
+		//car movement variables
+        this.speed_inc = 0.01;
+		this.reverting_speed_inc = 0.01;
 
+		//behaviour booleans
+        this.controlOn = true;
+		this.attached = false;
+        
+        this.initTextures();
+	};
+
+	initTextures()
+	{
 		this.carTexture = new CGFappearance(this.scene);	
 
 		this.eyesTexture = new CGFappearance(this.scene);
@@ -53,7 +63,6 @@ class MyCar extends CGFobject
 
 		this.lightTexture = new CGFappearance(this.scene);
 		this.lightTexture.loadTexture("../resources/images/car_light.png");
-		
 	};
 
 	setTexture(texture)
@@ -85,7 +94,6 @@ class MyCar extends CGFobject
 		this.scene.popMatrix();		
 
 		//mirrors
-
 		this.carTexture.apply();
 
 		this.scene.pushMatrix();
@@ -219,15 +227,102 @@ class MyCar extends CGFobject
 
 	};
 
-	update(currTime, dir=0, angle = 0)
+	update(currTime)
 	{			
 		this.centerX+=currTime*this.vel*Math.cos(this.angleCar);
 		this.centerZ-=currTime*this.vel*Math.sin(this.angleCar);
 
 		this.angle -= currTime*this.vel;
-		
-		this.angleCar += angle;
-		
-		this.direction = dir*10;
+	};
+
+	move(deltaTime)
+	{
+		var time = deltaTime/1000.0;
+		if(this.vel != 0 || this.scene.keysPressed != false)
+		{
+			if(this.scene.keyAPressed)
+			{
+				this.direction  = 1;
+				if(this.vel > 0)
+					this.angleCar += 2*time;
+				else if(this.vel < 0)
+					this.angleCar -= 2*time;
+			}
+			else if(this.scene.keyDPressed)
+			{
+				this.direction  = -1;
+				if(this.vel > 0)
+					this.angleCar += -2*time;
+				else if(this.vel < 0)
+					this.angleCar += 2*time;
+			
+			}
+			else if(this.direction != 0)
+				this.balanceDirection(time);
+
+			if(this.scene.keyWPressed)
+			{
+				if(this.vel < 0)
+					this.vel += this.reverting_speed_inc*time; 
+
+				else if(this.vel < this.scene.maxSpeed*0.01)
+					this.vel += this.speed_inc*time;
+			}
+
+			else if(this.scene.keySPressed)
+			{
+				if(this.vel > 0)
+					this.vel -= this.reverting_speed_inc*time; 
+
+				else if(this.vel > -this.scene.maxSpeed*0.01)
+					this.vel -= this.speed_inc*time;
+			}
+			else
+				this.stopCar(time);
+
+
+			this.update(deltaTime);
+		}
+		else
+		{
+			if(this.direction != 0)
+				this.balanceDirection(time);
+		}
+	};
+
+	balanceDirection(time)
+	{
+		console.log(this.direction);
+		if(this.direction < 0.05 && this.direction > -0.05)
+		{
+			this.direction = 0;
+		}
+		else if(this.direction > 0.1)
+		{
+			this.direction += -3*time;
+			if(this.vel > 0)
+				this.angleCar += 2*time;
+			else if(this.vel < 0)
+				this.angleCar += -2*time;
+		}
+		else if(this.direction < -0.1)
+		{
+			this.direction += 3*time;	
+			
+			if(this.vel > 0)
+				this.angleCar += -2*time;
+			else if(this.vel < 0)
+				this.angleCar += 2*time;		
+		}			
+	};
+
+	stopCar(time)
+	{		
+		if(this.vel < 0.0001 && this.vel > -0.0001)
+			this.vel = 0;
+		else if(this.vel > 0)
+			this.vel -= this.speed_inc*time;
+		else if(this.vel < 0)
+			this.vel += this.speed_inc*time;
 	};
 };

@@ -85,7 +85,7 @@ class LightingScene extends CGFscene {
 		this.planeR = new Plane(this, 8, 10, 7);
 
 		this.lamp = new MyLamp(this, 20, 20);
-		this.cylinder = new MyCylinder(this, 4, 2);
+		this.cylinder = new MyCylinder(this, 20, 20);
 		this.trapeze = new My3DTrapeze(this);
 	}
 
@@ -116,7 +116,7 @@ class LightingScene extends CGFscene {
 
 		this.drawAxis = true;
 
-		this.fps = 60;
+		this.fps = 20;
 		this.setUpdatePeriod(1000 / this.fps);
 		this.time = 0;
 
@@ -250,7 +250,7 @@ class LightingScene extends CGFscene {
 
 		// ---- BEGIN Scene drawing section
 
-		
+
 		if(!this.car.attached)
 			this.displayCar();
 		
@@ -265,13 +265,6 @@ class LightingScene extends CGFscene {
 
 		if(this.showSolids)
 			this.displaySolids();
-
-		//this.cylinder.display();
-
-		// ---- BEGIN Scene drawing section
-
-
-
 
 		// ---- END Scene drawing section	
 	};
@@ -308,7 +301,6 @@ class LightingScene extends CGFscene {
 			this.pushMatrix();
 			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
 			this.rotate(this.car.angleCar,0,1,0);
-			//this.scale(0.4,0.4,0.4);
 			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
 			this.car.display();	
 			this.popMatrix();
@@ -346,11 +338,11 @@ class LightingScene extends CGFscene {
 
 	checkKeys() {
 		var text = "Keys pressed: ";
-		var keysPressed = false;
+		this.keysPressed = false;
 
 		if (this.gui.isKeyPressed("KeyW")) {
 			text += " W ";
-			keysPressed = true;
+			this.keysPressed = true;
 			this.keyWPressed = true;
 		}
 		else
@@ -358,7 +350,7 @@ class LightingScene extends CGFscene {
 
 		if (this.gui.isKeyPressed("KeyS")) {
 			text += " S ";
-			keysPressed = true;
+			this.keysPressed = true;
 			this.keySPressed = true;
 		}
 		else
@@ -366,7 +358,7 @@ class LightingScene extends CGFscene {
 
 		if (this.gui.isKeyPressed("KeyA")) {
 			text += " A ";
-			keysPressed = true;
+			this.keysPressed = true;
 			this.keyAPressed = true;
 		}
 		else
@@ -374,13 +366,13 @@ class LightingScene extends CGFscene {
 
 		if (this.gui.isKeyPressed("KeyD")) {
 			text += " D ";
-			keysPressed = true;
+			this.keysPressed = true;
 			this.keyDPressed = true;
 		}
 		else
 			this.keyDPressed = false;
 
-		if (keysPressed)
+		if (this.keysPressed)
 			console.log(text);
 	};
 
@@ -390,88 +382,19 @@ class LightingScene extends CGFscene {
 
 		this.lastTime=this.lastTime || 0;
 		this.deltaTime=currTime-this.lastTime;
-
 		this.lastTime = currTime;
-		var dir = 0;
-		var incX = 0;
-		var incY = 0;
-		var dirAngle = 0;
-		var wheelRot = 1;
-		var speed_inc = 0.0001;
-		var reverting_speed_inc = 0.0005;
 
-		this.crane.update(this.deltaTime);
-		
-		if(Math.abs(this.car.centerX)<=2 &&
-		Math.abs(this.car.centerZ-17)<=2 && this.crane.state == 'DEF' && Math.abs(this.car.vel) <=0.0001)
+		if( Math.abs(this.car.centerX)<=2 &&
+			Math.abs(this.car.centerZ-17)<=2 &&
+		    this.crane.state == 'DEF' && 
+			Math.abs(this.car.vel) <=0.0001)
 		{
 			this.car.controlOn = false;
 			this.crane.state = 'GRAB';
 		}
-
 		if(this.car.controlOn)
-		{
-			if(this.keyWPressed)
-			{
-				wheelRot = -1;
+			this.car.move(this.deltaTime);
 
-				if(this.car.vel < 0)
-					this.car.vel += reverting_speed_inc; 
-
-				else if(this.car.vel < this.maxSpeed*0.01 )
-					this.car.vel += speed_inc;
-
-				if(this.keyAPressed)
-				{
-					dir = 1;
-					dirAngle = 0.05;
-				}
-				else if(this.keyDPressed)
-				{
-					dir = -1;
-					dirAngle = -0.05;
-				}
-
-				this.car.update(this.deltaTime,dir, dirAngle);
-			}
-			else if(this.keySPressed)
-			{
-				wheelRot = 1;
-
-				if(this.car.vel > 0)
-					this.car.vel -= reverting_speed_inc; 
-
-				else if(this.car.vel > -this.maxSpeed*0.01)
-					this.car.vel -= speed_inc;
-
-				if(this.keyAPressed)
-				{
-					dir = 1;				
-					dirAngle = -0.05;
-				}
-				else if(this.keyDPressed)
-				{
-					dir = -1;
-					dirAngle = 0.05;
-				}
-
-				this.car.update(this.deltaTime, dir, dirAngle);
-
-			}
-			else
-			{
-				if(this.car.vel < 0.0001 && this.car.vel > -0.0001)
-					this.car.vel = 0;
-				else if(this.car.vel > 0)
-					this.car.vel -= speed_inc;
-				else if(this.car.vel < 0)
-					this.car.vel += speed_inc;
-
-
-				this.car.update(this.deltaTime,this.direction);
-			}
-		}
-
-	}	
-
+		this.crane.update(this.deltaTime);
+	}
 };
