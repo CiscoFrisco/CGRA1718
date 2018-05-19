@@ -1,12 +1,9 @@
-var degToRad = Math.PI / 180.0;
-
 class LightingScene extends CGFscene {
 	constructor() {
 		super();
 	};
 
-	initTextures()
-	{
+	initTextures() {
 		this.enableTextures(true);
 
 		var vidalTexture = new CGFappearance(this);
@@ -25,8 +22,8 @@ class LightingScene extends CGFscene {
 		chrome.loadTexture("../resources/images/chrome_256x256.png");
 
 		var def = new CGFappearance(this);
-		def.setAmbient(1.0,0.0,0.0,1.0);
-		def.setDiffuse(1.0,0.0,0.0,1.0);
+		def.setAmbient(1.0, 0.0, 0.0, 1.0);
+		def.setDiffuse(1.0, 0.0, 0.0, 1.0);
 
 		this.platTex = new CGFappearance(this);
 		this.platTex.loadTexture("../resources/images/plat.png");
@@ -50,37 +47,36 @@ class LightingScene extends CGFscene {
 		this.currTerrainAppearance = 0;
 	}
 
-	initElements()
-	{
+	initElements() {
 
 		var altimetry = [
-		[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 1.3],
-		[2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 1.3],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 1.3]
+			[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 1.3],
+			[2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 1.3],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 1.3]
 		];
 
 		var myAltimetry = [
-		[2.0, 1.0, 4.0, 3.0, 5.0, 3.0, 4.0, 1.0, 2.0],
-		[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 3.0, 2.0, 3.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-		[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
-		[-2.0, 0.0, -2.0, -1.0, -2.0, -1.0, -2.0, 0.0, -2.0]
+			[2.0, 1.0, 4.0, 3.0, 5.0, 3.0, 4.0, 1.0, 2.0],
+			[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 3.0, 2.0, 3.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+			[-2.0, 0.0, -2.0, -1.0, -2.0, -1.0, -2.0, 0.0, -2.0]
 		];
 
 		this.car = new MyCar(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
 		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, myAltimetry, this.terrainAppearances[this.currTerrainAppearance]);
-		
+
 		this.planeD = new Plane(this, 8, 10, 7);
 		this.planeR = new Plane(this, 8, 10, 7);
 
@@ -95,7 +91,7 @@ class LightingScene extends CGFscene {
 		this.initCameras();
 		this.initLights();
 
-		this.gl.clearColor(126.0/255, 192.0/255, 238.0/255, 1.0);
+		this.gl.clearColor(126.0 / 255, 192.0 / 255, 238.0 / 255, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -103,11 +99,11 @@ class LightingScene extends CGFscene {
 
 		this.axis = new CGFaxis(this);
 
+		//Car maximum speed
 		this.maxSpeed = 3;
 
 		//Textures	
 		this.initTextures();
-
 
 		// Scene elements
 		this.initElements();
@@ -118,13 +114,11 @@ class LightingScene extends CGFscene {
 
 		this.fps = 20;
 		this.setUpdatePeriod(1000 / this.fps);
-		this.time = 0;
 
 		this.keyWPressed = false;
 		this.keySPressed = false;
 		this.keyAPressed = false;
 		this.keyDPressed = false;
-
 	};
 
 	initCameras() {
@@ -132,38 +126,33 @@ class LightingScene extends CGFscene {
 	};
 
 	initLights() {
-		this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1);
+		this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1)
+
+		// Positions for five lights
 
 		this.lights[0].setPosition(15, 2, 5, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
-		this.lights[0].update();
-		
-		// Positions for four lights
-		
+
 		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
-
-		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-
-		this.lights[3].setPosition(4, 6, 5, 1);
-		
-		this.lights[4].setPosition(0.1, 4, 7, 1);
-		
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[1].enable();
 
+		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[2].setSpecular(1.0,1.0,1.0,1.0);
+		this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
 
+		this.lights[3].setPosition(4, 6, 5, 1);
 		this.lights[3].setAmbient(0, 0, 0, 1);
 		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[3].setSpecular(1.0,1.0,0.0,1.0);
-		
+		this.lights[3].setSpecular(1.0, 1.0, 0.0, 1.0);
+
+		this.lights[4].setPosition(0.1, 4, 7, 1);
 		this.lights[4].setAmbient(1.0, 1.0, 1.0, 1.0);
 		this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[4].setSpecular(1.0,1.0,1.0,1.0);
+		this.lights[4].setSpecular(1.0, 1.0, 1.0, 1.0);
 
 		//Attenuation
 		this.lights[2].setConstantAttenuation(0);
@@ -178,12 +167,12 @@ class LightingScene extends CGFscene {
 		this.lights[3].enable();
 		this.lights[4].enable();
 
+		//Booleans for dat.gui
 		this.light1 = true;
 		this.light2 = true;
 		this.light3 = true;
 		this.light4 = true;
 		this.light5 = true;
-
 	};
 
 	updateLights() {
@@ -194,8 +183,7 @@ class LightingScene extends CGFscene {
 			this.lights[i].update();
 	}
 
-	checkLights()
-	{
+	checkLights() {
 		if (this.light1)
 			this.lights[0].enable();
 		else
@@ -222,7 +210,6 @@ class LightingScene extends CGFscene {
 			this.lights[4].disable();
 	}
 
-
 	display() {
 		// ---- BEGIN Background, camera and axis setup
 
@@ -241,7 +228,7 @@ class LightingScene extends CGFscene {
 		this.updateLights();
 
 		// Draw axis
-		if(this.drawAxis)
+		if (this.drawAxis)
 			this.axis.display();
 
 		this.materialDefault.apply();
@@ -251,9 +238,9 @@ class LightingScene extends CGFscene {
 		// ---- BEGIN Scene drawing section
 
 
-		if(!this.car.attached)
+		if (!this.car.attached)
 			this.displayCar();
-		
+
 		this.terrain.setTexture(this.terrainAppearances[this.currTerrainAppearance]);
 		this.terrain.display();
 
@@ -263,72 +250,71 @@ class LightingScene extends CGFscene {
 
 		this.vehicleAppearances[this.currVehicleAppearance].apply();
 
-		if(this.showSolids)
+		if (this.showSolids)
 			this.displaySolids();
 
 		// ---- END Scene drawing section	
 	};
 
-	displayCrane()
-	{
+	displayCrane() {
 		this.materialDefault.apply();
 		this.pushMatrix()
-		this.translate(0,2,0);
+		this.translate(0, 2, 0);
 		this.crane.display();
 		this.popMatrix();
 	}
 
-	displayPlanes()
-	{
+	displayPlanes() {
 		this.pushMatrix();
 		this.translate(0.75, 0.1, -17);
-		this.rotate(-Math.PI/2,1,0,0);
+		this.rotate(-Math.PI / 2, 1, 0, 0);
 		this.platTex.apply();
 		this.planeD.display();
 		this.popMatrix();
 
 		this.pushMatrix();
 		this.translate(0.75, 0.1, 17);
-		this.rotate(-Math.PI/2,1,0,0);
+		this.rotate(-Math.PI / 2, 1, 0, 0);
 		this.planeR.display();
 		this.popMatrix();
-		
+
 		this.materialDefault.apply();
 	}
 
-	displayCar()
-	{
-			this.pushMatrix();
-			this.translate(this.car.centerX,this.car.centerY,this.car.centerZ);
-			this.rotate(this.car.angleCar,0,1,0);
-			this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
-			this.car.display();	
-			this.popMatrix();
+	displayCar() {
+		this.pushMatrix();
+		this.translate(this.car.centerX, this.car.centerY, this.car.centerZ);
+		this.rotate(this.car.angleCar, 0, 1, 0);
+		this.car.setTexture(this.vehicleAppearances[this.currVehicleAppearance]);
+		this.car.display();
+		this.popMatrix();
 	}
 
-	displaySolids()
-	{
-			this.pushMatrix();
-			this.translate(-8, 5, -10);
-			this.rotate(-Math.PI/2, 1, 0, 0);
-			this.scale(1,2,2);
-			this.lamp.display();
-			this.popMatrix();
+	displaySolids() {
 
-			this.pushMatrix();
-			this.translate(-11, 10, -10);
-			this.rotate(Math.PI/2,1,0,0);
-			this.scale(1,1,5);
-			this.cylinder.display();
-			this.popMatrix();
+		this.vehicleAppearances[1].apply();
 
-			this.pushMatrix();
-			this.translate(-14, 5, -10);
-			this.scale(2,2,2);
-			this.trapeze.display();
-			this.popMatrix();
+		this.pushMatrix();
+		this.translate(-8, 5, -10);
+		this.rotate(-Math.PI / 2, 1, 0, 0);
+		this.scale(1, 2, 2);
+		this.lamp.display();
+		this.popMatrix();
 
-			this.materialDefault.apply();
+		this.pushMatrix();
+		this.translate(-11, 10, -10);
+		this.rotate(Math.PI / 2, 1, 0, 0);
+		this.scale(1, 1, 5);
+		this.cylinder.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+		this.translate(-14, 5, -10);
+		this.scale(2, 2, 2);
+		this.trapeze.display();
+		this.popMatrix();
+
+		this.materialDefault.apply();
 	}
 
 	doSomething() {
@@ -344,32 +330,28 @@ class LightingScene extends CGFscene {
 			text += " W ";
 			this.keysPressed = true;
 			this.keyWPressed = true;
-		}
-		else
+		} else
 			this.keyWPressed = false;
 
 		if (this.gui.isKeyPressed("KeyS")) {
 			text += " S ";
 			this.keysPressed = true;
 			this.keySPressed = true;
-		}
-		else
+		} else
 			this.keySPressed = false;
 
 		if (this.gui.isKeyPressed("KeyA")) {
 			text += " A ";
 			this.keysPressed = true;
 			this.keyAPressed = true;
-		}
-		else
+		} else
 			this.keyAPressed = false;
 
 		if (this.gui.isKeyPressed("KeyD")) {
 			text += " D ";
 			this.keysPressed = true;
 			this.keyDPressed = true;
-		}
-		else
+		} else
 			this.keyDPressed = false;
 
 		if (this.keysPressed)
@@ -380,19 +362,18 @@ class LightingScene extends CGFscene {
 
 		this.checkKeys();
 
-		this.lastTime=this.lastTime || 0;
-		this.deltaTime=currTime-this.lastTime;
+		this.lastTime = this.lastTime || 0;
+		this.deltaTime = currTime - this.lastTime;
 		this.lastTime = currTime;
 
-		if( Math.abs(this.car.centerX)<=2 &&
-			Math.abs(this.car.centerZ-17)<=2 &&
-		    this.crane.state == 'DEF' && 
-			Math.abs(this.car.vel) <=0.0001)
-		{
+		if (Math.abs(this.car.centerX) <= 2 &&
+			Math.abs(this.car.centerZ - 17) <= 2 &&
+			this.crane.state == 'DEF' &&
+			Math.abs(this.car.vel) <= 0.0001) {
 			this.car.controlOn = false;
 			this.crane.state = 'GRAB';
 		}
-		if(this.car.controlOn)
+		if (this.car.controlOn)
 			this.car.move(this.deltaTime);
 
 		this.crane.update(this.deltaTime);

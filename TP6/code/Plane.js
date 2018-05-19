@@ -14,30 +14,31 @@ class Plane extends CGFobject {
 		this.maxS = maxS;
 		this.maxT = maxT;
 
-        if(altimetry !== undefined && altimetry.length == nrDivs + 1 && altimetry[0].length == nrDivs +1)
-            this.altimetry = altimetry;
-        else
-            this.setDefaultAltimetry();
+		if (altimetry !== undefined && altimetry.length == nrDivs + 1 && altimetry[0].length == nrDivs + 1)
+			this.altimetry = altimetry;
+		else
+			this.setDefaultAltimetry();
 
 		this.initBuffers();
 	};
 
 
-	setDefaultAltimetry()
-    {
-        this.altimetry = [];
+	/**
+	 * In case no altimetry matrix is specified, or its dimensions are wrong, the altimetry is then
+	 * constant - 0.
+	 */
+	setDefaultAltimetry() {
+		this.altimetry = [];
 
-        for(let i = 0; i<=this.nrDivs; i++)
-        {
-            let row = [];
+		for (let i = 0; i <= this.nrDivs; i++) {
+			let row = [];
 
-            for(let j = 0; j<=this.nrDivs;j++)
-                row.push(0.0);
+			for (let j = 0; j <= this.nrDivs; j++)
+				row.push(0.0);
 
-            this.altimetry.push(row);
-        }
-                
-    };
+			this.altimetry.push(row);
+		}
+	};
 
 	initBuffers() {
 		/* example for nrDivs = 3 :

@@ -14,20 +14,15 @@ class MyTerrain extends Plane {
     display() {
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-        
-        if(this.texture)
-        	this.texture.apply();
-        	
+
+        if (this.texture)
+            this.texture.apply();
+
         this.drawElements(this.primitiveType);
         this.scene.popMatrix();
     }
 
-
     setTexture(texture) {
         this.texture = texture;
-    }
-
-    setTextureWrap(wrapS, wrapT) {
-        this.texture.setTextureWrap(wrapS, wrapT);
     }
 };

@@ -4,41 +4,35 @@
  * @constructor
  */
 
-class MySpoiler extends CGFobject
-{
-	constructor(scene) 
-	{
+class MySpoiler extends CGFobject {
+	constructor(scene) {
 		super(scene);
 
-        this.trapeze = new My3DTrapeze(scene,1,0.5,1,1,0.7);
-        this.rectangle = new MyUnitCubeQuad(scene);
-        
-        this.trapeze.initBuffers();
+		this.trapeze = new My3DTrapeze(scene, 1, 0.5, 1, 1, 0.7);
+		this.rectangle = new MyUnitCubeQuad(scene);
+
+		this.trapeze.initBuffers();
 	};
 
-
-	display()
-	{
+	display() {
 		this.scene.pushMatrix();
-		    this.scene.translate(0.3,0,2);
-		    this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(1,1,0.2);
-			this.trapeze.display();
+		this.scene.translate(0.3, 0, 2);
+		this.scene.rotate(Math.PI, 0, 1, 0);
+		this.scene.scale(1, 1, 0.2);
+		this.trapeze.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-            this.scene.translate(0.3,0,-2);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(1,1,0.2);
-			this.trapeze.display();
-		this.scene.popMatrix();		
+		this.scene.translate(0.3, 0, -2);
+		this.scene.rotate(Math.PI, 0, 1, 0);
+		this.scene.scale(1, 1, 0.2);
+		this.trapeze.display();
+		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-			this.scene.rotate(-Math.PI/4,0,0,1);
-			this.scene.scale(1,0.1,4);
-			this.rectangle.display();
-		this.scene.popMatrix();	 
-
-		 
+		this.scene.rotate(-Math.PI / 4, 0, 0, 1);
+		this.scene.scale(1, 0.1, 4);
+		this.rectangle.display();
+		this.scene.popMatrix();
 	};
 };

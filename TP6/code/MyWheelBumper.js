@@ -4,10 +4,8 @@
  * @constructor
  */
 
-class MyWheelBumper extends CGFobject
-{
-	constructor(scene, slices, stacks) 
-	{
+class MyWheelBumper extends CGFobject {
+	constructor(scene, slices, stacks) {
 		super(scene);
 
 		this.bumper = new MyBumper(scene, slices);
@@ -19,28 +17,27 @@ class MyWheelBumper extends CGFobject
 		this.quad.initBuffers();
 	};
 
-	display() 
-	{
+	display() {
 		this.scene.pushMatrix();
-		  this.bumper.display();
+		this.bumper.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-			this.scene.translate(0,0,-1);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.bumper.display();
+		this.scene.translate(0, 0, -1);
+		this.scene.rotate(Math.PI, 0, 1, 0);
+		this.bumper.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		  this.scene.translate(0,0,-1);
-		  this.cylinder.display();
+		this.scene.translate(0, 0, -1);
+		this.cylinder.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		  this.scene.translate(0,1,-0.5);
-		  this.scene.scale(2,1,1);
-		  this.scene.rotate(-Math.PI/2,1,0,0);
-		  this.quad.display();
+		this.scene.translate(0, 1, -0.5);
+		this.scene.scale(2, 1, 1);
+		this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+		this.quad.display();
 		this.scene.popMatrix();
 	};
 };
