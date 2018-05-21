@@ -1,10 +1,10 @@
 /**
- * MyCar
+ * MyVehicle
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
-class MyCar extends CGFobject {
+class MyVehicle extends CGFobject {
 	constructor(scene, centerX = 0, centerY = 0, centerZ = 0) {
 		super(scene);
 
@@ -74,7 +74,6 @@ class MyCar extends CGFobject {
 		this.scene.popMatrix();
 
 		//spoiler
-
 		this.scene.pushMatrix();
 		this.scene.translate(-6, 1.5, 0);
 		this.spoiler.display();
@@ -219,11 +218,11 @@ class MyCar extends CGFobject {
 		this.scene.materialDefault.apply();
 	};
 
-	update(currTime) {
-		this.centerX += currTime * this.vel * Math.cos(this.angleCar);
-		this.centerZ -= currTime * this.vel * Math.sin(this.angleCar);
+	update(deltaTime) {
+		this.centerX += deltaTime * this.vel * Math.cos(this.angleCar);
+		this.centerZ -= deltaTime * this.vel * Math.sin(this.angleCar);
 
-		this.angle -= currTime * this.vel;
+		this.angle -= deltaTime * this.vel;
 	};
 
 	move(deltaTime) {

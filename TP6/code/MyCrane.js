@@ -36,20 +36,23 @@ class MyCrane extends CGFobject {
 
                 this.scene.pushMatrix();
                 this.scene.rotate(this.angleY, 0, 1, 0);
-
+                
+                //base
                 this.scene.pushMatrix();
                 this.scene.rotate(-Math.PI / 2, 1, 0, 0);
                 this.scene.scale(2, 2, 1);
                 this.cylinder.display();
                 this.scene.popMatrix();
-
+                
+                //big arm
                 this.scene.pushMatrix();
                 this.scene.rotate(-Math.PI / 3, 1, 0, 0);
                 this.scene.translate(0, 0.5, 0.5);
                 this.scene.scale(0.7, 0.7, 15);
                 this.cylinder.display();
                 this.scene.popMatrix();
-
+                
+                //joint
                 this.scene.pushMatrix();
                 this.scene.translate(-0.8, 14, 7.5);
                 this.scene.rotate(Math.PI / 2, 0, 1, 0);
@@ -58,22 +61,25 @@ class MyCrane extends CGFobject {
                 this.scene.popMatrix();
 
                 this.scene.pushMatrix()
-
+                
                 this.scene.translate(0, 14, 8.0);
-
+                
+                //small arm
                 this.scene.pushMatrix();
                 this.scene.rotate(this.angleX, 1, 0, 0);
                 this.scene.scale(0.5, 0.6, 11.9);
                 this.cylinder.display();
                 this.scene.popMatrix();
-
+                
+                //nathan summers
                 this.scene.pushMatrix();
                 this.scene.translate(0, -Math.sin(this.angleX) * 11.4, Math.cos(this.angleX) * 11.4);
                 this.scene.scale(0.1, 6, 0.1)
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.cylinder.display();
                 this.scene.popMatrix();
-
+                
+                //magneto
                 this.scene.pushMatrix();
                 this.scene.translate(0.1, -Math.sin(this.angleX) * 11.4 - 6.0, Math.cos(this.angleX) * 11.4);
                 this.scene.rotate(-Math.PI / 2, 1, 0, 0);
@@ -83,7 +89,7 @@ class MyCrane extends CGFobject {
 
                 if (this.scene.car.attached) {
                         this.scene.pushMatrix();
-                        this.scene.translate(0.1 + this.centerX, -Math.sin(this.angleX) * 11.4 - 6.7 - this.scene.car.centerY, Math.cos(this.angleX) * 11.4 + this.centerZ);
+                        this.scene.translate(0.1, -Math.sin(this.angleX) * 11.4 - 6.7 - this.scene.car.centerY, Math.cos(this.angleX) * 11.4);
                         this.scene.rotate(this.scene.car.angleCar, 0, 1, 0);
                         this.scene.car.display();
                         this.scene.popMatrix();
@@ -96,13 +102,13 @@ class MyCrane extends CGFobject {
                 this.scene.materialDefault.apply();
         }
 
-        update(currTime) {
+        update(deltaTime) {
                 switch (this.state) {
                         case 'GRAB':
                                 if (this.angleY >= this.RAngle)
-                                        this.angleY -= currTime * this.vel;
+                                        this.angleY -= deltaTime * this.vel;
                                 else if (this.angleX <= this.maxDownAngle)
-                                        this.angleX += currTime * this.vel;
+                                        this.angleX += deltaTime * this.vel;
                                 else {
                                         this.scene.car.attached = true;
                                         this.state = 'MOVE';
@@ -110,16 +116,16 @@ class MyCrane extends CGFobject {
                                 break;
                         case 'MOVE':
                                 if (this.angleX >= this.maxUpAngle)
-                                        this.angleX -= currTime * this.vel;
+                                        this.angleX -= deltaTime * this.vel;
                                 else if (this.angleY <= this.DAngle)
-                                        this.angleY += currTime * this.vel;
+                                        this.angleY += deltaTime * this.vel;
                                 else {
                                         //TODO: too hardcoded?
                                         this.state = 'DROP';
                                         this.scene.car.attached = false;
                                         this.scene.car.centerX = 0.1;
                                         this.scene.car.centerY = 14.3;
-                                        this.scene.car.centerZ = -17;
+                                        this.scene.car.centerZ = -this.scene.planeZ;
                                         this.scene.car.angleCar += this.angleY;
                                         this.scene.car.vel = 0;
                                 }
@@ -128,7 +134,7 @@ class MyCrane extends CGFobject {
                         case 'DROP':
                                 this.velY += this.gravity * this.dt;
                                 if (this.scene.car.centerY >= 1.8)
-                                        this.scene.car.centerY -= currTime * this.velY;
+                                        this.scene.car.centerY -= deltaTime * this.velY;
                                 else {
                                         this.state = 'DEF';
                                         this.scene.car.controlOn = true;

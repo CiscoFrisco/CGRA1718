@@ -52,7 +52,7 @@ serialInclude([
 	'MyChassi.js',
 	'MyBumper.js',
 	'MyWheelBumper.js',
-	'MyCar.js',
+	'MyVehicle.js',
 	'MyBreather.js',
 	'MySpoiler.js',
 	'MyCrane.js',

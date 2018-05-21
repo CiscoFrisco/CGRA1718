@@ -108,7 +108,7 @@ class Plane extends CGFobject {
 
 				ind++;
 			}
-			if (j + 1 < this.nrDivs) {
+			if (j <= this.nrDivs) {
 				// Extra vertices to create degenerate triangles so that the strip can wrap on the next row
 				// degenerate triangles will not generate fragments
 				this.indices.push(ind + this.nrDivs);

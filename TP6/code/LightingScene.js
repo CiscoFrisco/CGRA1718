@@ -73,12 +73,14 @@ class LightingScene extends CGFscene {
 			[-2.0, 0.0, -2.0, -1.0, -2.0, -1.0, -2.0, 0.0, -2.0]
 		];
 
-		this.car = new MyCar(this, 10, 1.3, 12);
+		this.car = new MyVehicle(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
 		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, myAltimetry, this.terrainAppearances[this.currTerrainAppearance]);
 
 		this.planeD = new Plane(this, 8, 10, 7);
 		this.planeR = new Plane(this, 8, 10, 7);
+		this.planeZ = 17;
+		this.planeX = 0.75;
 
 		this.lamp = new MyLamp(this, 20, 20);
 		this.cylinder = new MyCylinder(this, 20, 20);
@@ -112,7 +114,7 @@ class LightingScene extends CGFscene {
 
 		this.drawAxis = true;
 
-		this.fps = 20;
+		this.fps = 60;
 		this.setUpdatePeriod(1000 / this.fps);
 
 		this.keyWPressed = false;
@@ -183,31 +185,21 @@ class LightingScene extends CGFscene {
 			this.lights[i].update();
 	}
 
+	checkLight(enabled, light)
+	{
+		if(enabled)
+			light.enable();
+		else
+			light.disable();
+	};
+
 	checkLights() {
-		if (this.light1)
-			this.lights[0].enable();
-		else
-			this.lights[0].disable();
 
-		if (this.light2)
-			this.lights[1].enable();
-		else
-			this.lights[1].disable();
-
-		if (this.light3)
-			this.lights[2].enable();
-		else
-			this.lights[2].disable();
-
-		if (this.light4)
-			this.lights[3].enable();
-		else
-			this.lights[3].disable();
-
-		if (this.light5)
-			this.lights[4].enable();
-		else
-			this.lights[4].disable();
+		this.checkLight(this.light1, this.lights[0]);
+		this.checkLight(this.light2, this.lights[1]);
+		this.checkLight(this.light3, this.lights[2]);
+		this.checkLight(this.light4, this.lights[3]);
+		this.checkLight(this.light5, this.lights[4]);
 	}
 
 	display() {
@@ -231,12 +223,11 @@ class LightingScene extends CGFscene {
 		if (this.drawAxis)
 			this.axis.display();
 
-		this.materialDefault.apply();
-
 		// ---- END Background, camera and axis setup
 
 		// ---- BEGIN Scene drawing section
 
+		this.materialDefault.apply();
 
 		if (!this.car.attached)
 			this.displayCar();
@@ -247,8 +238,6 @@ class LightingScene extends CGFscene {
 		this.displayCrane();
 
 		this.displayPlanes();
-
-		this.vehicleAppearances[this.currVehicleAppearance].apply();
 
 		if (this.showSolids)
 			this.displaySolids();
@@ -265,15 +254,17 @@ class LightingScene extends CGFscene {
 	}
 
 	displayPlanes() {
+		//Deposit
 		this.pushMatrix();
-		this.translate(0.75, 0.1, -17);
+		this.translate(this.planeX, 0.1, -this.planeZ);
 		this.rotate(-Math.PI / 2, 1, 0, 0);
 		this.platTex.apply();
 		this.planeD.display();
 		this.popMatrix();
-
+		
+		//Recovery
 		this.pushMatrix();
-		this.translate(0.75, 0.1, 17);
+		this.translate(this.planeX, 0.1, this.planeZ);
 		this.rotate(-Math.PI / 2, 1, 0, 0);
 		this.planeR.display();
 		this.popMatrix();
@@ -292,7 +283,7 @@ class LightingScene extends CGFscene {
 
 	displaySolids() {
 
-		this.vehicleAppearances[1].apply();
+		this.vehicleAppearances[this.currVehicleAppearance].apply();
 
 		this.pushMatrix();
 		this.translate(-8, 5, -10);
@@ -357,6 +348,11 @@ class LightingScene extends CGFscene {
 		if (this.keysPressed)
 			console.log(text);
 	};
+	
+	cmpCoords(x1, x2, z1, z2, limit)
+	{
+		return Math.abs(x2-x1)<= limit && Math.abs(z2 -z1) <=limit;
+	};
 
 	update(currTime) {
 
@@ -365,9 +361,9 @@ class LightingScene extends CGFscene {
 		this.lastTime = this.lastTime || 0;
 		this.deltaTime = currTime - this.lastTime;
 		this.lastTime = currTime;
+		
 
-		if (Math.abs(this.car.centerX) <= 2 &&
-			Math.abs(this.car.centerZ - 17) <= 2 &&
+		if (this.cmpCoords(this.car.centerX, this.planeX, this.car.centerZ, this.planeZ, 2) &&
 			this.crane.state == 'DEF' &&
 			Math.abs(this.car.vel) <= 0.0001) {
 			this.car.controlOn = false;
