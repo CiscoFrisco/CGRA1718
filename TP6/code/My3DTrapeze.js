@@ -42,8 +42,9 @@ class My3DTrapeze extends CGFobject {
 		this.initBuffers();
 	};
 
-	initBuffers() {
-		this.vertices = [-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //front
+	initBuffers() { 
+			//mapping 3 vertices in the same coordinates due to the texture application
+			this.vertices = [-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //front
 			-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //side
 			-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //bottom
 
@@ -77,7 +78,7 @@ class My3DTrapeze extends CGFobject {
 		];
 
 		this.indices = [
-
+		
 			//front
 			0, 3, 6,
 			9, 6, 3,
@@ -105,6 +106,7 @@ class My3DTrapeze extends CGFobject {
 
 
 		this.texCoords = [
+			//map each vertice coordinates
 			0, 1,
 			1, 1,
 			0, 0,
@@ -141,28 +143,33 @@ class My3DTrapeze extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
 		this.normals = [
-			0, 0, 1, -1, 0, 0,
+			//map each vertice coordinate 
+			0, 0, 1, 
+			-1, 0, 0,
 			0, -1, 0,
 
 			0, 0, 1,
 			1, 0, 0,
 			0, -1, 0,
 
-			0, 0, 1, -1, 0, 0,
+			0, 0, 1, 
+			-1, 0, 0,
 			0, 1, 0,
 
 			0, 0, 1,
 			1, 0, 0,
 			0, 1, 0,
 
-			0, 0, -1, -1, 0, 0,
+			0, 0, -1, 
+			-1, 0, 0,
 			0, -1, 0,
 
 			0, 0, -1,
 			1, 0, 0,
 			0, -1, 0,
 
-			0, 0, -1, -1, 0, 0,
+			0, 0, -1, 
+			-1, 0, 0,
 			0, 1, 0,
 
 			0, 0, -1,

@@ -9,7 +9,8 @@ class MyChassi extends CGFobject {
 		super(scene);
 
 		this.width = 4.4;
-
+		
+		//chassi elements
 		this.trapeze = new My3DTrapeze(scene, 1, 0.7, this.width, 1, 0.15);
 		this.trapeze2 = new My3DTrapeze(scene, 1, 0.7, this.width, 1, 0.05);
 		this.cube = new MyUnitCubeQuad(scene);
@@ -18,7 +19,7 @@ class MyChassi extends CGFobject {
 
 	display() {
 		var size = -6.5;
-
+	
 		this.scene.pushMatrix();
 		this.scene.translate(size + 5.65, 0.75, 0);
 		this.scene.scale(9.7, 0.5, this.width);

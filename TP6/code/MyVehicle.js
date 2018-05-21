@@ -115,7 +115,7 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(2, -0.5, 2);
 		if (this.direction != 0)
-			this.scene.rotate(this.direction + Math.PI, 0, 1, 0);
+			this.scene.rotate(this.direction, 0, 1, 0);
 		else
 			this.scene.rotate(this.direction, 0, 1, 0);
 		this.scene.rotate(this.angle, 0, 0, 1);
@@ -133,7 +133,7 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(2, -0.5, -2);
 		if (this.direction != 0)
-			this.scene.rotate(this.direction + Math.PI, 0, 1, 0);
+			this.scene.rotate(this.direction, 0, 1, 0);
 		else
 			this.scene.rotate(this.direction, 0, 1, 0);
 		this.scene.rotate(this.angle, 0, 0, 1);
@@ -221,7 +221,6 @@ class MyVehicle extends CGFobject {
 	update(deltaTime) {
 		this.centerX += deltaTime * this.vel * Math.cos(this.angleCar);
 		this.centerZ -= deltaTime * this.vel * Math.sin(this.angleCar);
-
 		this.angle -= deltaTime * this.vel;
 	};
 
@@ -237,7 +236,7 @@ class MyVehicle extends CGFobject {
 			} else if (this.scene.keyDPressed) {
 				this.direction = -1;
 				if (this.vel > 0)
-					this.angleCar += -2 * time;
+					this.angleCar -= 2 * time;
 				else if (this.vel < 0)
 					this.angleCar += 2 * time;
 
@@ -261,7 +260,7 @@ class MyVehicle extends CGFobject {
 
 
 			this.update(deltaTime);
-		} else {
+					} else {
 			if (this.direction != 0)
 				this.balanceDirection(time);
 		}
@@ -276,12 +275,12 @@ class MyVehicle extends CGFobject {
 			if (this.vel > 0)
 				this.angleCar += 2 * time;
 			else if (this.vel < 0)
-				this.angleCar += -2 * time;
+				this.angleCar -= 2 * time;
 		} else if (this.direction < -0.1) {
 			this.direction += 3 * time;
 
 			if (this.vel > 0)
-				this.angleCar += -2 * time;
+				this.angleCar -= 2 * time;
 			else if (this.vel < 0)
 				this.angleCar += 2 * time;
 		}
