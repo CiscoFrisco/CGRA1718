@@ -34,15 +34,13 @@
 
  		this.gui = new dat.GUI();
 
- 		this.gui.add(this.scene, 'doSomething');
-
  		//Button to enable/disable solids display (disabled by default)
  		this.gui.add(this.scene, 'showSolids');
 
  		//Button to enable/disable axis display (enabled by default)
  		this.gui.add(this.scene, 'drawAxis');
 
- 		//Buttons to enable/disable lights (enabled bu default)
+ 		//Buttons to enable/disable lights (enabled by default)
  		this.createLights(5);
 
  		//Car maximum speed, between 1 and 5

@@ -267,7 +267,6 @@ class MyVehicle extends CGFobject {
 	};
 
 	balanceDirection(time) {
-		console.log(this.direction);
 		if (this.direction < 0.05 && this.direction > -0.05) {
 			this.direction = 0;
 		} else if (this.direction > 0.1) {
