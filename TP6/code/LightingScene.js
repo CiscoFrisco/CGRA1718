@@ -63,80 +63,60 @@ class LightingScene extends CGFscene {
 		];*/
 
 		var xx = 0.0;
-
-		xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx
+		var yy = 0.1;
 
 		var myAltimetry = [
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx,  xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx], 
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx,  xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx], 
-[xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, xx, xx, xx, xx, xx, xx, 24.0, 24.0, xx], 
-[xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, xx, xx, xx, xx, xx, xx, 24.0, 24.0, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx, xx, xx, xx, xx, xx, 22.0, 22.0, xx], 
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx], 
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx], 
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],		
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],		
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			
-[xx, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],			 
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 
-[xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx], 		
-[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx]];
+[yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy],			
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx,  xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx,  xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
+[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 24.0, yy], 
+[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 24.0, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],		
+[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],		
+[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
+[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
+[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 		
+[yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy]];
 
-
-			/*[xx, 16.0, 14.0, 14.0, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 16.0, xx,     xx, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 14.0, xx,     xx, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 14.0, xx,     xx, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 16.0, xx,     xx, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 16.0, 14.0, 14.0, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 10.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 10.0, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 8.0, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 8.0, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 10.0, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 10.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 16.0, 14.0, 14.0, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 16.0, xx,     xx, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 14.0, xx,     xx, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 14.0, xx,     xx, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 16.0, xx,     xx, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, 16.0, 14.0, 14.0, 16.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx],
-			[xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx]];*/
+		
 
 		this.car = new MyVehicle(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
@@ -352,22 +332,22 @@ class LightingScene extends CGFscene {
 		this.vehicleAppearances[this.currVehicleAppearance].apply();
 
 		this.pushMatrix();
-		this.translate(-8, 5, -10);
+		this.translate(-19.5, 24, -19.5);
 		this.rotate(-Math.PI / 2, 1, 0, 0);
-		this.scale(1, 2, 2);
+		this.scale(4, 4, 4);
 		this.lamp.display();
 		this.popMatrix();
 
 		this.pushMatrix();
-		this.translate(-11, 10, -10);
+		this.translate(-19, 39, 19);
 		this.rotate(Math.PI / 2, 1, 0, 0);
-		this.scale(1, 1, 5);
+		this.scale(4, 4, 15);
 		this.cylinder.display();
 		this.popMatrix();
 
 		this.pushMatrix();
-		this.translate(-14, 5, -10);
-		this.scale(2, 2, 2);
+		this.translate(19,29, -19);
+		this.scale(6, 10, 6);
 		this.trapeze.display();
 		this.popMatrix();
 
@@ -417,7 +397,7 @@ class LightingScene extends CGFscene {
 			this.crane.state = 'GRAB';
 		}
 		if (this.car.controlOn)
-			this.car.move(this.deltaTime);
+			this.car.move(this.deltaTime,this.terrain.possPath);
 
 		this.crane.update(this.deltaTime);
 	}

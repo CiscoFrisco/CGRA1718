@@ -159,7 +159,7 @@ class MyVehicle extends CGFobject {
 
 		this.scene.pushMatrix();
 		this.scene.translate(-0.75, 1.5, 0);
-		this.scene.rotate(Math.PI / 6, 0, 0, 1);
+		this.scene.rotate(Math.PI /6, 0, 0, 1);
 		this.scene.scale(1, 0.9, 4.2);
 		this.scene.rotate(Math.PI / 2, 0, 1, 0);
 		this.rectangle.display();
@@ -224,7 +224,8 @@ class MyVehicle extends CGFobject {
 		this.angle -= deltaTime * this.vel;
 	};
 
-	move(deltaTime) {
+	move(deltaTime,path) {
+		
 		var time = deltaTime / 1000.0;
 		if (this.vel != 0 || this.scene.keysPressed != false) {
 			if (this.scene.keyAPressed) {
@@ -258,9 +259,54 @@ class MyVehicle extends CGFobject {
 			} else
 				this.stopCar(time);
 
+			
+			var nextX = this.centerX + deltaTime * this.vel * Math.cos(this.angleCar);
+			var nextZ = this.centerZ - deltaTime * this.vel * Math.sin(this.angleCar);
+			//check collision
+
+			var i,j;
+
+			var carDirection = this.angleCar > 0?  this.angleCar%(2*Math.PI): this.angleCar%(2*Math.PI) + 2*Math.PI;
+			console.log(carDirection*180/Math.PI);
+
+			if(this.vel > 0)
+			{
+
+				if(carDirection > 3*Math.PI/2.0 || carDirection < Math.PI/2.0)
+					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.abs(Math.cos(carDirection))*4.2);
+				else
+					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio - Math.abs(Math.cos(carDirection))*5.8);
+
+				if(carDirection > Math.PI && carDirection < 2*Math.PI )
+					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio + Math.abs(Math.sin(carDirection))*2.2);
+				else
+					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.abs(Math.sin(carDirection))*5.8);
+
+			}
+			else
+			{
+			if(carDirection >3*Math.PI/2.0 || carDirection < Math.PI/2.0)
+					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio - Math.abs(Math.cos(carDirection))*5.8);
+				else
+					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.abs(Math.cos(carDirection))*5.8);
+
+				if(carDirection > Math.PI && carDirection < 2*Math.PI)
+					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.abs(Math.sin(carDirection))*7.0);
+				else
+					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio + Math.abs(Math.sin(carDirection))*5.8);
+		}
+
+
+
+			if(path[j][i] !=0){
+				this.vel = 0;
+				return;
+			}
 
 			this.update(deltaTime);
-					} else {
+		} 
+
+		else {
 			if (this.direction != 0)
 				this.balanceDirection(time);
 		}

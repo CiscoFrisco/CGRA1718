@@ -20,6 +20,10 @@ class MyTerrain extends Plane {
 			this.setDefaultAltimetry();
 
 		this.initBuffers();
+
+		this.possPath = this.possiblePath(this.altimetry);
+
+		this.ratio = this.possPath.length/altimetry.length;
     }
 
    	/**
@@ -143,5 +147,33 @@ class MyTerrain extends Plane {
 
     setTexture(texture) {
         this.texture = texture;
+    }
+
+    possiblePath(altimetry){
+
+		let path = [];
+
+
+		for(let i = 0; i < altimetry.length - 1; i++)
+		{
+			let line = [];
+			for(let j = 0; j < altimetry[i].length - 1; j++)
+			{
+				if(altimetry[i][j] == 0 &&
+					altimetry[i][j+1] == 0 &&
+					altimetry[i+1][j] == 0 &&
+					altimetry[i+1][j+1] == 0)
+				{
+						line.push(0);
+				}
+				else
+				{
+					line.push(1);
+				}
+			}
+			path.push(line);
+		}
+		
+		return path;
     }
 };
