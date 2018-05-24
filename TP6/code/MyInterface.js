@@ -11,7 +11,7 @@
 
  	/**
  	 * Create number buttons to enable/disable a light
- 	 * @param {*} number 
+ 	 * @param {Number} number 
  	 */
  	createLights(number) {
  		var group = this.gui.addFolder("Luzes");
@@ -55,21 +55,35 @@
  		return true;
  	};
 
-
+ 	/**
+ 	 * Initializes key event capturing
+ 	 */
  	initKeys() {
  		this.scene.gui = this;
  		this.processKeyboard = function () {};
  		this.activeKeys = {};
  	}
 
+ 	/**
+ 	 * Processes a key down event, updating active keys information
+ 	 * @param {*} event 
+ 	 */
  	processKeyDown(event) {
  		this.activeKeys[event.code] = true;
  	};
 
+ 	/**
+ 	 * Processes a key up event, updating active keys information
+ 	 * @param {*} event 
+ 	 */
  	processKeyUp(event) {
  		this.activeKeys[event.code] = false;
  	};
 
+ 	/**
+ 	 * Checks if a given key is currently pressed
+ 	 * @param {*} keyCode 
+ 	 */
  	isKeyPressed(keyCode) {
  		return this.activeKeys[keyCode] || false;
  	}

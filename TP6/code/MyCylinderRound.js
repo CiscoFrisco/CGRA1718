@@ -5,6 +5,17 @@
  */
 
 class MyCylinderRound extends CGFobject {
+	/**
+	 * Builds a MyCylinderRound object, used to make a wheel. 
+	 * 
+	 * @param {CGFScene} scene CGFscene
+	 * @param {Number} slices number of slices
+	 * @param {Number} stacks number of stacks
+	 * @param {Number} minS minimum s texture coordinate
+	 * @param {Number} maxS maximum s texture coordinate
+	 * @param {Number} minT minimum t texture coordinate
+	 * @param {Number} maxT maximum t texture coordinate
+	 */
 	constructor(scene, slices, stacks, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
@@ -19,6 +30,9 @@ class MyCylinderRound extends CGFobject {
 		this.initBuffers();
 	};
 
+	/**
+	 * Initializes vertices, normals, indices and texture coordinates.
+	 */
 	initBuffers() {
 		var alpha = 2 * Math.PI / this.slices;
 		this.vertices = [];

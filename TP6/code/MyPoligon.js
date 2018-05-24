@@ -5,6 +5,12 @@
  */
 
 class MyPoligon extends CGFobject {
+	/**
+	 * Builds a MyPoligon object.
+	 * 
+	 * @param {CGFscene} scene CGFscene
+	 * @param {Number} slices number of slices
+	 */
 	constructor(scene, slices) {
 		super(scene);
 		this.slices = slices;
@@ -12,6 +18,9 @@ class MyPoligon extends CGFobject {
 		this.initBuffers();
 	};
 
+	/**
+	 * Initializes vertices, normals, indices and texture coordinates
+	 */
 	initBuffers() {
 		var alpha = 2 * Math.PI / this.slices;
 		this.vertices = [];

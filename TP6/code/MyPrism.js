@@ -5,6 +5,13 @@
  */
 
 class MyPrism extends CGFobject {
+	/**
+	 * Builds a MyPrism object
+	 * 
+	 * @param {CGFScene} scene CGFscene
+	 * @param {Number} slices number of slices
+	 * @param {Number} stacks number of stacks
+	 */
 	constructor(scene, slices, stacks) {
 		super(scene);
 
@@ -14,6 +21,9 @@ class MyPrism extends CGFobject {
 		this.initBuffers();
 	};
 
+	/**
+	 * Initializes vertices, normals and indices.
+	 */
 	initBuffers() {
 		var alpha = 2 * Math.PI / this.slices;
 		var beta = alpha / 2;
