@@ -5,6 +5,20 @@
  */
 
 class My3DTrapeze extends CGFobject {
+	/**
+	 * Builds a My3DTrapeze object centered on the origin
+	 * 
+	 * @param {CGFscene} scene CGFscene
+	 * @param {Number} bigBase 
+	 * @param {Number} smallBase 
+	 * @param {Number} depth 
+	 * @param {Number} height 
+	 * @param {Number} offset 
+	 * @param {Number} minS minimum s texture coordinate
+	 * @param {Number} maxS maximum s texture coordinate
+	 * @param {Number} minT minimum t texture coordinate
+	 * @param {Number} maxT maximum t texture coordinate
+	 */
 	constructor(scene, bigBase = 1, smallBase = 0.5, depth = 1, height = 1, offset = 0, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
@@ -42,9 +56,12 @@ class My3DTrapeze extends CGFobject {
 		this.initBuffers();
 	};
 
-	initBuffers() { 
-			//mapping 3 vertices in the same coordinates due to the texture application
-			this.vertices = [-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //front
+	/**
+	 * Initializes vertices, indices, normals and texture coordinates.
+	 */
+	initBuffers() {
+		//mapping 3 vertices in the same coordinates due to the texture application
+		this.vertices = [-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //front
 			-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //side
 			-(this.bigBase) / 2.0, -(this.height) / 2.0, this.depth / 2, //bottom
 
@@ -78,7 +95,7 @@ class My3DTrapeze extends CGFobject {
 		];
 
 		this.indices = [
-		
+
 			//front
 			0, 3, 6,
 			9, 6, 3,
@@ -107,69 +124,65 @@ class My3DTrapeze extends CGFobject {
 
 		this.texCoords = [
 			//map each vertice coordinates
-			0, 1,
-			1, 1,
-			0, 0,
+			this.minS, this.maxT,
+			this.maxS, this.maxT,
+			this.minS, this.minT,
 
-			1, 1,
-			0, 1,
-			1, 0,
+			this.maxS, this.maxT,
+			this.minS, this.maxT,
+			this.maxS, this.minT,
 
-			0, 0,
-			1, 0,
-			0, 1,
+			this.minS, this.minT,
+			this.maxS, this.minT,
+			this.minS, this.maxT,
 
-			1, 0,
-			0, 0,
-			1, 1,
+			this.maxS, this.minT,
+			this.minS, this.minT,
+			this.maxS, this.maxT,
 
-			1, 1,
-			0, 1,
-			0, 1,
+			this.maxS, this.maxT,
+			this.minS, this.maxT,
+			this.minS, this.maxT,
 
-			0, 1,
-			1, 1,
-			1, 1,
+			this.minS, this.maxT,
+			this.maxS, this.maxT,
+			this.maxS, this.maxT,
 
-			1, 0,
-			0, 0,
-			0, 0,
+			this.maxS, this.minT,
+			this.minS, this.minT,
+			this.minS, this.minT,
 
-			0, 0,
-			1, 0,
-			1, 0,
+			this.minS, this.minT,
+			this.maxS, this.minT,
+			this.maxS, this.minT,
 		];
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
 		this.normals = [
 			//map each vertice coordinate 
-			0, 0, 1, 
-			-1, 0, 0,
+			0, 0, 1, -1, 0, 0,
 			0, -1, 0,
 
 			0, 0, 1,
 			1, 0, 0,
 			0, -1, 0,
 
-			0, 0, 1, 
-			-1, 0, 0,
+			0, 0, 1, -1, 0, 0,
 			0, 1, 0,
 
 			0, 0, 1,
 			1, 0, 0,
 			0, 1, 0,
 
-			0, 0, -1, 
-			-1, 0, 0,
+			0, 0, -1, -1, 0, 0,
 			0, -1, 0,
 
 			0, 0, -1,
 			1, 0, 0,
 			0, -1, 0,
 
-			0, 0, -1, 
-			-1, 0, 0,
+			0, 0, -1, -1, 0, 0,
 			0, 1, 0,
 
 			0, 0, -1,

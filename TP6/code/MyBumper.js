@@ -5,10 +5,22 @@
  */
 
 class MyBumper extends CGFobject {
+	/**
+	 * Builds a MyBumber object, destined to be used in MyVehicle
+	 * 
+	 * @param {GGFscene} scene CGFscene
+	 * @param {Number} slices number of slices
+	 * @param {Number} stacks number of stacks
+	 * @param {Number} minS minimum s texture coordinate
+	 * @param {Number} maxS maximum s texture coordinate
+	 * @param {Number} minT minimum t texture coordinate
+	 * @param {Number} maxT maximum t texture coordinate
+	 */
 	constructor(scene, slices, stacks, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
 		this.slices = slices;
+
 		//texture limits
 		this.minS = minS;
 		this.maxS = maxS;
@@ -18,21 +30,24 @@ class MyBumper extends CGFobject {
 		this.initBuffers();
 	};
 
+	/**
+	 * Initializes vertices, normals, indices and texture coordinates.
+	 */
 	initBuffers() {
 		var alpha = Math.PI / this.slices;
-		
+
 		//initialize arrays
 		this.vertices = [];
 		this.normals = [];
 		this.indices = [];
 		this.texCoords = [];
-		
+
 		//variable useful for texture mapping
 		var incS = (this.maxS - this.minS) / this.slices;
-		
+
 		//push bumper vertices
 		for (var j = 0; j <= this.slices; j++) {
-			
+
 			this.vertices.push(Math.cos(j * alpha), Math.sin(j * alpha), 0);
 			this.normals.push(0, 0, 1);
 			this.texCoords.push(0.5 + (Math.cos(j * alpha) / 2), 1);

@@ -5,6 +5,13 @@
  */
 
 class MyWheelBumper extends CGFobject {
+	/**
+	 * Builds a MyWheelBumper object.
+	 * 
+	 * @param {CGFscene} scene 
+	 * @param {Number} slices 
+	 * @param {Number} stacks 
+	 */
 	constructor(scene, slices, stacks) {
 		super(scene);
 
@@ -17,6 +24,9 @@ class MyWheelBumper extends CGFobject {
 		this.quad.initBuffers();
 	};
 
+	/**
+	 * Displays this object.
+	 */
 	display() {
 		this.scene.pushMatrix();
 		this.bumper.display();

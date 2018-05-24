@@ -5,6 +5,11 @@
  */
 
 class MySpoiler extends CGFobject {
+	/**
+	 * Builds a MySpoiler object
+	 * 
+	 * @param {CGFscene} scene 
+	 */
 	constructor(scene) {
 		super(scene);
 
@@ -14,6 +19,9 @@ class MySpoiler extends CGFobject {
 		this.trapeze.initBuffers();
 	};
 
+	/**
+	 * Displays this object
+	 */
 	display() {
 		this.scene.pushMatrix();
 		this.scene.translate(0.3, 0, 2);

@@ -5,6 +5,14 @@
  */
 
 class MyMirror extends CGFobject {
+	/**
+	 * Builds a MyMirror object, destined to be used in MyVehicle
+	 * 
+	 * @param {CGFscene} scene CGFscene
+	 * @param {Number} slices number of slices
+	 * @param {Number} stacks number of stacks
+	 * @param {Boolean} inverse 
+	 */
 	constructor(scene, slices, stacks, inverse = false) {
 		super(scene);
 
@@ -18,6 +26,9 @@ class MyMirror extends CGFobject {
 		this.circle.initBuffers();
 	};
 
+	/**
+	 * Displays this object
+	 */
 	display() {
 		this.scene.pushMatrix();
 

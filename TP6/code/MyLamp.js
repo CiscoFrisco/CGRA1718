@@ -5,6 +5,17 @@
  */
 
 class MyLamp extends CGFobject {
+	/**
+	 * Builds a MyLamp object, resembling a semi-sphere.
+	 * 
+	 * @param {CGFscene} scene CGFscene
+	 * @param {Number} slices number of slices
+	 * @param {Number} stacks number of stacks
+	 * @param {Number} minS minimum s texture coordinates
+	 * @param {Number} maxS maximum s texture coordinate
+	 * @param {Number} minT minimum t texture coordinate
+	 * @param {Number} maxT maximum t texture coordinate
+	 */
 	constructor(scene, slices, stacks, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
@@ -19,6 +30,9 @@ class MyLamp extends CGFobject {
 		this.initBuffers();
 	};
 
+	/**
+	 * Initializes vertices, normals, indices and texture coordinates
+	 */
 	initBuffers() {
 		var alpha = 2 * Math.PI / this.slices;
 		var beta = (Math.PI / 2) / this.stacks;

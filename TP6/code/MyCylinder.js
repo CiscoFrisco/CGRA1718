@@ -5,6 +5,19 @@
  */
 
 class MyCylinder extends CGFobject {
+	/**
+	 * Builds a MyCylinder object
+	 * 
+	 * @param {CGFscene} scene CGFscene
+	 * @param {Number} slices number of slices
+	 * @param {Number} stacks number of stacks
+	 * @param {Boolean} outside 
+	 * @param {Boolean} half 
+	 * @param {Number} minS minimum s texture coordinate
+	 * @param {Number} maxS maximum s texture coordinate
+	 * @param {Number} minT minimum t texture coordinate
+	 * @param {Number} maxT maximum t texture coordinate
+	 */
 	constructor(scene, slices, stacks, outside = true, half = false, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
@@ -21,6 +34,9 @@ class MyCylinder extends CGFobject {
 		this.initBuffers();
 	};
 
+	/**
+	 * Initializes vertices, indices, normals and texture coordinates.
+	 */
 	initBuffers() {
 		var alpha = 2 * Math.PI / this.slices;
 		if (this.half == true)

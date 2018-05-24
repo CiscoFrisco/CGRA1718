@@ -7,12 +7,21 @@
 
 class MyUnitCubeQuad extends CGFobject {
 
+    /**
+     * Builds a MyUnitCubeQuad object, composed of a MyQuad that is translated/rotated
+     * accordingly.
+     * 
+     * @param {CGFscene} scene 
+     */
     constructor(scene) {
         super(scene);
         this.quad = new MyQuad(this.scene);
         this.quad.initBuffers();
     };
 
+    /**
+     * Displays this object
+     */
     display() {
 
         //face paralela ao plano xOy em z = -0.5

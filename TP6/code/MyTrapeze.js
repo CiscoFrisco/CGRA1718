@@ -5,6 +5,19 @@
  */
 
 class MyTrapeze extends CGFobject {
+	/**
+	 * Builds a MyTrapeze object
+	 * 
+	 * @param {CGFscene} scene CGFscene
+	 * @param {Number} bigBase 
+	 * @param {Number} smallBase 
+	 * @param {Number} height 
+	 * @param {Number} offset 
+	 * @param {Number} minS minimum s texture coordinate
+	 * @param {Number} maxS maximum s texture coordinate
+	 * @param {Number} minT minimum t texture coordinate
+	 * @param {Number} maxT maximum t texture coordinate
+	 */
 	constructor(scene, bigBase = 1, smallBase = 0.5, height = 1, offset = 0, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
@@ -20,6 +33,9 @@ class MyTrapeze extends CGFobject {
 		this.initBuffers();
 	};
 
+	/**
+	 * Initializes vertices, indices, texture coordinates and normals
+	 */
 	initBuffers() {
 		this.vertices = [-(this.bigBase) / 2.0, -(this.height) / 2.0, 0,
 			(this.bigBase) / 2.0, -(this.height) / 2.0, 0, -(this.smallBase) / 2.0 + this.offset, (this.height) / 2.0, 0,
@@ -32,7 +48,7 @@ class MyTrapeze extends CGFobject {
 		];
 
 		this.texCoords = [
-			this.minS , this.maxT,
+			this.minS, this.maxT,
 			this.maxS, this.maxT,
 			this.minS, this.minT,
 			this.maxS, this.minT

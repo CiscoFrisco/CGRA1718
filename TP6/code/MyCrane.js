@@ -5,6 +5,13 @@
  */
 
 class MyCrane extends CGFobject {
+        /**
+         * Builds a MyCrane object
+         * 
+         * @param {CGFscene} scene CGFscene
+         * @param {Number} initAngle initial angle of the Crane relative to the origin
+         * @param {String} initPos initial position of the Crane (deposit or recovery)
+         */
         constructor(scene, initAngle, initPos) {
                 super(scene);
 
@@ -31,19 +38,22 @@ class MyCrane extends CGFobject {
                 this.state = 'DEF';
         }
 
+        /**
+         * Displays this object
+         */
         display() {
                 this.zephyrTexture.apply();
 
                 this.scene.pushMatrix();
                 this.scene.rotate(this.angleY, 0, 1, 0);
-                
+
                 //base
                 this.scene.pushMatrix();
                 this.scene.rotate(-Math.PI / 2, 1, 0, 0);
                 this.scene.scale(2, 2, 1);
                 this.cylinder.display();
                 this.scene.popMatrix();
-                
+
                 //big arm
                 this.scene.pushMatrix();
                 this.scene.rotate(-Math.PI / 3, 1, 0, 0);
@@ -51,7 +61,7 @@ class MyCrane extends CGFobject {
                 this.scene.scale(0.7, 0.7, 15);
                 this.cylinder.display();
                 this.scene.popMatrix();
-                
+
                 //joint
                 this.scene.pushMatrix();
                 this.scene.translate(-0.8, 14, 7.5);
@@ -61,16 +71,16 @@ class MyCrane extends CGFobject {
                 this.scene.popMatrix();
 
                 this.scene.pushMatrix()
-                
+
                 this.scene.translate(0, 14, 8.0);
-                
+
                 //small arm
                 this.scene.pushMatrix();
                 this.scene.rotate(this.angleX, 1, 0, 0);
                 this.scene.scale(0.5, 0.6, 11.9);
                 this.cylinder.display();
                 this.scene.popMatrix();
-                
+
                 //nathan summers
                 this.scene.pushMatrix();
                 this.scene.translate(0, -Math.sin(this.angleX) * 11.4, Math.cos(this.angleX) * 11.4);
@@ -78,7 +88,7 @@ class MyCrane extends CGFobject {
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.cylinder.display();
                 this.scene.popMatrix();
-                
+
                 //magneto
                 this.scene.pushMatrix();
                 this.scene.translate(0.1, -Math.sin(this.angleX) * 11.4 - 6.0, Math.cos(this.angleX) * 11.4);
@@ -87,6 +97,7 @@ class MyCrane extends CGFobject {
                 this.cylinder.display();
                 this.scene.popMatrix();
 
+                //Displays the car if it is attached
                 if (this.scene.car.attached) {
                         this.scene.pushMatrix();
                         this.scene.translate(0.1, -Math.sin(this.angleX) * 11.4 - 6.7 - this.scene.car.centerY, Math.cos(this.angleX) * 11.4);
@@ -102,6 +113,15 @@ class MyCrane extends CGFobject {
                 this.scene.materialDefault.apply();
         }
 
+        /**
+         * Updates the crane's variables, according to its state.
+         * In DEF, it doesn't do anything.
+         * In GRAB, it rotates towards the R position, and lowers its arm in order to grab the car.
+         * In MOVE, it does the inverse, thus moving the car towards the D position.
+         * In DROP, it disattaches the car, letting it drop towards the ground with acceleration.
+         * 
+         * @param {Number} deltaTime time period after the last update
+         */
         update(deltaTime) {
                 switch (this.state) {
                         case 'GRAB':
