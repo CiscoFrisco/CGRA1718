@@ -22,6 +22,8 @@ class MyMirror extends CGFobject {
 		this.circle = new MyPoligon(scene, slices);
 		this.cylinder = new MyCylinder(scene, slices, stacks);
 
+		this.factor = inverse ? 1 : -1;
+
 		this.frame.initBuffers();
 		this.circle.initBuffers();
 	};
@@ -32,15 +34,9 @@ class MyMirror extends CGFobject {
 	display() {
 		this.scene.pushMatrix();
 
-		if (!this.inverse)
-			this.scene.rotate(Math.PI / 9, 0, 1, 0);
-		else
-			this.scene.rotate(-Math.PI / 9, 0, 1, 0);
+		this.scene.rotate(this.factor * Math.PI / 9, 0, 1, 0);
 
-		if (!this.inverse)
-			this.scene.rotate(Math.PI / 6, 1, 0, 0);
-		else
-			this.scene.rotate(-Math.PI / 6, 1, 0, 0);
+		this.scene.rotate(this.factor * Math.PI / 6, 1, 0, 0);
 
 		this.scene.scale(0.5, 0.7, 1);
 		this.scene.rotate(Math.PI / 2, 0, 1, 0);
@@ -49,10 +45,7 @@ class MyMirror extends CGFobject {
 
 		this.scene.pushMatrix();
 
-		if (!this.inverse)
-			this.scene.rotate(Math.PI / 9, 0, 1, 0);
-		else
-			this.scene.rotate(-Math.PI / 9, 0, 1, 0);
+		this.scene.rotate(this.factor * Math.PI / 9, 0, 1, 0);
 
 		if (!this.inverse)
 			this.scene.rotate(Math.PI / 9, 1, 0, 0);
@@ -66,10 +59,7 @@ class MyMirror extends CGFobject {
 
 		this.scene.pushMatrix();
 
-		if (!this.inverse)
-			this.scene.translate(0.7, -0.65, 1.8);
-		else
-			this.scene.translate(0.7, -0.65, -1.8);
+		this.scene.translate(0.7, -0.65, this.factor * 1.8);
 
 		this.scene.scale(0.2, 0.2, 0.2);
 
@@ -83,15 +73,10 @@ class MyMirror extends CGFobject {
 
 		this.scene.pushMatrix();
 
-		if (!this.inverse)
-			this.scene.rotate(Math.PI / 9, 0, 1, 0);
-		else
-			this.scene.rotate(-Math.PI / 9, 0, 1, 0);
 
-		if (!this.inverse)
-			this.scene.rotate(Math.PI / 6, 1, 0, 0);
-		else
-			this.scene.rotate(-Math.PI / 6, 1, 0, 0);
+		this.scene.rotate(this.factor * Math.PI / 9, 0, 1, 0);
+		this.scene.rotate(this.factor * Math.PI / 6, 1, 0, 0);
+
 
 		this.scene.scale(0.5, 0.7, 1);
 		this.scene.rotate(-Math.PI / 2, 0, 1, 0);

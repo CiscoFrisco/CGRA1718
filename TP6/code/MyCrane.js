@@ -125,8 +125,10 @@ class MyCrane extends CGFobject {
         update(deltaTime) {
                 switch (this.state) {
                         case 'GRAB':
+                                //Rotate towards R platform
                                 if (this.angleY >= this.RAngle)
                                         this.angleY -= deltaTime * this.vel;
+                                //Lower the arm
                                 else if (this.angleX <= this.maxDownAngle)
                                         this.angleX += deltaTime * this.vel;
                                 else {
@@ -135,10 +137,13 @@ class MyCrane extends CGFobject {
                                 }
                                 break;
                         case 'MOVE':
+                                //Lift the arm and car
                                 if (this.angleX >= this.maxUpAngle)
                                         this.angleX -= deltaTime * this.vel;
+                                //Rotate towards D platform
                                 else if (this.angleY <= this.DAngle)
                                         this.angleY += deltaTime * this.vel;
+                                //Update car's attributes
                                 else {
                                         //TODO: too hardcoded?
                                         this.state = 'DROP';
@@ -152,6 +157,7 @@ class MyCrane extends CGFobject {
 
                                 break;
                         case 'DROP':
+                                //Drop the car
                                 this.velY += this.gravity * this.dt;
                                 if (this.scene.car.centerY >= 1.8)
                                         this.scene.car.centerY -= deltaTime * this.velY;

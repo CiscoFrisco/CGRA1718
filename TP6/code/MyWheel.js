@@ -6,6 +6,7 @@
 
 class MyWheel extends CGFobject {
 	/**
+	 * Builds a MyWheel object, composed of 'two' MyHalfWheels.
 	 * 
 	 * @param {CGFscene} scene CGFscene
 	 * @param {Number} slices number of slices

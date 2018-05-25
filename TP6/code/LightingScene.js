@@ -3,6 +3,10 @@ class LightingScene extends CGFscene {
 		super();
 	};
 
+	/**
+	 * Initializes car and terrain textures, preparing the necessary dictionaries
+	 * to be used with dat.gui.
+	 */
 	initTextures() {
 		this.enableTextures(true);
 
@@ -18,9 +22,8 @@ class LightingScene extends CGFscene {
 		var grass = new CGFappearance(this);
 		grass.loadTexture("../resources/images/grass.png");
 
-		var chrome = new CGFappearance(this);
-		//chrome.loadTexture("../resources/images/chrome_256x256.png");
-		chrome.loadTexture("../resources/images/great_wall.png");
+		var wall = new CGFappearance(this);
+		wall.loadTexture("../resources/images/great_wall.png");
 
 		var def = new CGFappearance(this);
 		def.setAmbient(1.0, 0.0, 0.0, 1.0);
@@ -40,17 +43,21 @@ class LightingScene extends CGFscene {
 		this.vehicleAppearanceList["def"] = 0;
 		this.currVehicleAppearance = 0;
 
-		this.terrainAppearances = [grass, desert, chrome];
+		this.terrainAppearances = [grass, desert, wall];
 		this.terrainAppearanceList = {};
-		this.terrainAppearanceList["chrome"] = 2;
+		this.terrainAppearanceList["wall"] = 2;
 		this.terrainAppearanceList["desert"] = 1;
 		this.terrainAppearanceList["grass"] = 0;
 		this.currTerrainAppearance = 0;
 	}
 
+	/**
+	 * Initializes the scene elements: car, crane, terrain, deposit and recovery positions, 
+	 * and solids.
+	 */
 	initElements() {
 
-		/*var myAltimetry = [
+		var myAltimetry1 = [
 			[2.0, 1.0, 4.0, 3.0, 5.0, 3.0, 4.0, 1.0, 2.0],
 			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
 			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -60,63 +67,64 @@ class LightingScene extends CGFscene {
 			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
 			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
 			[-2.0, 0.0, -2.0, -1.0, -2.0, -1.0, -2.0, 0.0, -2.0]
-		];*/
+		];
 
 		var xx = 0.0;
 		var yy = 0.0;
 
 		var myAltimetry = [
-[yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy],			
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx,  xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx,  xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
-[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 24.0, yy], 
-[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 24.0, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy], 
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy], 
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],		
-[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],		
-[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			
-[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],			 
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 
-[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy], 		
-[yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy]];
+			[yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 12.0, 12.0, 14.0, 14.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy],
+			[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 24.0, yy],
+			[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 24.0, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, 4.0, 4.0, 2.0, 2.0, xx, xx, xx, 2.0, 2.0, 4.0, 4.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 12.0, 12.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 14.0, 14.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 24.0, 24.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 24.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 22.0, 22.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0, 22.0, 22.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, 22.0, 22.0, 24.0, 24.0, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, yy],
+			[yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy]
+		];
 
-		
+
 
 		this.car = new MyVehicle(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
@@ -131,6 +139,12 @@ class LightingScene extends CGFscene {
 		this.trapeze = new My3DTrapeze(this);
 	}
 
+	/**
+	 * Initializes the scene, preparing the camera, lights, background color, axis,
+	 * elements, textures, fps, crane requirements and keys.
+	 * 
+	 * @param {CGFapplication} application 
+	 */
 	init(application) {
 		super.init(application);
 
@@ -154,8 +168,8 @@ class LightingScene extends CGFscene {
 		// Scene elements
 		this.initElements();
 
+		//For dat.gui integration
 		this.showSolids = false;
-
 		this.drawAxis = true;
 
 		this.fps = 30;
@@ -165,12 +179,22 @@ class LightingScene extends CGFscene {
 		this.keySPressed = false;
 		this.keyAPressed = false;
 		this.keyDPressed = false;
+
+		//Car requirements to be grabed by the crane
+		this.grabSpeed = 0.0001;
+		this.grabLimit = 5;
 	};
 
+	/**
+	 * Initializes the scene's camera.
+	 */
 	initCameras() {
 		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 100, 100), vec3.fromValues(0, 0, 0));
 	};
 
+	/**
+	 * Initializes five lights.
+	 */
 	initLights() {
 		this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1)
 
@@ -202,7 +226,7 @@ class LightingScene extends CGFscene {
 		this.lights[2].setConstantAttenuation(0);
 		this.lights[2].setLinearAttenuation(0);
 		this.lights[2].setQuadraticAttenuation(1);
-		
+
 		//Enable
 		this.lights[0].enable();
 		this.lights[1].enable();
@@ -218,6 +242,9 @@ class LightingScene extends CGFscene {
 		this.light5 = true;
 	};
 
+	/**
+	 * Updates the lights.
+	 */
 	updateLights() {
 
 		this.checkLights();
@@ -226,14 +253,22 @@ class LightingScene extends CGFscene {
 			this.lights[i].update();
 	}
 
-	checkLight(enabled, light)
-	{
-		if(enabled)
+	/**
+	 * Checks if the user enabled a given light, in which case it enables it internally.
+	 * 
+	 * @param {Boolean} enabled 
+	 * @param {CGFlight} light 
+	 */
+	checkLight(enabled, light) {
+		if (enabled)
 			light.enable();
 		else
 			light.disable();
 	};
 
+	/**
+	 * Checks if the user activated any of the lights, enabling them internally.
+	 */
 	checkLights() {
 
 		this.checkLight(this.light1, this.lights[0]);
@@ -244,6 +279,9 @@ class LightingScene extends CGFscene {
 
 	}
 
+	/**
+	 * Displays the scene's objects.
+	 */
 	display() {
 		// ---- BEGIN Background, camera and axis setup
 
@@ -287,6 +325,9 @@ class LightingScene extends CGFscene {
 		// ---- END Scene drawing section	
 	};
 
+	/**
+	 * Displays the crane at the middle of the scene.
+	 */
 	displayCrane() {
 		this.materialDefault.apply();
 		this.pushMatrix()
@@ -295,6 +336,9 @@ class LightingScene extends CGFscene {
 		this.popMatrix();
 	}
 
+	/**
+	 * Displays the crane's deposit and recovery positions.
+	 */
 	displayPlatforms() {
 
 		this.platTex.apply();
@@ -303,21 +347,24 @@ class LightingScene extends CGFscene {
 		this.pushMatrix();
 		this.translate(this.planeX, 0.1, -this.planeZ);
 		this.rotate(-Math.PI / 2, 1, 0, 0);
-		this.scale(17,10,1);
+		this.scale(17, 10, 1);
 		this.platform.display();
 		this.popMatrix();
-		
+
 		//Recovery
 		this.pushMatrix();
 		this.translate(this.planeX, 0.1, this.planeZ);
 		this.rotate(-Math.PI / 2, 1, 0, 0);
-		this.scale(17,10,1);
+		this.scale(17, 10, 1);
 		this.platform.display();
 		this.popMatrix();
 
 		this.materialDefault.apply();
 	}
 
+	/**
+	 * Displays the car.
+	 */
 	displayCar() {
 		this.pushMatrix();
 		this.translate(this.car.centerX, this.car.centerY, this.car.centerZ);
@@ -327,6 +374,10 @@ class LightingScene extends CGFscene {
 		this.popMatrix();
 	}
 
+	/**
+	 * Displays a semi-sphere, a cylinder and a trapeze for texture evaluation.
+	 * To change the texture, use 'currVehicleAppearance' on dat.gui.
+	 */
 	displaySolids() {
 
 		this.vehicleAppearances[this.currVehicleAppearance].apply();
@@ -346,7 +397,7 @@ class LightingScene extends CGFscene {
 		this.popMatrix();
 
 		this.pushMatrix();
-		this.translate(19,29, -19);
+		this.translate(19, 29, -19);
 		this.scale(6, 10, 6);
 		this.trapeze.display();
 		this.popMatrix();
@@ -354,17 +405,23 @@ class LightingScene extends CGFscene {
 		this.materialDefault.apply();
 	}
 
-	checkKey(keyID)
-	{
-		if(this.gui.isKeyPressed(keyID))
-		{
+	/**
+	 * Checks if a given key is currently pressed.
+	 * 
+	 * @param {*} keyID 
+	 */
+	checkKey(keyID) {
+		if (this.gui.isKeyPressed(keyID)) {
 			this.keysPressed = true;
 			return true;
 		}
-		
+
 		return false;
 	};
 
+	/**
+	 * Checks if any movement key (WASD) is currently pressed.
+	 */
 	checkKeys() {
 		this.keysPressed = false;
 
@@ -373,12 +430,26 @@ class LightingScene extends CGFscene {
 		this.keyAPressed = this.checkKey("KeyA");
 		this.keyDPressed = this.checkKey("KeyD");
 	};
-	
-	cmpCoords(x1, x2, z1, z2, limit)
-	{
-		return Math.abs(x2-x1)<= limit && Math.abs(z2 -z1) <=limit;
+
+	/**
+	 * Checks if two points on the xz plane are close to each other, up to a given limit.
+	 * Useful to check if the car is on the recovery position.
+	 * 
+	 * @param {Number} x1 
+	 * @param {Number} x2 
+	 * @param {Number} z1 
+	 * @param {Number} z2 
+	 * @param {Number} limit 
+	 */
+	cmpCoords(x1, x2, z1, z2, limit) {
+		return Math.abs(x2 - x1) <= limit && Math.abs(z2 - z1) <= limit;
 	};
 
+	/**
+	 * Updates the scene's elements, according to the user input and crane state.
+	 * 
+	 * @param {Number} currTime Time since the last update
+	 */
 	update(currTime) {
 
 		this.checkKeys();
@@ -387,17 +458,15 @@ class LightingScene extends CGFscene {
 		this.deltaTime = currTime - this.lastTime;
 		this.lastTime = currTime;
 
-		var GrabSpeed = 0.0001;
-		var limit = 5;
-		
-		if (this.cmpCoords(this.car.centerX, this.planeX, this.car.centerZ, this.planeZ, limit) &&
+		if (this.cmpCoords(this.car.centerX, this.planeX, this.car.centerZ, this.planeZ, this.grabLimit) &&
 			this.crane.state == 'DEF' &&
-			Math.abs(this.car.vel) <= GrabSpeed) {
+			Math.abs(this.car.vel) <= this.grabSpeed) {
 			this.car.controlOn = false;
 			this.crane.state = 'GRAB';
 		}
+
 		if (this.car.controlOn)
-			this.car.move(this.deltaTime,this.terrain.possPath);
+			this.car.move(this.deltaTime, this.terrain.possPath);
 
 		this.crane.update(this.deltaTime);
 	}

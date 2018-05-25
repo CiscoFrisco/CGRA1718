@@ -5,11 +5,24 @@
  */
 
 class MyTerrain extends Plane {
-    constructor(scene, nrDivs = 1, length = 1, width = 1, minS = 0, maxS = 1, minT = 0, maxT = 1, altimetry, texture) {
-        super(scene, nrDivs, minS, maxS, minT, maxT);
+	/** Builds a MyTerrain object on the xy plane. 
+	 * 
+	 * @param {CGFscene} scene 
+	 * @param {Number} nrDivs 
+	 * @param {Number} length 
+	 * @param {Number} width 
+	 * @param {Number} minS minimum s texture coordinate
+	 * @param {Number} maxS maximum s texture coordinate
+	 * @param {Number} minT minimum t texture coordinate
+	 * @param {Number} maxT maximum t texture coordinate
+	 * @param {Array} altimetry altimetry matrix
+	 * @param {CGFappearance} texture this terrain's texture
+	 */
+	constructor(scene, nrDivs = 1, length = 1, width = 1, minS = 0, maxS = 1, minT = 0, maxT = 1, altimetry, texture) {
+		super(scene, nrDivs, minS, maxS, minT, maxT);
 
-        this.texture = texture;
-        this.length = length;
+		this.texture = texture;
+		this.length = length;
 		this.width = width;
 		this.patchLength = this.length / nrDivs;
 		this.patchWidth = this.width / nrDivs;
@@ -23,10 +36,10 @@ class MyTerrain extends Plane {
 
 		this.possPath = this.possiblePath(this.altimetry);
 
-		this.ratio = this.possPath.length/width;
-    }
+		this.ratio = this.possPath.length / width;
+	}
 
-   	/**
+	/**
 	 * In case no altimetry matrix is specified, or its dimensions are wrong, the altimetry is then
 	 * constant - 0.
 	 */
@@ -43,10 +56,14 @@ class MyTerrain extends Plane {
 		}
 	};
 
+	/**
+	 * Initializes normals, vertices, indices and texture coordinates
+	 */
 	initBuffers() {
 
-        if(!this.altimetry)
-            return;
+		//The first time it is called, when to altimetry is set, the function automatically returns
+		if (!this.altimetry)
+			return;
 
 		/* example for nrDivs = 3 :
 		(numbers represent index of point in vertices array)
@@ -68,7 +85,6 @@ class MyTerrain extends Plane {
 		this.vertices = [];
 		this.normals = [];
 
-		// Uncomment below to init texCoords
 		this.texCoords = [];
 
 		var yCoord = 0.5 * this.width;
@@ -125,55 +141,43 @@ class MyTerrain extends Plane {
 
 		this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
 
-		/* Alternative with TRIANGLES instead of TRIANGLE_STRIP. More indices, but no degenerate triangles */
-		/*
-			for (var j = 0; j < this.nrDivs; j++) 
-			{
-				for (var i = 0; i < this.nrDivs; i++) 
-				{
-					this.indices.push(ind, ind+this.nrDivs+1, ind+1);
-					this.indices.push(ind+1, ind+this.nrDivs+1, ind+this.nrDivs+2 );
-
-					ind++;
-				}
-				ind++;
-			}
-
-			this.primitiveType = this.scene.gl.TRIANGLES;
-		*/
-
 		this.initGLBuffers();
 	};
 
-    setTexture(texture) {
-        this.texture = texture;
-    }
+	/**
+	 * Sets this terrain's texture.
+	 * 
+	 * @param {CGFappearance} texture 
+	 */
+	setTexture(texture) {
+		this.texture = texture;
+	}
 
-    possiblePath(altimetry){
+	/**
+	 * Checks which divisions of the altimetry are available for the car to enter.
+	 * Returns a matrix with 0 (possible) and 1 (impossible) values.
+	 * 
+	 * @param {Array} altimetry altimetry matrix
+	 */
+	possiblePath(altimetry) {
 
 		let path = [];
 
-
-		for(let i = 0; i < altimetry.length - 1; i++)
-		{
+		for (let i = 0; i < altimetry.length - 1; i++) {
 			let line = [];
-			for(let j = 0; j < altimetry[i].length - 1; j++)
-			{
-				if(altimetry[i][j] == 0 &&
-					altimetry[i][j+1] == 0 &&
-					altimetry[i+1][j] == 0 &&
-					altimetry[i+1][j+1] == 0)
-				{
-						line.push(0);
-				}
-				else
-				{
+			for (let j = 0; j < altimetry[i].length - 1; j++) {
+				if (altimetry[i][j] == 0 &&
+					altimetry[i][j + 1] == 0 &&
+					altimetry[i + 1][j] == 0 &&
+					altimetry[i + 1][j + 1] == 0) {
+					line.push(0);
+				} else {
 					line.push(1);
 				}
 			}
 			path.push(line);
 		}
-		
+
 		return path;
-    }
+	}
 };
