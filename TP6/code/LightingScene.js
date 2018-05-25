@@ -7,7 +7,7 @@ class LightingScene extends CGFscene {
 		this.enableTextures(true);
 
 		var vidalTexture = new CGFappearance(this);
-		vidalTexture.loadTexture("../resources/images/raul_vidal.png");
+		vidalTexture.loadTexture("../resources/images/vifal.png");
 
 		var maregaTexture = new CGFappearance(this);
 		maregaTexture.loadTexture("../resources/images/marega.png");
@@ -52,18 +52,18 @@ class LightingScene extends CGFscene {
 
 		/*var myAltimetry = [
 			[2.0, 1.0, 4.0, 3.0, 5.0, 3.0, 4.0, 1.0, 2.0],
-			[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
 			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-			[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
-			[0.0, 0.0, 0.0, 3.0, 2.0, 3.0, 0.0, 0.0, 0.0],
-			[0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 0.0, 0.0, 0.0],
 			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-			[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
 			[-2.0, 0.0, -2.0, -1.0, -2.0, -1.0, -2.0, 0.0, -2.0]
 		];*/
 
 		var xx = 0.0;
-		var yy = 0.1;
+		var yy = 0.0;
 
 		var myAltimetry = [
 [yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy, yy],			
@@ -158,7 +158,7 @@ class LightingScene extends CGFscene {
 
 		this.drawAxis = true;
 
-		this.fps = 60;
+		this.fps = 30;
 		this.setUpdatePeriod(1000 / this.fps);
 
 		this.keyWPressed = false;

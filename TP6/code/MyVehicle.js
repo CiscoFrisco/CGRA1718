@@ -16,26 +16,29 @@ class MyVehicle extends CGFobject {
 		this.rightmirror = new MyMirror(scene, 20, 20, true);
 		this.rightwindooh = new MyTrapeze(scene, 1, 0.7, 1, 0.05);
 		this.leftwindooh = new MyTrapeze(scene, 1, 0.7, 1, -0.05);
-
-		this.angleCar = 0;
-
-		this.rectangle = new MyQuad(scene);
 		this.breather = new MyBreather(scene);
 		this.spoiler = new MySpoiler(scene);
-
+		this.rectangle = new MyQuad(scene);
 		this.barrel = new MyCylinder(scene, 20, 20);
+		
 
-		this.wheel.initBuffers();
-		this.chassi.initBuffers();
+		//car angle (changes according to the direction)
+		this.angleCar = 0;
 
+		//car center coordinate variables (always tracking the center of the car)
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.centerZ = centerZ;
+		
+		//angle that helps simulate wheel rotation (in the Z axis)
 		this.angle = 0;
+		//direction of the wheel when turned (in the Y axis)
 		this.direction = 0;
+
+		//car velocity
 		this.vel = 0;
 
-		//car movement variables
+		//car movement increment variables
 		this.speed_inc = 0.01;
 		this.reverting_speed_inc = 0.01;
 
@@ -44,8 +47,12 @@ class MyVehicle extends CGFobject {
 		this.attached = false;
 
 		this.initTextures();
+
+		this.wheel.initBuffers();
+		this.chassi.initBuffers();
 	};
 
+	//initialize textures to be used by this class
 	initTextures() {
 		this.carTexture = new CGFappearance(this.scene);
 
@@ -104,7 +111,7 @@ class MyVehicle extends CGFobject {
 		this.leftmirror.display();
 		this.scene.popMatrix();
 
-		//draw wheels
+		//draw wheels and update wheel direction according to the current direction value
 		this.scene.pushMatrix();
 		this.scene.translate(-5, -0.5, 2);
 		this.scene.rotate(this.angle, 0, 0, 1);
@@ -177,7 +184,7 @@ class MyVehicle extends CGFobject {
 
 		this.lightTexture.apply();
 
-		//lamps
+		//front lights
 		this.scene.pushMatrix();
 		this.scene.translate(5, 0, 1.7);
 		this.scene.scale(0.3, 0.5, 0.3);
@@ -192,7 +199,7 @@ class MyVehicle extends CGFobject {
 		this.lamp.display();
 		this.scene.popMatrix();
 
-		//windoohs!!!!
+		//windows 
 		this.windoohTexture.apply();
 		this.scene.pushMatrix();
 		this.scene.translate(-3, 1.4, 2.21);
@@ -226,7 +233,10 @@ class MyVehicle extends CGFobject {
 
 	move(deltaTime,path) {
 		
+		//convert time to seconds
 		var time = deltaTime / 1000.0;
+		
+		//if car is moving or keys have been pressed, update car variables
 		if (this.vel != 0 || this.scene.keysPressed != false) {
 			if (this.scene.keyAPressed) {
 				this.direction = 1;
@@ -259,59 +269,54 @@ class MyVehicle extends CGFobject {
 			} else
 				this.stopCar(time);
 
-			
+			//variables to be used in collision testing
 			var nextX = this.centerX + deltaTime * this.vel * Math.cos(this.angleCar);
 			var nextZ = this.centerZ - deltaTime * this.vel * Math.sin(this.angleCar);
+			
 			//check collision
-
-			var i,j;
+			var i1,j1;
+			var i2,j2;
 
 			var carDirection = this.angleCar > 0?  this.angleCar%(2*Math.PI): this.angleCar%(2*Math.PI) + 2*Math.PI;
-			console.log(carDirection*180/Math.PI);
 
 			if(this.vel > 0)
-			{
-
-				if(carDirection > 3*Math.PI/2.0 || carDirection < Math.PI/2.0)
-					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.abs(Math.cos(carDirection))*4.2);
-				else
-					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio - Math.abs(Math.cos(carDirection))*5.8);
-
-				if(carDirection > Math.PI && carDirection < 2*Math.PI )
-					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio + Math.abs(Math.sin(carDirection))*2.2);
-				else
-					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.abs(Math.sin(carDirection))*5.8);
-
+			{	
+				//check car front corners
+				i1 = Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.cos(carDirection)*5.3 + Math.cos(carDirection - Math.PI/2.0)*2.2);
+				j1 = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.sin(carDirection)*5.3 - Math.sin(carDirection - Math.PI/2.0)*2.2);
+				i2 = Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.cos(carDirection)*5.3 + Math.cos(carDirection + Math.PI/2.0)*2.2);
+				j2 = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.sin(carDirection)*5.3 - Math.sin(carDirection + Math.PI/2.0)*2.2); 
 			}
 			else
 			{
-			if(carDirection >3*Math.PI/2.0 || carDirection < Math.PI/2.0)
-					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio - Math.abs(Math.cos(carDirection))*5.8);
-				else
-					i =  Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.abs(Math.cos(carDirection))*5.8);
+				//check car back corners
+				i1 = Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.cos(carDirection + Math.PI)*7 + Math.cos(carDirection - Math.PI/2.0)*2.2);
+				j1 = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.sin(carDirection + Math.PI)*7 - Math.sin(carDirection - Math.PI/2.0)*2.2);
+				i2 = Math.round((nextX + this.scene.terrain.width/2)*this.scene.terrain.ratio + Math.cos(carDirection + Math.PI)*7 + Math.cos(carDirection + Math.PI/2.0)*2.2);
+				j2 = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.sin(carDirection + Math.PI)*7 - Math.sin(carDirection + Math.PI/2.0)*2.2); 		
+			}
 
-				if(carDirection > Math.PI && carDirection < 2*Math.PI)
-					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio - Math.abs(Math.sin(carDirection))*7.0);
-				else
-					j = Math.round((nextZ + this.scene.terrain.length/2)*this.scene.terrain.ratio + Math.abs(Math.sin(carDirection))*5.8);
-		}
-
-
-
-			if(path[j][i] !=0){
+			//check if car is out of the terrain (and allow it)
+			if((i1 >= path.length || i1 < 0) || (i2 >= path.length || i2 < 0) || (j1 >= path.length || j1 < 0) || (j2 >= path.length || j2 < 0))
+				this.update(deltaTime);
+				
+			//if one of this corners hits an area with an altimetry different from 0, set car velocity to 0 (stop car / car hit)
+			else if(path[i1][j1] !=0 || path[i2][j2] !=0 ){
 				this.vel = 0;
 				return;
 			}
-
-			this.update(deltaTime);
+			//else update car according to the updated car variables
+			else
+				this.update(deltaTime);
 		} 
-
+		//otherwise restore car variables
 		else {
 			if (this.direction != 0)
 				this.balanceDirection(time);
 		}
 	};
-
+	
+	//turn the wheels back to their default orientation
 	balanceDirection(time) {
 		if (this.direction < 0.05 && this.direction > -0.05) {
 			this.direction = 0;
@@ -330,7 +335,7 @@ class MyVehicle extends CGFobject {
 				this.angleCar += 2 * time;
 		}
 	};
-
+	//decrease velocity when user stops pressing 'W' or 'S'
 	stopCar(time) {
 		if (this.vel < 0.0001 && this.vel > -0.0001)
 			this.vel = 0;

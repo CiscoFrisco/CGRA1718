@@ -23,7 +23,7 @@ class MyTerrain extends Plane {
 
 		this.possPath = this.possiblePath(this.altimetry);
 
-		this.ratio = this.possPath.length/altimetry.length;
+		this.ratio = this.possPath.length/width;
     }
 
    	/**
