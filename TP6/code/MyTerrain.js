@@ -27,6 +27,7 @@ class MyTerrain extends Plane {
 		this.patchLength = this.length / nrDivs;
 		this.patchWidth = this.width / nrDivs;
 
+		//Only accept altimetry matrix if it has the correct dimensions
 		if (altimetry !== undefined && altimetry.length == nrDivs + 1 && altimetry[0].length == nrDivs + 1)
 			this.altimetry = altimetry;
 		else
@@ -94,11 +95,11 @@ class MyTerrain extends Plane {
 		for (var j = 0; j <= this.nrDivs; j++) {
 			var xCoord = -0.5 * this.length;
 			for (var i = 0; i <= this.nrDivs; i++) {
+				//Creates a vertex, fetching z coordinate from altimetry matrix
 				this.vertices.push(xCoord, yCoord, this.altimetry[i][j]);
 
 				// As this plane is being drawn on the xy plane, the normal to the plane will be along the positive z axis.
 				// So all the vertices will have the same normal, (0, 0, 1).
-
 				this.normals.push(0, 0, 1);
 
 				// texCoords should be computed here; uncomment and fill the blanks
