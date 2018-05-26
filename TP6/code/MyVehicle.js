@@ -305,17 +305,29 @@ class MyVehicle extends CGFobject {
 
 			if (this.vel > 0) {
 				//check car front corners
-				i1 = Math.round((nextX + this.scene.terrain.width / 2) * this.scene.terrain.ratio + Math.cos(carDirection) * 5.3 + Math.cos(carDirection - Math.PI / 2.0) * 2.2);
-				j1 = Math.round((nextZ + this.scene.terrain.length / 2) * this.scene.terrain.ratio - Math.sin(carDirection) * 5.3 - Math.sin(carDirection - Math.PI / 2.0) * 2.2);
-				i2 = Math.round((nextX + this.scene.terrain.width / 2) * this.scene.terrain.ratio + Math.cos(carDirection) * 5.3 + Math.cos(carDirection + Math.PI / 2.0) * 2.2);
-				j2 = Math.round((nextZ + this.scene.terrain.length / 2) * this.scene.terrain.ratio - Math.sin(carDirection) * 5.3 - Math.sin(carDirection + Math.PI / 2.0) * 2.2);
+				i1 = Math.round((nextX + this.scene.terrain.width / 2.0 + Math.cos(carDirection) * 5.3 + Math.cos(carDirection - Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
+				j1 = Math.round((nextZ + this.scene.terrain.length / 2.0 - Math.sin(carDirection) * 5.3 - Math.sin(carDirection - Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
+				i2 = Math.round((nextX + this.scene.terrain.width / 2.0 + Math.cos(carDirection) * 5.3 + Math.cos(carDirection + Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
+				j2 = Math.round((nextZ + this.scene.terrain.length / 2.0  - Math.sin(carDirection) * 5.3 - Math.sin(carDirection + Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
+
 			} else {
 				//check car back corners
-				i1 = Math.round((nextX + this.scene.terrain.width / 2) * this.scene.terrain.ratio + Math.cos(carDirection + Math.PI) * 7 + Math.cos(carDirection - Math.PI / 2.0) * 2.2);
-				j1 = Math.round((nextZ + this.scene.terrain.length / 2) * this.scene.terrain.ratio - Math.sin(carDirection + Math.PI) * 7 - Math.sin(carDirection - Math.PI / 2.0) * 2.2);
-				i2 = Math.round((nextX + this.scene.terrain.width / 2) * this.scene.terrain.ratio + Math.cos(carDirection + Math.PI) * 7 + Math.cos(carDirection + Math.PI / 2.0) * 2.2);
-				j2 = Math.round((nextZ + this.scene.terrain.length / 2) * this.scene.terrain.ratio - Math.sin(carDirection + Math.PI) * 7 - Math.sin(carDirection + Math.PI / 2.0) * 2.2);
+				i1 = Math.round((nextX + this.scene.terrain.width / 2.0 + Math.cos(carDirection + Math.PI) * 7 + Math.cos(carDirection - Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
+				j1 = Math.round((nextZ + this.scene.terrain.length / 2.0 - Math.sin(carDirection + Math.PI) * 7 - Math.sin(carDirection - Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
+				i2 = Math.round((nextX + this.scene.terrain.width / 2.0 + Math.cos(carDirection + Math.PI) * 7 + Math.cos(carDirection + Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
+				j2 = Math.round((nextZ + this.scene.terrain.length / 2.0 - Math.sin(carDirection + Math.PI) * 7 - Math.sin(carDirection + Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
 			}
+			
+			/*console.log(nextX);
+			console.log((nextX + this.scene.terrain.length / 2.0) * this.scene.terrain.ratio);
+			console.log((nextX + this.scene.terrain.length / 2.0) * this.scene.terrain.ratio + Math.cos(carDirection) * 5.3);
+			console.log((nextX + this.scene.terrain.length / 2.0) * this.scene.terrain.ratio + Math.cos(carDirection) * 5.3 + Math.cos(carDirection + Math.PI / 2.0) * 2.2);
+			console.log(path);
+			console.log(j1 + "||" + i1);
+			console.log(j2 + "||" + i2);
+			console.log(path[j1][i1]);
+			console.log(path[j2][i2]);*/
+
 
 			//check if car is out of the terrain (and allow it)
 			if ((i1 >= path.length || i1 < 0) || (i2 >= path.length || i2 < 0) || (j1 >= path.length || j1 < 0) || (j2 >= path.length || j2 < 0))
