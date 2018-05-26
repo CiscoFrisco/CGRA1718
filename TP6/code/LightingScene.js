@@ -425,7 +425,7 @@ class LightingScene extends CGFscene {
 	checkKeys() {
 		this.keysPressed = false;
 
-		this.keyWPressed = this.checkKey("KeyW");
+		this.keyWPressed = this.checkKey("KeyE");
 		this.keySPressed = this.checkKey("KeyS");
 		this.keyAPressed = this.checkKey("KeyA");
 		this.keyDPressed = this.checkKey("KeyD");

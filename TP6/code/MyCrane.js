@@ -21,8 +21,11 @@ class MyCrane extends CGFobject {
                 this.gravity = 1;
                 this.dt = 0.001;
 
+                //Rotation angles for default and grab states
                 this.maxDownAngle = Math.PI / 5;
                 this.maxUpAngle = -0.5;
+
+                //Rotation angles for recovery and deposit platforms
                 this.RAngle = 0.0;
                 this.DAngle = Math.PI;
 
