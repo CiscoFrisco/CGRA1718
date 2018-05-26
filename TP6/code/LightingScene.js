@@ -128,7 +128,7 @@ class LightingScene extends CGFscene {
 
 		this.car = new MyVehicle(this, 10, 1.3, 12);
 		this.crane = new MyCrane(this, 'UP', 'D');
-		this.terrain = new MyTerrain(this, 48, 50.0, 50.0, 0, 5, 0, 5, myAltimetry, this.terrainAppearances[this.currTerrainAppearance]);
+		this.terrain = new MyTerrain(this, 8, 50.0, 50.0, 0, 5, 0, 5, myAltimetry1, this.terrainAppearances[this.currTerrainAppearance]);
 
 		this.platform = new MyQuad(this);
 		this.planeZ = 17;
