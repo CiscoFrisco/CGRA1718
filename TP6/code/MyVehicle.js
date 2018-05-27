@@ -318,12 +318,6 @@ class MyVehicle extends CGFobject {
 				j2 = Math.round((nextZ + this.scene.terrain.length / 2.0 - Math.sin(carDirection + Math.PI) * 7 - Math.sin(carDirection + Math.PI / 2.0) * 2.2) * this.scene.terrain.ratio);
 			}
 			
-			console.log("1X: " + (nextX + this.scene.terrain.width / 2.0 + Math.cos(carDirection) * 5.3 + Math.cos(carDirection - Math.PI / 2.0) * 2.2));
-			console.log("1Z: " + (nextZ + this.scene.terrain.length / 2.0 - Math.sin(carDirection) * 5.3 - Math.sin(carDirection - Math.PI / 2.0) * 2.2));
-			console.log("2X: " + (nextX + this.scene.terrain.width / 2.0 + Math.cos(carDirection) * 5.3 + Math.cos(carDirection + Math.PI / 2.0) * 2.2));
-			console.log("2Z: " + (nextZ + this.scene.terrain.length / 2.0 - Math.sin(carDirection) * 5.3 - Math.sin(carDirection + Math.PI / 2.0) * 2.2));
-			console.log(path);
-
 			//check if car is out of the terrain (and allow it)
 			if ((i1 >= path.length || i1 < 0) || (i2 >= path.length || i2 < 0) || (j1 >= path.length || j1 < 0) || (j2 >= path.length || j2 < 0))
 				this.update(deltaTime);
